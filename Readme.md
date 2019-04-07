@@ -10,6 +10,11 @@ Install via composer:
 composer require advoor/nova-editor-js
 ```
 
+Publish the config file
+```
+php artisan vendor:publish --provider="Advoor\NovaEditorJs\FieldServiceProvider"
+```
+
 ## Usage:
 
 Add this `use` statement to the top of the your nova resource file:
@@ -25,6 +30,8 @@ NovaEditorJs::make('FieldName')
 ```
 
 And boom!
+
+
 
 ## Todo
 

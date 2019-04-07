@@ -8,26 +8,6 @@ use Laravel\Nova\Fields\Field;
 
 class NovaEditorJs extends Field
 {
-    private $editorConfig = [
-        'tools' => [
-            'header' => [
-                'text' => [
-                    'type' => 'string',
-
-                ],
-                'level' => [
-                    'type' => 'int',
-                    'canBeOnly' => [1, 2, 3, 4, 5]
-                ]
-            ],
-            'paragraph' => [
-                'text' => [
-                    'type' => 'string',
-                    'allowedTags' => 'i,b,u,a[href]'
-                ]
-            ],
-        ]
-    ];
     /**
      * The field's component.
      *
@@ -53,7 +33,7 @@ class NovaEditorJs extends Field
         if (!$this->displayCallback) {
 
             $this->withMeta(['asHtml' => true]);
-            $this->value = $this->generateHtmlOutput();
+            $this->value = $this->generateHtmlOutput($this->value, config('nova-editor-js'));
 
         } elseif (is_callable($this->displayCallback)) {
             $value = data_get($resource, str_replace('->', '.', $attribute), $placeholder = new \stdClass());
@@ -64,11 +44,11 @@ class NovaEditorJs extends Field
         }
     }
 
-    protected function generateHtmlOutput(): string
+    public static function generateHtmlOutput($jsonData, $config): string
     {
         try {
             // Initialize Editor backend and validate structure
-            $editor = new EditorJS($this->value, json_encode($this->editorConfig));
+            $editor = new EditorJS($jsonData, json_encode($config));
 
             // Get sanitized blocks (according to the rules from configuration)
             $blocks = $editor->getBlocks();
