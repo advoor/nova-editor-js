@@ -1,13 +1,18 @@
 {
     "name": "advoor/nova-editor-js",
-    "description": "A Laravel Nova field.",
+    "description": "A Laravel Nova field bringing EditorJs magic to Nova.",
     "keywords": [
         "laravel",
-        "nova"
+        "nova",
+        "editor",
+        "editorjs",
+        "wysiwyg"
     ],
     "license": "MIT",
     "require": {
-        "php": ">=7.1.0"
+        "php": ">=7.1.0",
+        "codex-team/editor.js": "dev-master",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

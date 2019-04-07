@@ -16,8 +16,6 @@ const Header = require('@editorjs/header');
 const List = require('@editorjs/list');
 const LinkTool = require('@editorjs/link');
 
-
-
 export default {
     mixins: [FormField, HandlesValidationErrors],
 
