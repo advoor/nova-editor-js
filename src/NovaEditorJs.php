@@ -68,7 +68,7 @@ class NovaEditorJs extends Field
                 }
             }
 
-            return $htmlOutput;
+            return html_entity_decode($htmlOutput);
         } catch (EditorJSException $e) {
             // process exception
             return 'Something went wrong: ' . $e->getMessage();
