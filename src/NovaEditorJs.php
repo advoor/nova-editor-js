@@ -33,7 +33,7 @@ class NovaEditorJs extends Field
         if (!$this->displayCallback) {
 
             $this->withMeta(['asHtml' => true]);
-            $this->value = $this->generateHtmlOutput($this->value, config('nova-editor-js'));
+            $this->value = $this->generateHtmlOutput($this->value);
 
         } elseif (is_callable($this->displayCallback)) {
             $value = data_get($resource, str_replace('->', '.', $attribute), $placeholder = new \stdClass());
@@ -44,8 +44,10 @@ class NovaEditorJs extends Field
         }
     }
 
-    public static function generateHtmlOutput($jsonData, $config): string
+    public static function generateHtmlOutput($jsonData): string
     {
+        $config = config('nova-editor-js');
+
         try {
             // Initialize Editor backend and validate structure
             $editor = new EditorJS($jsonData, json_encode($config));
