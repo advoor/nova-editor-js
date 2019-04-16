@@ -419,6 +419,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
+
 var EditorJS = __webpack_require__(12);
 var Paragraph = __webpack_require__(13);
 var ImageTool = __webpack_require__(14);
@@ -472,8 +473,11 @@ var LinkTool = __webpack_require__(18);
                         class: ImageTool,
                         config: {
                             endpoints: {
-                                byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
-                                byUrl: 'http://localhost:8008/fetchUrl' // Your endpoint that provides uploading by Url
+                                byFile: self.field.uploadImageByFileEndpoint, // Your backend file uploader endpoint
+                                byUrl: self.field.uploadImageByUrlEndpoint // Your endpoint that provides uploading by Url
+                            },
+                            additionalRequestHeaders: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                             }
                         }
                     }

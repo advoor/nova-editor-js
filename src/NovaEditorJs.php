@@ -15,6 +15,16 @@ class NovaEditorJs extends Field
      */
     public $component = 'nova-editor-js';
 
+    public function __construct($name, $attribute = null, callable $resolveCallback = null)
+    {
+        parent::__construct($name, $attribute, $resolveCallback);
+
+        $this->withMeta([
+            'uploadImageByFileEndpoint' => route('editor-js-upload-image-by-file'),
+            'uploadImageByUrlEndpoint' => route('editor-js-upload-image-by-url'),
+        ]);
+    }
+
     /**
      * Resolve the field's value for display.
      *

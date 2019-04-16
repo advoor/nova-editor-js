@@ -7,99 +7,103 @@
 </template>
 
 <script>
-import { FormField, HandlesValidationErrors } from 'laravel-nova'
-const EditorJS = require('@editorjs/editorjs');
-const Paragraph = require('@editorjs/paragraph');
-const ImageTool = require('@editorjs/image');
-const CodeTool = require('@editorjs/code');
-const Header = require('@editorjs/header');
-const List = require('@editorjs/list');
-const LinkTool = require('@editorjs/link');
+    import {FormField, HandlesValidationErrors} from 'laravel-nova'
 
-export default {
-    mixins: [FormField, HandlesValidationErrors],
+    const EditorJS = require('@editorjs/editorjs');
+    const Paragraph = require('@editorjs/paragraph');
+    const ImageTool = require('@editorjs/image');
+    const CodeTool = require('@editorjs/code');
+    const Header = require('@editorjs/header');
+    const List = require('@editorjs/list');
+    const LinkTool = require('@editorjs/link');
 
-    props: ['resourceName', 'resourceId', 'field'],
+    export default {
+        mixins: [FormField, HandlesValidationErrors],
 
-    methods: {
-        /*
-         * Set the initial, internal value for the field.
-         */
-        setInitialValue() {
+        props: ['resourceName', 'resourceId', 'field'],
 
-            let self = this;
-            let currentContent = JSON.parse(self.field.value);
+        methods: {
+            /*
+             * Set the initial, internal value for the field.
+             */
+            setInitialValue() {
 
-            var editor = new EditorJS({
-                /**
-                 * Wrapper of Editor
-                 */
-                holderId: 'editorjs',
-                /**
-                 * Tools list
-                 */
-                tools: {
-                    header: {
-                        class: Header,
-                        inlineToolbar: ['link'],
-                        config: {
-                            placeholder: 'Header'
+                let self = this;
+                let currentContent = JSON.parse(self.field.value);
+
+                var editor = new EditorJS({
+                    /**
+                     * Wrapper of Editor
+                     */
+                    holderId: 'editorjs',
+                    /**
+                     * Tools list
+                     */
+                    tools: {
+                        header: {
+                            class: Header,
+                            inlineToolbar: ['link'],
+                            config: {
+                                placeholder: 'Header'
+                            },
+                            shortcut: 'CMD+SHIFT+H'
                         },
-                        shortcut: 'CMD+SHIFT+H'
-                    },
-                    list: {
-                        class: List,
-                        inlineToolbar: true,
-                        shortcut: 'CMD+SHIFT+L'
-                    },
-                    code: {
-                        class:  CodeTool,
-                        shortcut: 'CMD+SHIFT+C'
-                    },
-                    linkTool: LinkTool,
-                    image: {
-                        class: ImageTool,
-                        config: {
-                            endpoints: {
-                                byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
-                                byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+                        list: {
+                            class: List,
+                            inlineToolbar: true,
+                            shortcut: 'CMD+SHIFT+L'
+                        },
+                        code: {
+                            class: CodeTool,
+                            shortcut: 'CMD+SHIFT+C'
+                        },
+                        linkTool: LinkTool,
+                        image: {
+                            class: ImageTool,
+                            config: {
+                                endpoints: {
+                                    byFile: self.field.uploadImageByFileEndpoint, // Your backend file uploader endpoint
+                                    byUrl: self.field.uploadImageByUrlEndpoint, // Your endpoint that provides uploading by Url
+                                },
+                                additionalRequestHeaders: {
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                }
                             }
-                        }
+                        },
                     },
-                },
-                /**
-                 * This Tool will be used as default
-                 */
-                initialBlock: 'paragraph',
+                    /**
+                     * This Tool will be used as default
+                     */
+                    initialBlock: 'paragraph',
 
-                /**
-                 * Initial Editor data
-                 */
-                data: currentContent,
-                onReady: function(){
+                    /**
+                     * Initial Editor data
+                     */
+                    data: currentContent,
+                    onReady: function () {
 
-                },
-                onChange: function() {
-                    editor.save().then((savedData) => {
-                        self.handleChange(savedData)
-                    });
-                }
-            });
+                    },
+                    onChange: function () {
+                        editor.save().then((savedData) => {
+                            self.handleChange(savedData)
+                        });
+                    }
+                });
+            },
+
+            /**
+             * Fill the given FormData object with the field's internal value.
+             */
+            fill(formData) {
+                formData.append(this.field.attribute, this.value || '')
+            },
+
+            /**
+             * Update the field's internal value.
+             */
+            handleChange(value) {
+                this.value = JSON.stringify(value)
+            },
         },
-
-        /**
-         * Fill the given FormData object with the field's internal value.
-         */
-        fill(formData) {
-            formData.append(this.field.attribute, this.value || '')
-        },
-
-        /**
-         * Update the field's internal value.
-         */
-        handleChange(value) {
-            this.value = JSON.stringify(value)
-        },
-    },
-}
+    }
 </script>
