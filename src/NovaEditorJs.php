@@ -20,7 +20,7 @@ class NovaEditorJs extends Field
      *
      * @param mixed $resource
      * @param string|null $attribute
-     * @return void
+     * @throws \Throwable
      */
     public function resolveForDisplay($resource, $attribute = null)
     {
@@ -44,6 +44,11 @@ class NovaEditorJs extends Field
         }
     }
 
+    /**
+     * @param $jsonData
+     * @return string
+     * @throws \Throwable
+     */
     public static function generateHtmlOutput($jsonData): string
     {
         $config = config('nova-editor-js');
@@ -68,6 +73,10 @@ class NovaEditorJs extends Field
                     case 'list':
                         $htmlOutput .= view('nova-editor-js::list', $block['data'])->render();
                         break;
+                    case 'image':
+                        $block['data']['classes'] = NovaEditorJs::calculateImageClasses($block['data']);
+                        $htmlOutput .= view('nova-editor-js::image', $block['data'])->render();
+                        break;
                 }
             }
 
@@ -76,5 +85,21 @@ class NovaEditorJs extends Field
             // process exception
             return 'Something went wrong: ' . $e->getMessage();
         }
+    }
+
+    /**
+     * @param $blockData
+     * @return string
+     */
+    public static function calculateImageClasses($blockData)
+    {
+        $classes = [];
+        foreach ($blockData as $key => $data) {
+            if (is_bool($data) && $data === true) {
+                $classes[] = $key;
+            }
+        }
+
+        return implode(' ', $classes);
     }
 }
