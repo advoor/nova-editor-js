@@ -57,6 +57,11 @@ return [
             'stretched' => [
                 'type' => 'boolean'
             ]
+        ],
+        'code' => [
+            'code' => [
+                'type' => 'string'
+            ]
         ]
     ]
 ];

@@ -42,7 +42,7 @@ class FieldServiceProvider extends ServiceProvider
         if ($this->app->routesAreCached()) {
             return;
         }
-        
+
         Route::middleware(['nova'])
             ->prefix('nova-vendor/editor-js-field')
             ->group(__DIR__ . '/../routes/api.php');
