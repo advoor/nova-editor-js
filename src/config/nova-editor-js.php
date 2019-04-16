@@ -5,7 +5,6 @@ return [
         'header' => [
             'text' => [
                 'type' => 'string',
-
             ],
             'level' => [
                 'type' => 'int',
@@ -18,5 +17,46 @@ return [
                 'allowedTags' => 'i,b,u,a[href]'
             ]
         ],
+        'list' => [
+            'style' => [
+                'type' => 'string',
+                'canBeOnly' =>
+                    [
+                        0 => 'ordered',
+                        1 => 'unordered',
+                    ],
+            ],
+            'items' => [
+                'type' => 'array',
+                'data' => [
+                    '-' => [
+                        'type' => 'string',
+                        'allowedTags' => 'i,b,u',
+                    ],
+                ],
+            ],
+        ],
+        'image' => [
+            'file' => [
+                'type' => 'array',
+                'data' => [
+                    'url' => [
+                        'type' => 'string',
+                    ],
+                ],
+            ],
+            'caption' => [
+                'type' => 'string'
+            ],
+            'withBorder' => [
+                'type' => 'boolean'
+            ],
+            'withBackground' => [
+                'type' => 'boolean'
+            ],
+            'stretched' => [
+                'type' => 'boolean'
+            ]
+        ]
     ]
 ];
