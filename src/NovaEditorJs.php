@@ -65,6 +65,9 @@ class NovaEditorJs extends Field
                     case 'paragraph':
                         $htmlOutput .= view('nova-editor-js::paragraph', $block['data'])->render();
                         break;
+                    case 'list':
+                        $htmlOutput .= view('nova-editor-js::list', $block['data'])->render();
+                        break;
                 }
             }
 
