@@ -31,10 +31,14 @@ NovaEditorJs::make('FieldName')
 
 And boom!
 
-
+## Tools included
+* https://github.com/editor-js/header
+* https://github.com/editor-js/image
+* https://github.com/editor-js/code
+* https://github.com/editor-js/link
+* https://github.com/editor-js/list
 
 ## Todo
 
-* Index and details views
-* Integrate the image upload plugin
+* Implement more tools
 * Add configuration options to enable / disable some tools
