@@ -14,7 +14,7 @@ return [
         'paragraph' => [
             'text' => [
                 'type' => 'string',
-                'allowedTags' => 'i,b,u,a[href]'
+                'allowedTags' => 'i,b,u,a[href],span[class],code[class]'
             ]
         ],
         'list' => [

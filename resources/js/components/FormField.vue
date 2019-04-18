@@ -16,6 +16,7 @@
     const Header = require('@editorjs/header');
     const List = require('@editorjs/list');
     const LinkTool = require('@editorjs/link');
+    const InlineCode = require('@editorjs/inline-code');
 
     export default {
         mixins: [FormField, HandlesValidationErrors],
@@ -74,6 +75,10 @@
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                                 }
                             }
+                        },
+                        inlineCode: {
+                            class: InlineCode,
+                            shortcut: 'CMD+SHIFT+M',
                         },
                     },
                     /**
