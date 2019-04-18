@@ -1,3 +1,5 @@
-<{{ "h{$level}" }}>
-    {{ $text }}
-</{{ "h{$level}" }}>
+<div class="editor-js-block">
+    <{{ "h{$level}" }}>
+        {{ $text }}
+    </{{ "h{$level}" }}>
+</div>

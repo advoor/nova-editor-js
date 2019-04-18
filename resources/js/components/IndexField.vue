@@ -1,5 +1,5 @@
 <template>
-    <span>{{ field.value }}</span>
+    <span>Dynamic content. Click 'View' to see contents.</span>
 </template>
 
 <script>
