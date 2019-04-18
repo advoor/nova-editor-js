@@ -31,6 +31,14 @@ NovaEditorJs::make('FieldName')
 
 And boom!
 
+You can use the built in function to generate the response for the frontend:
+
+```
+NovaEditorJs::generateHtmlOutput($user->about);
+```
+
+Each 'block' has it's own view which can be overwritten in `resources/views/vendor/nova-editor-js/`
+
 ## Tools included
 * https://github.com/editor-js/header
 * https://github.com/editor-js/image

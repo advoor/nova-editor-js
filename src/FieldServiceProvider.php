@@ -24,6 +24,10 @@ class FieldServiceProvider extends ServiceProvider
             __DIR__ . '/config/nova-editor-js.php' => base_path('config/nova-editor-js.php'),
         ]);
 
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/nova-editor-js'),
+        ], 'views');
+
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'nova-editor-js');
 
         Nova::serving(function (ServingNova $event) {
