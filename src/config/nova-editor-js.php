@@ -62,6 +62,30 @@ return [
             'code' => [
                 'type' => 'string'
             ]
+        ],
+        'linkTool' => [
+            'link' => [
+                'type' => 'string'
+            ],
+            'meta' => [
+                'type' => 'array',
+                'data' => [
+                    'title' => [
+                        'type' => 'string',
+                    ],
+                    'description' => [
+                        'type' => 'string',
+                    ],
+                    'image' => [
+                        'type' => 'array',
+                        'data' => [
+                            'url' => [
+                                'type' => 'string',
+                            ],
+                        ]
+                    ]
+                ]
+            ]
         ]
     ]
 ];

@@ -468,13 +468,18 @@ var LinkTool = __webpack_require__(18);
                         class: CodeTool,
                         shortcut: 'CMD+SHIFT+C'
                     },
-                    linkTool: LinkTool,
+                    linkTool: {
+                        class: LinkTool,
+                        config: {
+                            endpoint: self.field.fetchUrlEndpoint
+                        }
+                    },
                     image: {
                         class: ImageTool,
                         config: {
                             endpoints: {
-                                byFile: self.field.uploadImageByFileEndpoint, // Your backend file uploader endpoint
-                                byUrl: self.field.uploadImageByUrlEndpoint // Your endpoint that provides uploading by Url
+                                byFile: self.field.uploadImageByFileEndpoint,
+                                byUrl: self.field.uploadImageByUrlEndpoint
                             },
                             additionalRequestHeaders: {
                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')

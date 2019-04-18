@@ -22,6 +22,7 @@ class NovaEditorJs extends Field
         $this->withMeta([
             'uploadImageByFileEndpoint' => route('editor-js-upload-image-by-file'),
             'uploadImageByUrlEndpoint' => route('editor-js-upload-image-by-url'),
+            'fetchUrlEndpoint' => route('editor-js-fetch-url'),
         ]);
     }
 
@@ -90,7 +91,9 @@ class NovaEditorJs extends Field
                     case 'code':
                         $htmlOutput .= view('nova-editor-js::code', $block['data'])->render();
                         break;
-
+                    case 'linkTool':
+                        $htmlOutput .= view('nova-editor-js::link', $block['data'])->render();
+                        break;
                 }
             }
 
