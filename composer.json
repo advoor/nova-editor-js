@@ -12,7 +12,7 @@
     "require": {
         "php": ">=7.1.0",
         "ext-json": "*",
-        "codex-team/editor.js": "dev-master"
+        "codex-team/editor.js": "*"
     },
     "autoload": {
         "psr-4": {

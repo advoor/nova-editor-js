@@ -45,6 +45,7 @@ Each 'block' has it's own view which can be overwritten in `resources/views/vend
 * https://github.com/editor-js/code
 * https://github.com/editor-js/link
 * https://github.com/editor-js/list
+* https://github.com/editor-js/inline-code
 
 ## Todo
 
