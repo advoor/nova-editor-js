@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'image' => [
+        'path' => 'public/images',
+        'disk' => 'local'
+    ],
+
     'tools' => [
         'header' => [
             'text' => [
