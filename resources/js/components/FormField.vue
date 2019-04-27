@@ -1,7 +1,7 @@
 <template>
     <default-field :field="field" :errors="errors" :fullWidthContent="true">
         <template slot="field">
-            <div :id="'editor-js-' + this.field.attribute"></div>
+            <div :id="'editor-js-' + this.field.attribute" class="editor-js"></div>
         </template>
     </default-field>
 </template>
