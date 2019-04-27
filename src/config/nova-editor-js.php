@@ -34,6 +34,11 @@ return [
             'activated' => true,
             'shortcut' => 'CMD+SHIFT+M',
         ],
+        'checklist' => [
+            'activated' => true,
+            'inlineToolbar' => true,
+            'shortcut' => 'CMD+SHIFT+J',
+        ],
     ],
 
     /**
@@ -126,7 +131,28 @@ return [
                         ]
                     ]
                 ]
-            ]
+            ],
+            'checklist' => [
+                'items' => [
+                    'type' => 'array',
+                    'data' => [
+                        '-' => [
+                            'type' => 'array',
+                            'data' => [
+                                'text' => [
+                                    'type' => 'string',
+                                    'required' => false
+                                ],
+                                'checked' => [
+                                    'type' => 'boolean',
+                                    'required' => false
+                                ],
+                            ],
+
+                        ],
+                    ],
+                ],
+            ],
         ]
     ]
 ];
