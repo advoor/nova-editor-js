@@ -11,12 +11,89 @@
 
     const EditorJS = require('@editorjs/editorjs');
     const Paragraph = require('@editorjs/paragraph');
-    const ImageTool = require('@editorjs/image');
-    const CodeTool = require('@editorjs/code');
-    const Header = require('@editorjs/header');
-    const List = require('@editorjs/list');
-    const LinkTool = require('@editorjs/link');
-    const InlineCode = require('@editorjs/inline-code');
+
+    function setHeadingToolSettings(self, tools) {
+        if (self.field.toolSettings.header.activated === true) {
+            const Header = require('@editorjs/header');
+
+            tools.header = {
+                class: Header,
+                config: {
+                    placeholder: self.field.toolSettings.header.placeholder
+                },
+                shortcut: self.field.toolSettings.header.shortcut
+            }
+        }
+    }
+
+    function setListToolSettings(self, tools) {
+        if (self.field.toolSettings.list.activated === true) {
+            const List = require('@editorjs/list');
+
+            tools.list = {
+                class: List,
+                inlineToolbar: self.field.toolSettings.list.inlineToolbar,
+                shortcut: self.field.toolSettings.list.shortcut
+            }
+        }
+    }
+
+    function setCodeToolSettings(self, tools) {
+        if (self.field.toolSettings.code.activated === true) {
+            const CodeTool = require('@editorjs/code');
+
+            tools.code = {
+                class: CodeTool,
+                shortcut: self.field.toolSettings.code.shortcut,
+                config: {
+                    placeholder: self.field.toolSettings.code.placeholder,
+                },
+            }
+        }
+    }
+
+    function setLinkToolSettings(self, tools) {
+        if (self.field.toolSettings.link.activated === true) {
+            const LinkTool = require('@editorjs/link');
+
+            tools.linkTool = {
+                class: LinkTool,
+                config: {
+                    endpoint: self.field.fetchUrlEndpoint,
+                }
+            }
+        }
+    }
+
+    function setImageToolSettings(self, tools) {
+        if (self.field.toolSettings.image.activated === true) {
+            const ImageTool = require('@editorjs/image');
+
+            tools.image = {
+                class: ImageTool,
+                config: {
+                    endpoints: {
+                        byFile: self.field.uploadImageByFileEndpoint,
+                        byUrl: self.field.uploadImageByUrlEndpoint,
+                    },
+                    additionalRequestHeaders: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                }
+            }
+        }
+    }
+
+    function setInlineCodeToolSettings(self, tools) {
+        if (self.field.toolSettings.inlineCode.activated === true) {
+            const InlineCode = require('@editorjs/inline-code');
+
+            tools.inlineCode = {
+                class: InlineCode,
+                shortcut: self.field.toolSettings.inlineCode.shortcut,
+            }
+        }
+    }
 
     export default {
         mixins: [FormField, HandlesValidationErrors],
@@ -31,56 +108,26 @@
 
                 let self = this;
                 let currentContent = JSON.parse(self.field.value);
+                let tools = {};
+
+                setHeadingToolSettings(self, tools);
+                setListToolSettings(self, tools);
+                setCodeToolSettings(self, tools);
+                setLinkToolSettings(self, tools);
+                setImageToolSettings(self, tools);
+                setInlineCodeToolSettings(self, tools);
 
                 var editor = new EditorJS({
                     /**
                      * Wrapper of Editor
                      */
                     holderId: 'editorjs',
+
                     /**
                      * Tools list
                      */
-                    tools: {
-                        header: {
-                            class: Header,
-                            inlineToolbar: ['link'],
-                            config: {
-                                placeholder: 'Header'
-                            },
-                            shortcut: 'CMD+SHIFT+H'
-                        },
-                        list: {
-                            class: List,
-                            inlineToolbar: true,
-                            shortcut: 'CMD+SHIFT+L'
-                        },
-                        code: {
-                            class: CodeTool,
-                            shortcut: 'CMD+SHIFT+C'
-                        },
-                        linkTool: {
-                            class: LinkTool,
-                            config: {
-                                endpoint: self.field.fetchUrlEndpoint,
-                            }
-                        },
-                        image: {
-                            class: ImageTool,
-                            config: {
-                                endpoints: {
-                                    byFile: self.field.uploadImageByFileEndpoint,
-                                    byUrl: self.field.uploadImageByUrlEndpoint,
-                                },
-                                additionalRequestHeaders: {
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                }
-                            }
-                        },
-                        inlineCode: {
-                            class: InlineCode,
-                            shortcut: 'CMD+SHIFT+M',
-                        },
-                    },
+                    tools,
+
                     /**
                      * This Tool will be used as default
                      */

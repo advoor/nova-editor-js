@@ -20,6 +20,7 @@ class NovaEditorJs extends Field
         parent::__construct($name, $attribute, $resolveCallback);
 
         $this->withMeta([
+            'toolSettings' => config('nova-editor-js.toolSettings'),
             'uploadImageByFileEndpoint' => route('editor-js-upload-image-by-file'),
             'uploadImageByUrlEndpoint' => route('editor-js-upload-image-by-url'),
             'fetchUrlEndpoint' => route('editor-js-fetch-url'),
@@ -62,7 +63,7 @@ class NovaEditorJs extends Field
      */
     public static function generateHtmlOutput($jsonData): string
     {
-        $config = config('nova-editor-js');
+        $config = config('nova-editor-js.validationSettings');
 
         try {
             // Initialize Editor backend and validate structure
