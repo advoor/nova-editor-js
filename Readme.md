@@ -50,8 +50,7 @@ Each 'block' has it's own view which can be overwritten in `resources/views/vend
 * https://github.com/editor-js/list
 * https://github.com/editor-js/inline-code
 * https://github.com/editor-js/checklist
-
-## Todo
-
-* Implement more tools
-* Add configuration options to enable / disable some tools
+* https://github.com/editor-js/marker
+* https://github.com/editor-js/embed
+* https://github.com/editor-js/delimiter
+* https://github.com/editor-js/table

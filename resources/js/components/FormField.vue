@@ -107,6 +107,17 @@
         }
     }
 
+    function setMarkerToolSettings(self, tools) {
+        if (self.field.toolSettings.marker.activated === true) {
+            const Marker = require('@editorjs/marker');
+
+            tools.marker = {
+                class: Marker,
+                shortcut: self.field.toolSettings.marker.shortcut
+            }
+        }
+    }
+
     export default {
         mixins: [FormField, HandlesValidationErrors],
 
@@ -129,6 +140,7 @@
                 setImageToolSettings(self, tools);
                 setInlineCodeToolSettings(self, tools);
                 setChecklistToolSettings(self, tools);
+                setMarkerToolSettings(self, tools);
 
                 var editor = new EditorJS({
                     /**
