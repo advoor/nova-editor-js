@@ -1,7 +1,7 @@
 <template>
     <default-field :field="field" :errors="errors" :fullWidthContent="true">
         <template slot="field">
-            <div id="editorjs"></div>
+            <div :id="'editor-js-' + this.field.attribute"></div>
         </template>
     </default-field>
 </template>
@@ -121,7 +121,7 @@
                     /**
                      * Wrapper of Editor
                      */
-                    holderId: 'editorjs',
+                    holderId: 'editor-js-' + self.field.attribute,
 
                     /**
                      * Tools list
