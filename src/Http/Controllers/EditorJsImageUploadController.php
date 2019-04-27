@@ -28,14 +28,14 @@ class EditorJsImageUploadController extends Controller
         }
 
         $path = $request->file('image')->store(
-            config('nova-editor-js.image.path'),
-            config('nova-editor-js.image.disk')
+            config('nova-editor-js.toolSettings.image.path'),
+            config('nova-editor-js.toolSettings.image.disk')
         );
 
         return [
             'success' => 1,
             'file' => [
-                'url' => Storage::disk(config('nova-editor-js.image.disk'))->url($path)
+                'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($path)
             ]
         ];
     }
@@ -75,14 +75,14 @@ class EditorJsImageUploadController extends Controller
         $url = $request->input('url');
         $imageContents = file_get_contents($url);
         $name = substr($url, strrpos($url, '/') + 1);
-        $nameWithPath = config('nova-editor-js.image.path') . '/' . uniqid() . $name;
+        $nameWithPath = config('nova-editor-js.toolSettings.image.path') . '/' . uniqid() . $name;
 
-        Storage::disk(config('nova-editor-js.image.disk'))->put($nameWithPath, $imageContents);
+        Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->put($nameWithPath, $imageContents);
 
         return [
             'success' => 1,
             'file' => [
-                'url' => Storage::disk(config('nova-editor-js.image.disk'))->url($nameWithPath)
+                'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($nameWithPath)
             ]
         ];
     }
