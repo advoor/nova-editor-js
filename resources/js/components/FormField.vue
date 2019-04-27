@@ -1,7 +1,7 @@
 <template>
     <default-field :field="field" :errors="errors" :fullWidthContent="true">
         <template slot="field">
-            <div id="editorjs"></div>
+            <div :id="'editor-js-' + this.field.attribute" class="editor-js"></div>
         </template>
     </default-field>
 </template>
@@ -107,7 +107,7 @@
             setInitialValue() {
 
                 let self = this;
-                let currentContent = JSON.parse(self.field.value);
+                let currentContent = (self.field.value ? JSON.parse(self.field.value) : self.field.value);
                 let tools = {};
 
                 setHeadingToolSettings(self, tools);
@@ -121,7 +121,7 @@
                     /**
                      * Wrapper of Editor
                      */
-                    holderId: 'editorjs',
+                    holderId: 'editor-js-' + self.field.attribute,
 
                     /**
                      * Tools list

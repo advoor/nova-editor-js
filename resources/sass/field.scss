@@ -1,4 +1,16 @@
 // Nova Tool CSS
+.editor-js {
+  width: 100%;
+  background-color: #fff;
+  border-width: 1px;
+  border-color: #bacad6;;
+  padding-left: .75rem;
+  color: #7c858e;
+  border-radius: .5rem;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
+}
+
 .editor-js-content {
 
   .editor-js-block {
