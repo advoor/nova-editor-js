@@ -95,6 +95,18 @@
         }
     }
 
+    function setChecklistToolSettings(self, tools) {
+        if (self.field.toolSettings.checklist.activated === true) {
+            const Checklist = require('@editorjs/checklist');
+
+            tools.checklist = {
+                class: Checklist,
+                inlineToolbar: self.field.toolSettings.checklist.inlineToolbar,
+                shortcut: self.field.toolSettings.checklist.shortcut
+            }
+        }
+    }
+
     export default {
         mixins: [FormField, HandlesValidationErrors],
 
@@ -116,6 +128,7 @@
                 setLinkToolSettings(self, tools);
                 setImageToolSettings(self, tools);
                 setInlineCodeToolSettings(self, tools);
+                setChecklistToolSettings(self, tools);
 
                 var editor = new EditorJS({
                     /**
