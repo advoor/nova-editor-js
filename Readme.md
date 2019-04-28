@@ -37,6 +37,9 @@ NovaEditorJs::make('FieldName')
 
 And boom!
 
+You can configure what tools the Editor should use in the config 
+file along with some other settings so make sure to have a look :)
+
 You can use the built in function to generate the response for the frontend:
 
 ```
