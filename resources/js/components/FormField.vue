@@ -169,7 +169,7 @@
              */
             setInitialValue() {
 
-                this.value = self.field.value;
+                this.value = this.field.value;
 
                 let self = this;
                 let currentContent = (self.field.value ? JSON.parse(self.field.value) : self.field.value);
