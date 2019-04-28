@@ -139,6 +139,25 @@
         }
     }
 
+    function setEmbedToolSettings(self, tools) {
+        if (self.field.toolSettings.embed.activated === true) {
+            const Embed = require('@editorjs/embed');
+
+            tools.embed = {
+                class: Embed,
+                inlineToolbar: self.field.toolSettings.embed.inlineToolbar,
+                config: {
+                    services: {
+                        codepen: self.field.toolSettings.embed.services.codepen,
+                        imgur: self.field.toolSettings.embed.services.imgur,
+                        vimeo: self.field.toolSettings.embed.services.vimeo,
+                        youtube: self.field.toolSettings.embed.services.youtube,
+                    }
+                }
+            }
+        }
+    }
+
     export default {
         mixins: [FormField, HandlesValidationErrors],
 
@@ -164,6 +183,7 @@
                 setMarkerToolSettings(self, tools);
                 setDelimiterToolSettings(self, tools);
                 setTableToolSettings(self, tools);
+                setEmbedToolSettings(self, tools);
 
                 var editor = new EditorJS({
                     /**

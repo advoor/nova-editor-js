@@ -104,6 +104,9 @@ class NovaEditorJs extends Field
                     case 'table':
                         $htmlOutput .= view('nova-editor-js::table', $block['data'])->render();
                         break;
+                    case 'embed':
+                        $htmlOutput .= view('nova-editor-js::embed', $block['data'])->render();
+                        break;
                 }
             }
 

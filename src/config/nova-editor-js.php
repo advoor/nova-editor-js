@@ -50,6 +50,16 @@ return [
             'activated' => true,
             'inlineToolbar' => true,
         ],
+        'embed' => [
+            'activated' => true,
+            'inlineToolbar' => true,
+            'services' => [
+                'codepen' => true,
+                'imgur' => false,
+                'vimeo' => true,
+                'youtube' => true
+            ],
+        ],
     ],
 
     /**
@@ -181,6 +191,27 @@ return [
                         ]
                     ]
                 ]
+            ],
+            'embed' => [
+                'service' => [
+                    'type' => 'string'
+                ],
+                'source' => [
+                    'type' => 'string'
+                ],
+                'embed' => [
+                    'type' => 'string'
+                ],
+                'width' => [
+                    'type' => 'int'
+                ],
+                'height' => [
+                    'type' => 'int'
+                ],
+                'caption' => [
+                    'type' => 'string',
+                    'required' => false,
+                ],
             ]
         ]
     ]
