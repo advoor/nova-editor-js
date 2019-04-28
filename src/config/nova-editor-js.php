@@ -32,7 +32,33 @@ return [
         ],
         'inlineCode' => [
             'activated' => true,
+            'shortcut' => 'CMD+SHIFT+A',
+        ],
+        'checklist' => [
+            'activated' => true,
+            'inlineToolbar' => true,
+            'shortcut' => 'CMD+SHIFT+J',
+        ],
+        'marker' => [
+            'activated' => true,
             'shortcut' => 'CMD+SHIFT+M',
+        ],
+        'delimiter' => [
+            'activated' => true,
+        ],
+        'table' => [
+            'activated' => true,
+            'inlineToolbar' => true,
+        ],
+        'embed' => [
+            'activated' => true,
+            'inlineToolbar' => true,
+            'services' => [
+                'codepen' => true,
+                'imgur' => false,
+                'vimeo' => true,
+                'youtube' => true
+            ],
         ],
     ],
 
@@ -54,7 +80,7 @@ return [
             'paragraph' => [
                 'text' => [
                     'type' => 'string',
-                    'allowedTags' => 'i,b,u,a[href],span[class],code[class]'
+                    'allowedTags' => 'i,b,u,a[href],span[class],code[class],mark[class]'
                 ]
             ],
             'list' => [
@@ -126,6 +152,66 @@ return [
                         ]
                     ]
                 ]
+            ],
+            'checklist' => [
+                'items' => [
+                    'type' => 'array',
+                    'data' => [
+                        '-' => [
+                            'type' => 'array',
+                            'data' => [
+                                'text' => [
+                                    'type' => 'string',
+                                    'required' => false
+                                ],
+                                'checked' => [
+                                    'type' => 'boolean',
+                                    'required' => false
+                                ],
+                            ],
+
+                        ],
+                    ],
+                ],
+            ],
+            'delimiter' => [
+
+            ],
+            'table' => [
+                'content' => [
+                    'type' => 'array',
+                    'data' => [
+                        '-' => [
+                            'type' => 'array',
+                            'data' => [
+                                '-' => [
+                                    'type' => 'string',
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+            'embed' => [
+                'service' => [
+                    'type' => 'string'
+                ],
+                'source' => [
+                    'type' => 'string'
+                ],
+                'embed' => [
+                    'type' => 'string'
+                ],
+                'width' => [
+                    'type' => 'int'
+                ],
+                'height' => [
+                    'type' => 'int'
+                ],
+                'caption' => [
+                    'type' => 'string',
+                    'required' => false,
+                ],
             ]
         ]
     ]

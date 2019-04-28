@@ -95,6 +95,69 @@
         }
     }
 
+    function setChecklistToolSettings(self, tools) {
+        if (self.field.toolSettings.checklist.activated === true) {
+            const Checklist = require('@editorjs/checklist');
+
+            tools.checklist = {
+                class: Checklist,
+                inlineToolbar: self.field.toolSettings.checklist.inlineToolbar,
+                shortcut: self.field.toolSettings.checklist.shortcut
+            }
+        }
+    }
+
+    function setMarkerToolSettings(self, tools) {
+        if (self.field.toolSettings.marker.activated === true) {
+            const Marker = require('@editorjs/marker');
+
+            tools.marker = {
+                class: Marker,
+                shortcut: self.field.toolSettings.marker.shortcut
+            }
+        }
+    }
+
+    function setDelimiterToolSettings(self, tools) {
+        if (self.field.toolSettings.delimiter.activated === true) {
+            const Delimiter = require('@editorjs/delimiter');
+
+            tools.delimiter = {
+                class: Delimiter,
+            }
+        }
+    }
+
+    function setTableToolSettings(self, tools) {
+        if (self.field.toolSettings.table.activated === true) {
+            const Table = require('@editorjs/table');
+
+            tools.table = {
+                class: Table,
+                inlineToolbar: self.field.toolSettings.table.inlineToolbar,
+            }
+        }
+    }
+
+    function setEmbedToolSettings(self, tools) {
+        if (self.field.toolSettings.embed.activated === true) {
+            const Embed = require('@editorjs/embed');
+
+            tools.embed = {
+                class: Embed,
+                inlineToolbar: self.field.toolSettings.embed.inlineToolbar,
+                config: {
+                    services: {
+                        codepen: self.field.toolSettings.embed.services.codepen,
+                        imgur: self.field.toolSettings.embed.services.imgur,
+                        vimeo: self.field.toolSettings.embed.services.vimeo,
+                        youtube: self.field.toolSettings.embed.services.youtube,
+                    }
+                }
+            }
+        }
+    }
+
     export default {
         mixins: [FormField, HandlesValidationErrors],
 
@@ -116,6 +179,11 @@
                 setLinkToolSettings(self, tools);
                 setImageToolSettings(self, tools);
                 setInlineCodeToolSettings(self, tools);
+                setChecklistToolSettings(self, tools);
+                setMarkerToolSettings(self, tools);
+                setDelimiterToolSettings(self, tools);
+                setTableToolSettings(self, tools);
+                setEmbedToolSettings(self, tools);
 
                 var editor = new EditorJS({
                     /**

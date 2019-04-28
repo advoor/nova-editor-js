@@ -95,11 +95,23 @@ class NovaEditorJs extends Field
                     case 'linkTool':
                         $htmlOutput .= view('nova-editor-js::link', $block['data'])->render();
                         break;
+                    case 'checklist':
+                        $htmlOutput .= view('nova-editor-js::checklist', $block['data'])->render();
+                        break;
+                    case 'delimiter':
+                        $htmlOutput .= view('nova-editor-js::delimiter', $block['data'])->render();
+                        break;
+                    case 'table':
+                        $htmlOutput .= view('nova-editor-js::table', $block['data'])->render();
+                        break;
+                    case 'embed':
+                        $htmlOutput .= view('nova-editor-js::embed', $block['data'])->render();
+                        break;
                 }
             }
 
             $htmlOutput .= '</div>';
-            
+
             return html_entity_decode($htmlOutput);
         } catch (EditorJSException $e) {
             // process exception
