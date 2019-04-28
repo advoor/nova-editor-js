@@ -101,6 +101,9 @@ class NovaEditorJs extends Field
                     case 'delimiter':
                         $htmlOutput .= view('nova-editor-js::delimiter', $block['data'])->render();
                         break;
+                    case 'table':
+                        $htmlOutput .= view('nova-editor-js::table', $block['data'])->render();
+                        break;
                 }
             }
 

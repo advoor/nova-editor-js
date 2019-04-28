@@ -128,6 +128,17 @@
         }
     }
 
+    function setTableToolSettings(self, tools) {
+        if (self.field.toolSettings.table.activated === true) {
+            const Table = require('@editorjs/table');
+
+            tools.table = {
+                class: Table,
+                inlineToolbar: self.field.toolSettings.table.inlineToolbar,
+            }
+        }
+    }
+
     export default {
         mixins: [FormField, HandlesValidationErrors],
 
@@ -152,6 +163,7 @@
                 setChecklistToolSettings(self, tools);
                 setMarkerToolSettings(self, tools);
                 setDelimiterToolSettings(self, tools);
+                setTableToolSettings(self, tools);
 
                 var editor = new EditorJS({
                     /**

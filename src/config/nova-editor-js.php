@@ -46,6 +46,10 @@ return [
         'delimiter' => [
             'activated' => true,
         ],
+        'table' => [
+            'activated' => true,
+            'inlineToolbar' => true,
+        ],
     ],
 
     /**
@@ -162,6 +166,21 @@ return [
             ],
             'delimiter' => [
 
+            ],
+            'table' => [
+                'content' => [
+                    'type' => 'array',
+                    'data' => [
+                        '-' => [
+                            'type' => 'array',
+                            'data' => [
+                                '-' => [
+                                    'type' => 'string',
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
             ]
         ]
     ]
