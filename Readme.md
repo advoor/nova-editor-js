@@ -18,6 +18,9 @@ Publish the config file
 php artisan vendor:publish --provider="Advoor\NovaEditorJs\FieldServiceProvider"
 ```
 
+## Upgrade
+If upgrading from v0.4.0, re-publish the config file!
+
 ## Usage:
 
 Add this `use` statement to the top of the your nova resource file:
