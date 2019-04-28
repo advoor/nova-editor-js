@@ -123,7 +123,6 @@
         border-color: #388ae5;
 
 
-
       }
 
       .checkbox-text {
@@ -132,5 +131,20 @@
         padding: 10px 0;
       }
     }
+  }
+
+  .editor-js-delimiter {
+    line-height: 1.6em;
+    width: 100%;
+    text-align: center;
+  }
+
+  .editor-js-delimiter::before {
+    display: inline-block;
+    content: "***";
+    font-size: 30px;
+    line-height: 65px;
+    height: 30px;
+    letter-spacing: 0.2em;
   }
 }

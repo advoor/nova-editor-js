@@ -32,12 +32,19 @@ return [
         ],
         'inlineCode' => [
             'activated' => true,
-            'shortcut' => 'CMD+SHIFT+M',
+            'shortcut' => 'CMD+SHIFT+A',
         ],
         'checklist' => [
             'activated' => true,
             'inlineToolbar' => true,
             'shortcut' => 'CMD+SHIFT+J',
+        ],
+        'marker' => [
+            'activated' => true,
+            'shortcut' => 'CMD+SHIFT+M',
+        ],
+        'delimiter' => [
+            'activated' => true,
         ],
     ],
 
@@ -59,7 +66,7 @@ return [
             'paragraph' => [
                 'text' => [
                     'type' => 'string',
-                    'allowedTags' => 'i,b,u,a[href],span[class],code[class]'
+                    'allowedTags' => 'i,b,u,a[href],span[class],code[class],mark[class]'
                 ]
             ],
             'list' => [
@@ -153,6 +160,9 @@ return [
                     ],
                 ],
             ],
+            'delimiter' => [
+
+            ]
         ]
     ]
 ];

@@ -118,6 +118,16 @@
         }
     }
 
+    function setDelimiterToolSettings(self, tools) {
+        if (self.field.toolSettings.delimiter.activated === true) {
+            const Delimiter = require('@editorjs/delimiter');
+
+            tools.delimiter = {
+                class: Delimiter,
+            }
+        }
+    }
+
     export default {
         mixins: [FormField, HandlesValidationErrors],
 
@@ -141,6 +151,7 @@
                 setInlineCodeToolSettings(self, tools);
                 setChecklistToolSettings(self, tools);
                 setMarkerToolSettings(self, tools);
+                setDelimiterToolSettings(self, tools);
 
                 var editor = new EditorJS({
                     /**

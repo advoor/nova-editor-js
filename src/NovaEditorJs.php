@@ -98,6 +98,9 @@ class NovaEditorJs extends Field
                     case 'checklist':
                         $htmlOutput .= view('nova-editor-js::checklist', $block['data'])->render();
                         break;
+                    case 'delimiter':
+                        $htmlOutput .= view('nova-editor-js::delimiter', $block['data'])->render();
+                        break;
                 }
             }
 
