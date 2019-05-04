@@ -12,7 +12,9 @@
     "require": {
         "php": ">=7.1.0",
         "ext-json": "*",
-        "codex-team/editor.js": "*"
+        "ext-exif": "*",
+        "codex-team/editor.js": "*",
+        "spatie/image": "^1.7"
     },
     "autoload": {
         "psr-4": {
