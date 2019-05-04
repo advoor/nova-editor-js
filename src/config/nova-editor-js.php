@@ -28,7 +28,48 @@ return [
             'activated' => true,
             'shortcut' => 'CMD+SHIFT+I',
             'path' => 'public/images',
-            'disk' => 'local'
+            'disk' => 'local',
+            'alterations' => [
+                'resize' => [
+                    'width' => false, // integer
+                    'height' => false, // integer
+                ],
+                'optimize' => true, // true or false
+                'adjustments' => [
+                    'brightness' => false, // -100 to 100
+                    'contrast' => false, // -100 to 100
+                    'gamma' => false // 0.1 to 9.99
+                ],
+                'effects' => [
+                    'blur' => false, // 0 to 100
+                    'pixelate' => false, // 0 to 100
+                    'greyscale' => false, // true or false
+                    'sepia' => false, // true or false
+                    'sharpen' => false, // 0 to 100
+                ]
+            ],
+            'thumbnails' => [
+                // Specify as many thumbnails as required. Key is used as the name.
+                '_small' => [
+                    'resize' => [
+                        'width' => 250, // integer
+                        'height' => 250, // integer
+                    ],
+                    'optimize' => true, // true or false
+                    'adjustments' => [
+                        'brightness' => false, // -100 to 100
+                        'contrast' => false, // -100 to 100
+                        'gamma' => false // 0.1 to 9.99
+                    ],
+                    'effects' => [
+                        'blur' => false, // 0 to 100
+                        'pixelate' => false, // 0 to 100
+                        'greyscale' => false, // true or false
+                        'sepia' => false, // true or false
+                        'sharpen' => false, // 0 to 100
+                    ]
+                ]
+            ]
         ],
         'inlineCode' => [
             'activated' => true,
