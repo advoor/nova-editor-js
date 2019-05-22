@@ -11,8 +11,8 @@
     "license": "MIT",
     "require": {
         "php": ">=7.1.0",
-        "ext-json": "*",
         "ext-exif": "*",
+        "ext-json": "*",
         "codex-team/editor.js": "*",
         "spatie/image": "^1.7"
     },
