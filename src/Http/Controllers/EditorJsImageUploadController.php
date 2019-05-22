@@ -120,10 +120,6 @@ class EditorJsImageUploadController extends Controller
                 $image->optimize();
             }
 
-            if (!empty($imageSettings['optimize'])) {
-                $image->optimize();
-            }
-
             if (!empty($imageSettings['adjustments']['brightness'])) {
                 $image->brightness($imageSettings['adjustments']['brightness']);
             }
