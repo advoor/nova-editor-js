@@ -34,14 +34,14 @@ class EditorJsImageUploadController extends Controller
             config('nova-editor-js.toolSettings.image.disk')
         );
 
-
         $this->applyAlterations(Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->path($path));
-       // $this->applyThumbnails(Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->path($path));
+        $thumbnails = $this->applyThumbnails($path);
 
         return [
             'success' => 1,
             'file' => [
-                'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($path)
+                'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($path),
+                'thumbnails' => $thumbnails
             ]
         ];
     }
@@ -95,13 +95,18 @@ class EditorJsImageUploadController extends Controller
 
     /**
      * @param $path
+     * @param array $alterations
      */
-    private function applyAlterations($path)
+    private function applyAlterations($path, $alterations = [])
     {
         try {
             $image = Image::load($path);
 
             $imageSettings = config('nova-editor-js.toolSettings.image.alterations');
+
+            if (!empty($alterations)) {
+                $imageSettings = $alterations;
+            }
 
             if (!empty($imageSettings['resize']['width'])) {
                 $image->width($imageSettings['resize']['width']);
@@ -157,12 +162,33 @@ class EditorJsImageUploadController extends Controller
         }
     }
 
+    /**
+     * @param $path
+     * @return array
+     */
     private function applyThumbnails($path)
     {
-        $image = Image::load($path);
+        $thumbnailSettings = config('nova-editor-js.toolSettings.image.thumbnails');
 
-        $imageSettings = config('nova-editor-js.toolSettings.image');
+        $generatedThumbnails = [];
 
-        dd($imageSettings);
+        if (!empty($thumbnailSettings)) {
+            foreach ($thumbnailSettings as $thumbnailName => $setting) {
+                $filename = pathinfo($path, PATHINFO_FILENAME);
+                $extension = pathinfo($path, PATHINFO_EXTENSION);
+
+                $newThumbnailName = $filename . $thumbnailName . '.' . $extension;
+                $newThumbnailPath = config('nova-editor-js.toolSettings.image.path') . '/' . $newThumbnailName;
+
+                Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->copy($path, $newThumbnailPath);
+
+                $newPath = Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->path($newThumbnailPath);
+                $this->applyAlterations($newPath, $setting);
+
+                $generatedThumbnails[] = Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($newThumbnailPath);
+            }
+        }
+
+        return $generatedThumbnails;
     }
 }
