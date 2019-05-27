@@ -154,6 +154,15 @@ return [
                         'url' => [
                             'type' => 'string',
                         ],
+                        'thumbnails' => [
+                            'type' => 'array',
+                            'required' => false,
+                            'data' => [
+                                '-' => [
+                                    'type' => 'string',
+                                ]
+                            ],
+                        ]
                     ],
                 ],
                 'caption' => [
