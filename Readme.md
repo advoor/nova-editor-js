@@ -60,3 +60,4 @@ Each 'block' has it's own view which can be overwritten in `resources/views/vend
 * https://github.com/editor-js/embed
 * https://github.com/editor-js/delimiter
 * https://github.com/editor-js/table
+* https://github.com/editor-js/raw
