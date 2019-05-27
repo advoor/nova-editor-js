@@ -23,6 +23,7 @@
         "@editorjs/marker": "^1.2.0",
         "@editorjs/paragraph": "^2.5.0",
         "@editorjs/table": "^1.2.0",
+        "@editorjs/raw": "^2.1.1",
         "cross-env": "^5.0.0",
         "laravel-mix": "^1.0",
         "laravel-nova": "^1.0.9"

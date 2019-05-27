@@ -91,6 +91,10 @@ return [
             'activated' => true,
             'inlineToolbar' => true,
         ],
+        'raw' => [
+            'activated' => true,
+            'placeholder' => '',
+        ],
         'embed' => [
             'activated' => true,
             'inlineToolbar' => true,
@@ -231,6 +235,12 @@ return [
                             ]
                         ]
                     ]
+                ]
+            ],
+            'raw' => [
+                'html' => [
+                    'type' => 'string',
+                    'allowedTags' => '*',
                 ]
             ],
             'embed' => [

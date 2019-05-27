@@ -139,6 +139,19 @@
         }
     }
 
+    function setRawToolSettings(self, tools) {
+        if (self.field.toolSettings.raw.activated === true) {
+            const Raw = require('@editorjs/raw');
+
+            tools.raw = {
+                class: Raw,
+                config: {
+                    placeholder: self.field.toolSettings.raw.placeholder,
+                },
+            }
+        }
+    }
+
     function setEmbedToolSettings(self, tools) {
         if (self.field.toolSettings.embed.activated === true) {
             const Embed = require('@editorjs/embed');
@@ -185,6 +198,7 @@
                 setMarkerToolSettings(self, tools);
                 setDelimiterToolSettings(self, tools);
                 setTableToolSettings(self, tools);
+                setRawToolSettings(self, tools);
                 setEmbedToolSettings(self, tools);
 
                 var editor = new EditorJS({
