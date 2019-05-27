@@ -13,7 +13,7 @@
         "@editorjs/checklist": "^1.1.0",
         "@editorjs/code": "^2.4.1",
         "@editorjs/delimiter": "^1.1.0",
-        "@editorjs/editorjs": "^2.12.4",
+        "@editorjs/editorjs": "^2.13.0",
         "@editorjs/embed": "^2.2.0",
         "@editorjs/header": "^2.2.3",
         "@editorjs/image": "^2.3.0",
@@ -25,7 +25,7 @@
         "@editorjs/table": "^1.2.0",
         "cross-env": "^5.0.0",
         "laravel-mix": "^1.0",
-        "laravel-nova": "^1.0"
+        "laravel-nova": "^1.0.9"
     },
     "dependencies": {
         "vue": "^2.5.0"
