@@ -63,6 +63,10 @@ class NovaEditorJs extends Field
      */
     public static function generateHtmlOutput($jsonData): string
     {
+        if (empty($jsonData)) {
+            return '';
+        }
+
         $config = config('nova-editor-js.validationSettings');
 
         try {
