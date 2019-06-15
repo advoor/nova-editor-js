@@ -107,6 +107,9 @@ class EditorJsImageUploadController extends Controller
             if (!empty($alterations)) {
                 $imageSettings = $alterations;
             }
+            
+            if(empty($imageSettings))
+                return;
 
             if (!empty($imageSettings['resize']['width'])) {
                 $image->width($imageSettings['resize']['width']);
