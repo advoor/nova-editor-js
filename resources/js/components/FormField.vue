@@ -1,5 +1,5 @@
 <template>
-    <default-field :field="field" :errors="errors" :fullWidthContent="true">
+    <default-field @keydown.native.stop :field="field" :errors="errors" :fullWidthContent="true">
         <template slot="field">
             <div :id="'editor-js-' + this.field.attribute" class="editor-js"></div>
         </template>
