@@ -2,6 +2,15 @@
 
 return [
     /**
+     * Editor settings
+     */
+    'editorSettings' => [
+        'placeholder' => '',
+        'initialBlock' => 'paragraph',
+        'autofocus' => false,
+    ],
+
+    /**
      * Configure tools
      */
     'toolSettings' => [

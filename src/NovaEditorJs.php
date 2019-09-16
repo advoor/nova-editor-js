@@ -20,6 +20,11 @@ class NovaEditorJs extends Field
         parent::__construct($name, $attribute, $resolveCallback);
 
         $this->withMeta([
+            'editorSettings' => [
+                'placeholder' => config('nova-editor-js.editorSettings.placeholder', ''),
+                'initialBlock' => config('nova-editor-js.editorSettings.initialBlock', 'paragraph'),
+                'autofocus' => config('nova-editor-js.editorSettings.autofocus', false),
+            ],
             'toolSettings' => config('nova-editor-js.toolSettings'),
             'uploadImageByFileEndpoint' => route('editor-js-upload-image-by-file'),
             'uploadImageByUrlEndpoint' => route('editor-js-upload-image-by-url'),

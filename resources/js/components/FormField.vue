@@ -215,7 +215,17 @@
                     /**
                      * This Tool will be used as default
                      */
-                    initialBlock: 'paragraph',
+                    initialBlock: self.field.editorSettings.initialBlock,
+
+                    /**
+                     * Default placeholder
+                     */
+                    placeholder: self.field.editorSettings.placeholder,
+
+                    /**
+                     * Enable autofocus
+                     */
+                    autofocus: self.field.editorSettings.autofocus,
 
                     /**
                      * Initial Editor data
