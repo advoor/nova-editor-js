@@ -48,15 +48,20 @@ class EditorJsLinkController extends Controller
             }
         }
 
-        return [
+        $results = [
             'success' => 1,
             'meta' => [
                 'title' => $title,
                 'description' => $description,
-                'image' => [
-                    'url' => $imageUrl
-                ]
             ]
         ];
+
+        if (!empty($imageUrl)){
+            $results['meta']['image'] = [
+                'url' => $imageUrl,
+            ];
+        }
+
+        return $results;
     }
 }
