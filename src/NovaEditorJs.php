@@ -62,7 +62,7 @@ class NovaEditorJs extends Field
     }
 
     /**
-     * @param $jsonData
+     * @param string|mixed $jsonData
      * @return string
      * @throws \Throwable
      */
@@ -70,6 +70,14 @@ class NovaEditorJs extends Field
     {
         if (empty($jsonData)) {
             return '';
+        }
+
+        // Clean non-string data
+        if (!is_string($jsonData)) {
+            $newData = json_encode($jsonData);
+            if (json_last_error() === \JSON_ERROR_NONE) {
+                $jsonData = $newData;
+            }
         }
 
         $config = config('nova-editor-js.validationSettings');
