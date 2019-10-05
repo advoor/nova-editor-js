@@ -17,9 +17,17 @@
         "laravel/nova": "^2.0",
         "spatie/image": "^1.7"
     },
+    "require-dev": {
+        "orchestra/testbench": "^3.8"
+    },
     "autoload": {
         "psr-4": {
             "Advoor\\NovaEditorJs\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
         }
     },
     "extra": {
