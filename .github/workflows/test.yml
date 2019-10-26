@@ -1,0 +1,29 @@
+name: "Run unit tests"
+
+on: [push]
+
+jobs:
+  test:
+    name: "Code test"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['7.1', '7.2', '7.3']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: ${{ matrix.php }}
+          extension-csv: exif,json,mbstring
+      - name: Login for Laravel Nova
+        run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_TOKEN}
+        env:
+          NOVA_USERNAME: ${{ secrets.NovaUsername }}
+          NOVA_TOKEN: ${{ secrets.NovaApiToken }}
+      - name: Install composer dependencies
+        run: |
+          composer install --no-suggest --no-progress --no-interaction
+      - name: Run unit tests
+        run: vendor/bin/phpunit
