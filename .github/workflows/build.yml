@@ -1,0 +1,34 @@
+name: "Build front-end"
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    name: "Front-end build"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Node
+        uses: actions/cache@v1
+        with:
+          path: ~/.yarn-cache
+          key: nodejs-${{ runner.os }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            nodejs-${{ runner.os }}-
+            nodejs-
+
+      - name: Install Node dependencies
+        run: yarn install --no-progress --non-interactive --cache-dir="$HOME/.yarn-cache"
+
+      - name: Build front-end UI
+        run: yarn run production
+
+      - name: Publish artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: dist-files
+          path: dist/
