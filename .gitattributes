@@ -1,0 +1,10 @@
+# Don't try to merge near-binary Webpack files
+/dist/**/* -diff merge=binary
+
+# Don't export source files when making a zipfile (e.g. a release). This
+# assumes the user will download the release as a plugin for their Laravel
+# installation, instead of a way to modify the source code.
+/resources/js/ export-ignore
+/resources/sass/ export-ignore
+/tests export-ignore
+/webpack.mix.js export-ignore
