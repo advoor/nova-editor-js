@@ -14,6 +14,7 @@
         "ext-exif": "*",
         "ext-json": "*",
         "codex-team/editor.js": "*",
+        "illuminate/support": "^5.7.15 | ^6.0",
         "laravel/nova": "^2.0",
         "spatie/image": "^1.7"
     },

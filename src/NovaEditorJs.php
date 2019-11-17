@@ -4,6 +4,7 @@ namespace Advoor\NovaEditorJs;
 
 use EditorJS\EditorJS;
 use EditorJS\EditorJSException;
+use Illuminate\Support\Str;
 use Laravel\Nova\Fields\Field;
 
 class NovaEditorJs extends Field
@@ -127,6 +128,11 @@ class NovaEditorJs extends Field
                     case 'embed':
                         $htmlOutput .= view('nova-editor-js::embed', $block['data'])->render();
                         break;
+                    default:
+                        $methodName = 'render' . ucfirst($block['type']) . 'Field';
+                        if ($this->hasMacro($methodName)) {
+                            $htmlOutput .= $this->$methodName($block['data']);
+                        }
                 }
             }
 

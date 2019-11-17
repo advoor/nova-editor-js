@@ -171,6 +171,38 @@
         }
     }
 
+    /**
+     * Applies filters listening to the given name, returns changed data.
+     *
+     * @param {String} name
+     * @param {Object} data
+     */
+    function applyGlobalFilter(name, data) {
+        // Check for filters
+        if (!window.hasOwnProperty('novaEditorjsFields') || !window.novaEditorjsFields || typeof window.novaEditorjsFields !== 'object') {
+            return data
+        }
+
+        const editorJsFields = window.novaEditorjsFields
+
+        // Check for this filter
+        if (!editorJsFields.hasOwnProperty(name) || !Array.isArray(editorJsFields[name])) {
+            return data
+        }
+
+        // Apply filter
+        editorJsFields[name].forEach(entry => {
+            try {
+                data = entry(data)
+            } catch (error) {
+                console.error('Recieved hook error on %s: %o. Tried to issue %o with %o.', name, error, entry, data)
+            }
+        })
+
+        // Return updated data
+        return data
+    }
+
     export default {
         mixins: [FormField, HandlesValidationErrors],
 
@@ -200,6 +232,9 @@
                 setTableToolSettings(self, tools);
                 setRawToolSettings(self, tools);
                 setEmbedToolSettings(self, tools);
+
+                // Allow plugins to add or change filters
+                tools = applyGlobalFilter('tools', tools)
 
                 var editor = new EditorJS({
                     /**
