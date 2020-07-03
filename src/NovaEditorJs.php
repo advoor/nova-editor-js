@@ -89,7 +89,7 @@ class NovaEditorJs extends Field
             // Get sanitized blocks (according to the rules from configuration)
             $blocks = $editor->getBlocks();
 
-            $htmlOutput = '<div class="editor-js-content">';
+            $htmlOutput = '';
 
             foreach ($blocks as $block) {
                 switch ($block['type']) {
@@ -130,9 +130,9 @@ class NovaEditorJs extends Field
                 }
             }
 
-            $htmlOutput .= '</div>';
-
-            return html_entity_decode($htmlOutput);
+            return html_entity_decode(
+                view('vendor.nova-editor-js.content', ['content' => $htmlOutput])->render()
+            );
         } catch (EditorJSException $e) {
             // process exception
             return 'Something went wrong: ' . $e->getMessage();
