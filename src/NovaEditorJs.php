@@ -47,13 +47,14 @@ class NovaEditorJs extends Field
             return;
         }
 
+        $value = data_get($resource, str_replace('->', '.', $attribute), $placeholder = new \stdClass());
+
         if (!$this->displayCallback) {
 
             $this->withMeta(['asHtml' => true]);
-            $this->value = $this->generateHtmlOutput($this->value);
+            $this->value = $this->generateHtmlOutput($value);
 
         } elseif (is_callable($this->displayCallback)) {
-            $value = data_get($resource, str_replace('->', '.', $attribute), $placeholder = new \stdClass());
 
             if ($value !== $placeholder) {
                 $this->value = call_user_func($this->displayCallback, $value);
