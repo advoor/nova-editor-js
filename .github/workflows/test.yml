@@ -8,22 +8,41 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: ['7.1', '7.2', '7.3']
+        php: ['7.1', '7.2', '7.3', '7.4']
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+
       - name: Setup PHP
         uses: shivammathur/setup-php@master
         with:
           php-version: ${{ matrix.php }}
           extension-csv: exif,json,mbstring
+
+      - name: Get user-level Composer cache
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Setup Composer cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ matrix.php }}-${{ matrix.package-release }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            composer-${{ matrix.php }}-${{ matrix.package-release }}-${{ env.cache-name }}-
+            composer-${{ matrix.php }}-${{ matrix.package-release }}-
+            composer-${{ matrix.php }}-
+            composer-
+
       - name: Login for Laravel Nova
         run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_TOKEN}
         env:
           NOVA_USERNAME: ${{ secrets.NovaUsername }}
           NOVA_TOKEN: ${{ secrets.NovaApiToken }}
+
       - name: Install composer dependencies
         run: |
           composer install --no-suggest --no-progress --no-interaction
+
       - name: Run unit tests
         run: vendor/bin/phpunit
