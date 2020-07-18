@@ -80,7 +80,7 @@ class EditorJsImageUploadController extends Controller
 
         $url = $request->input('url');
         $imageContents = file_get_contents($url);
-        $name = substr($url, strrpos($url, '/') + 1);
+        $name = parse_url(substr($url, strrpos($url, '/') + 1))['path'];
         $nameWithPath = config('nova-editor-js.toolSettings.image.path') . '/' . uniqid() . $name;
 
         Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->put($nameWithPath, $imageContents);
@@ -107,7 +107,7 @@ class EditorJsImageUploadController extends Controller
             if (!empty($alterations)) {
                 $imageSettings = $alterations;
             }
-            
+
             if(empty($imageSettings))
                 return;
 
