@@ -15,6 +15,12 @@ class NovaEditorJs extends Field
      */
     public $component = 'nova-editor-js';
 
+    /**
+     * HTML callbacks, used for extending render functionality.
+     */
+    protected static $hasBootedHtmlCallbacks = false;
+    protected static $htmlRenderCallbacks = [];
+
     public function __construct($name, $attribute = null, callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
@@ -83,6 +89,8 @@ class NovaEditorJs extends Field
 
         $config = config('nova-editor-js.validationSettings');
 
+        static::bootHtmlCallbacks();
+
         try {
             // Initialize Editor backend and validate structure
             $editor = new EditorJS($jsonData, json_encode($config));
@@ -93,41 +101,8 @@ class NovaEditorJs extends Field
             $htmlOutput = '';
 
             foreach ($blocks as $block) {
-                switch ($block['type']) {
-                    case 'header':
-                        $htmlOutput .= view('nova-editor-js::heading', $block['data'])->render();
-                        break;
-                    case 'paragraph':
-                        $htmlOutput .= view('nova-editor-js::paragraph', $block['data'])->render();
-                        break;
-                    case 'list':
-                        $htmlOutput .= view('nova-editor-js::list', $block['data'])->render();
-                        break;
-                    case 'image':
-                        $block['data']['classes'] = NovaEditorJs::calculateImageClasses($block['data']);
-                        $htmlOutput .= view('nova-editor-js::image', $block['data'])->render();
-                        break;
-                    case 'code':
-                        $htmlOutput .= view('nova-editor-js::code', $block['data'])->render();
-                        break;
-                    case 'linkTool':
-                        $htmlOutput .= view('nova-editor-js::link', $block['data'])->render();
-                        break;
-                    case 'checklist':
-                        $htmlOutput .= view('nova-editor-js::checklist', $block['data'])->render();
-                        break;
-                    case 'delimiter':
-                        $htmlOutput .= view('nova-editor-js::delimiter', $block['data'])->render();
-                        break;
-                    case 'table':
-                        $htmlOutput .= view('nova-editor-js::table', $block['data'])->render();
-                        break;
-                    case 'raw':
-                        $htmlOutput .= view('nova-editor-js::raw', $block['data'])->render();
-                        break;
-                    case 'embed':
-                        $htmlOutput .= view('nova-editor-js::embed', $block['data'])->render();
-                        break;
+                if (isset(static::$htmlRenderCallbacks[$block['type']])) {
+                    $htmlOutput .= (static::$htmlRenderCallbacks[$block['type']])($block);
                 }
             }
 
@@ -154,5 +129,74 @@ class NovaEditorJs extends Field
         }
 
         return implode(' ', $classes);
+    }
+
+    /**
+     * Add a custom render callback for the given block.
+     *
+     * @param          $block
+     * @param callable $callback
+     */
+    public static function addRender($block, callable $callback)
+    {
+        static::$htmlRenderCallbacks[$block] = $callback;
+    }
+
+    /**
+     * Boots the HTML callbacks, as to allow extension
+     * of HTML output for custom blocks
+     *
+     * @return void
+     */
+    protected static function bootHtmlCallbacks()
+    {
+        if (static::$hasBootedHtmlCallbacks) return;
+
+        static::$htmlRenderCallbacks['header'] = function($block) {
+            return view('nova-editor-js::heading', $block['data'])->render();
+        };
+
+        static::$htmlRenderCallbacks['paragraph'] = function($block) {
+            return view('nova-editor-js::paragraph', $block['data'])->render();
+        };
+
+        static::$htmlRenderCallbacks['list'] = function($block) {
+            return view('nova-editor-js::list', $block['data'])->render();
+        };
+
+        static::$htmlRenderCallbacks['image'] = function($block) {
+            $block['data']['classes'] = NovaEditorJs::calculateImageClasses($block['data']);
+            return view('nova-editor-js::image', $block['data'])->render();
+        };
+
+        static::$htmlRenderCallbacks['code'] = function($block) {
+            return view('nova-editor-js::code', $block['data'])->render();
+        };
+
+        static::$htmlRenderCallbacks['linkTool'] = function($block) {
+            return view('nova-editor-js::link', $block['data'])->render();
+        };
+
+        static::$htmlRenderCallbacks['checklist'] = function($block) {
+            return view('nova-editor-js::checklist', $block['data'])->render();
+        };
+
+        static::$htmlRenderCallbacks['delimiter'] = function($block) {
+            return view('nova-editor-js::delimiter', $block['data'])->render();
+        };
+
+        static::$htmlRenderCallbacks['table'] = function($block) {
+            return view('nova-editor-js::table', $block['data'])->render();
+        };
+
+        static::$htmlRenderCallbacks['raw'] = function($block) {
+            return view('nova-editor-js::raw', $block['data'])->render();
+        };
+
+        static::$htmlRenderCallbacks['embed'] = function($block) {
+            return view('nova-editor-js::embed', $block['data'])->render();
+        };
+
+        static::$hasBootedHtmlCallbacks = true;
     }
 }
