@@ -25,7 +25,7 @@
                 let self = this;
                 let currentContent = (self.field.value ? JSON.parse(self.field.value) : self.field.value);
 
-                let editor = NovaEditorJS.getInstance({
+                const editor = NovaEditorJS.getInstance({
                     /**
                      * Wrapper of Editor
                      */
