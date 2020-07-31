@@ -107,7 +107,7 @@ class NovaEditorJs extends Field
             }
 
             return html_entity_decode(
-                view('vendor.nova-editor-js.content', ['content' => $htmlOutput])->render()
+                view('nova-editor-js::content', ['content' => $htmlOutput])->render()
             );
         } catch (EditorJSException $e) {
             // process exception
