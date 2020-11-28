@@ -230,6 +230,5 @@ class EditorJsImageUploadController extends Controller
                 Storage::disk('local')->delete($path, $newThumbnailPath);
             }
         }
-
     }
 }
