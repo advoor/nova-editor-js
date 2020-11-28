@@ -50,6 +50,12 @@
                      * Initial Editor data
                      */
                     data: currentContent,
+
+                    /**
+                     * Min height of editor
+                     */
+                    minHeight: 35,
+
                     onReady: function () {
 
                     },
