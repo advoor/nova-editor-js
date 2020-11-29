@@ -45,7 +45,7 @@ class EditorJsImageUploadController extends Controller
             $thumbnails = $this->applyThumbnails($tempPath);
 
             $this->deleteThumbnails(Storage::disk('local')->path($tempPath));
-            Storage::disk('local')->delete($path);
+            Storage::disk('local')->delete($tempPath);
         } else {
             $this->applyAlterations(Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->path($path));
             $thumbnails = $this->applyThumbnails($path);
