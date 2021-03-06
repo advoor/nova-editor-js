@@ -28,11 +28,8 @@ jobs:
       - name: Add GitHub Actions printer for PHPUnit
         run: composer require --dev --no-update mheap/phpunit-github-actions-printer
 
-      - name: Login for Laravel Nova
-        run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_TOKEN}
-        env:
-          NOVA_USERNAME: ${{ secrets.NovaUsername }}
-          NOVA_TOKEN: ${{ secrets.NovaApiToken }}
+      - name: Configure local Laravel Nova dummy package
+        run: composer config repositories.0 path ./test-dependencies/nova
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v1
