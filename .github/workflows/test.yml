@@ -5,12 +5,31 @@ on:
 
 jobs:
   test:
-    name: Run tests (PHP ${{ matrix.php }})
+    name: Test on PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental == true }}
 
     strategy:
+      fail-fast: false
       matrix:
-        php: ['7.1', '7.2', '7.3', '7.4']
+        php:
+          - '7.2'
+          - '7.3'
+          - '7.4'
+          - '8.0'
+          - '8.1'
+
+        include:
+          # Manually set testbench version on old php versions
+          - php: '7.2'
+            testbench: '3.8'
+
+          # Release flags
+          - php: '8.0'
+            stable: true
+          - php: '8.1'
+            experimental: true
+
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -20,10 +39,18 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: exif,json,mbstring
+          coverage: pcov
 
       - name: Setup problem matchers
         run: |
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+
+      - name: Remove platform from Composer file
+        run: composer config --unset platform
+
+      - name: Manually install testbench to fix version constraints
+        if: matrix.testbench != ''
+        run: composer require --dev --no-update orchestra/testbench:^${{ matrix.testbench }}
 
       - name: Add GitHub Actions printer for PHPUnit
         run: composer require --dev --no-update mheap/phpunit-github-actions-printer
@@ -38,4 +65,16 @@ jobs:
           dependency-versions: highest # No lockfile is present, so locked (the default) isn't possible
 
       - name: Run unit tests
-        run: vendor/bin/phpunit --printer mheap\\GithubActionsReporter\\Printer
+        run:
+          vendor/bin/phpunit
+            --printer mheap\\GithubActionsReporter\\Printer
+            --coverage-clover=./coverage.xml
+
+      - name: Determine coverage
+        uses: slavcodev/coverage-monitor-action@1.1.0
+        if: github.event_name == 'pull_request' && matrix.stable
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          clover_file: ./coverage.xml
+          threshold_alert: 75
+          threshold_warning: 95
