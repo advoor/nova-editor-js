@@ -10,7 +10,9 @@ NovaEditorJS.booting(function (editorConfig, fieldConfig) {
                 },
                 additionalRequestHeaders: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
+                },
+                // TODO: we should add url a real url attribute
+                captionPlaceholder: 'url'
             }
         }
     }
