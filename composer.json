@@ -13,7 +13,7 @@
         "php": ">=7.1.0",
         "ext-exif": "*",
         "ext-json": "*",
-        "codex-team/editor.js": "*",
+        "taylanunutmaz/editorjs-php": "^v2.0.8",
         "laravel/nova": "^2.0 || ^3.0",
         "spatie/image": "^1.7"
     },
