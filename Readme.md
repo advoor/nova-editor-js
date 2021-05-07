@@ -10,7 +10,7 @@ A Laravel Nova implementation of [Editor.js](https://github.com/codex-team/edito
 Install via composer:
 
 ```
-composer require advoor/nova-editor-js
+composer require taylanunutmaz/nova-editor-js
 ```
 
 Publish the config file
