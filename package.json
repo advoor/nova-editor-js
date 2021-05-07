@@ -33,6 +33,7 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
+        "editorjs-text-alignment-blocktune": "^1.0.2",
         "vue": "^2.6.11"
     }
 }

@@ -3,6 +3,7 @@ NovaEditorJS.booting(function (editorConfig, fieldConfig) {
         editorConfig.tools.embed = {
             class: require('@editorjs/embed'),
             inlineToolbar: fieldConfig.toolSettings.embed.inlineToolbar,
+            tunes: fieldConfig.toolSettings.embed.tunes,
             config: {
                 services: {
                     codepen: fieldConfig.toolSettings.embed.services.codepen,

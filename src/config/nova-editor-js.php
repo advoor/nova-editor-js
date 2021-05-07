@@ -14,30 +14,38 @@ return [
      * Configure tools
      */
     'toolSettings' => [
+        'paragraph' => [
+            'tunes' => ['alignment'],
+        ],
         'header' => [
             'activated' => true,
             'placeholder' => 'Heading',
-            'shortcut' => 'CMD+SHIFT+H'
+            'shortcut' => 'CMD+SHIFT+H',
+            'tunes' => ['alignment'],
         ],
         'list' => [
             'activated' => true,
             'inlineToolbar' => true,
-            'shortcut' => 'CMD+SHIFT+L'
+            'shortcut' => 'CMD+SHIFT+L',
+            'tunes' => ['alignment'],
         ],
         'code' => [
             'activated' => true,
             'placeholder' => '',
-            'shortcut' => 'CMD+SHIFT+C'
+            'shortcut' => 'CMD+SHIFT+C',
+            'tunes' => ['alignment'],
         ],
         'link' => [
             'activated' => true,
-            'shortcut' => 'CMD+SHIFT+L'
+            'shortcut' => 'CMD+SHIFT+L',
+            'tunes' => ['alignment'],
         ],
         'image' => [
             'activated' => true,
             'shortcut' => 'CMD+SHIFT+I',
             'path' => 'public/images',
             'disk' => 'local',
+            'tunes' => ['alignment'],
             'alterations' => [
                 'resize' => [
                     'width' => false, // integer
@@ -83,30 +91,37 @@ return [
         'inlineCode' => [
             'activated' => true,
             'shortcut' => 'CMD+SHIFT+A',
+            'tunes' => ['alignment'],
         ],
         'checklist' => [
             'activated' => true,
             'inlineToolbar' => true,
             'shortcut' => 'CMD+SHIFT+J',
+            'tunes' => ['alignment'],
         ],
         'marker' => [
             'activated' => true,
             'shortcut' => 'CMD+SHIFT+M',
+            'tunes' => ['alignment'],
         ],
         'delimiter' => [
             'activated' => true,
+            'tunes' => ['alignment'],
         ],
         'table' => [
             'activated' => true,
             'inlineToolbar' => true,
+            'tunes' => ['alignment'],
         ],
         'raw' => [
             'activated' => true,
             'placeholder' => '',
+            'tunes' => ['alignment'],
         ],
         'embed' => [
             'activated' => true,
             'inlineToolbar' => true,
+            'tunes' => ['alignment'],
             'services' => [
                 'codepen' => true,
                 'imgur' => false,

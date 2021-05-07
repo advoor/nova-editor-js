@@ -3,7 +3,8 @@ NovaEditorJS.booting(function (editorConfig, fieldConfig) {
         editorConfig.tools.checklist = {
             class: require('@editorjs/checklist'),
             inlineToolbar: fieldConfig.toolSettings.checklist.inlineToolbar,
-            shortcut: fieldConfig.toolSettings.checklist.shortcut
+            shortcut: fieldConfig.toolSettings.checklist.shortcut,
+            tunes: fieldConfig.toolSettings.checklist.tunes
         }
     }
 });

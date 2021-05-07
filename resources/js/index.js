@@ -18,6 +18,7 @@ require('./blocks/marker');
 require('./blocks/paragraph');
 require('./blocks/raw');
 require('./blocks/table');
+require('./tunes/alignment');
 
 // Import the Nova field declaration
 require('./field');
