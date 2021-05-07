@@ -1,3 +1,3 @@
-<div class="editor-js-content">
+<div class="editor-js-content" style="{{ $styles }}">
     {!! $content !!}
 </div>

@@ -1,4 +1,4 @@
-<div class="editor-js-block">
+<div class="editor-js-block" style="{{ $styles }}">
     <div class="editor-js-image {{ $classes }}">
         @if (!empty($caption))
             <a href="{{ $caption }}">

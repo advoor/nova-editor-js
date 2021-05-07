@@ -1,4 +1,4 @@
-<div class="editor-js-block">
+<div class="editor-js-block" style="{{ $styles }}">
     <div class="editor-js-link">
         <a href="{{ $link }}" class="editor-js-link-content">
             @if (!empty($meta['image']['url']))

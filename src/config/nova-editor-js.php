@@ -116,7 +116,6 @@ return [
         'raw' => [
             'activated' => true,
             'placeholder' => '',
-            'tunes' => ['alignment'],
         ],
         'embed' => [
             'activated' => true,

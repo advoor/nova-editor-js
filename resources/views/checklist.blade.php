@@ -1,4 +1,4 @@
-<div class="editor-js-block editor-js-checklist">
+<div class="editor-js-block editor-js-checklist" style="{{ $styles }}">
     @foreach ($items as $item)
         <div class="checklist-item"><span class="checkbox {{ $item['checked'] ? 'checkbox-checked' : '' }}"></span>
             <div class="checkbox-text">

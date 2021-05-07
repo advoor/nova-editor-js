@@ -1,4 +1,4 @@
-<div class="editor-js-block">
+<div class="editor-js-block" style="{{ $styles }}">
     <p>
         {{ $text }}
     </p>

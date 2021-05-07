@@ -1,4 +1,4 @@
-<div class="editor-js-block">
+<div class="editor-js-block" style="{{ $styles }}">
     {{ ($style == 'unordered') ? '<ul>' : '<ol>' }}
     @foreach ($items as $item)
         <li>

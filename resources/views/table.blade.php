@@ -1,4 +1,4 @@
-<div class="editor-js-block">
+<div class="editor-js-block" style="{{ $styles }}">
     <table class="editor-js-table">
         @foreach ($content as $row)
             <tr>

@@ -132,6 +132,23 @@ class NovaEditorJs extends Field
     }
 
     /**
+     * @param $blockTunes
+     * @return string
+     */
+    public static function calculateTuneStyles($blockTunes)
+    {
+        $styles = '';
+        foreach ($blockTunes as $tune) {
+            foreach ($tune as $key => $value) {
+                if ($key == 'alignment')
+                    $styles .= 'text-align: ' . $value;
+            }
+        }
+
+        return $styles;
+    }
+
+    /**
      * Add a custom render callback for the given block.
      *
      * @param          $block
@@ -153,47 +170,58 @@ class NovaEditorJs extends Field
         if (static::$hasBootedHtmlCallbacks) return;
 
         static::$htmlRenderCallbacks['header'] = function($block) {
+            $block['data']['styles'] = NovaEditorJs::calculateTuneStyles($block['tunes']);
             return view('nova-editor-js::heading', $block['data'])->render();
         };
 
         static::$htmlRenderCallbacks['paragraph'] = function($block) {
+            $block['data']['styles'] = NovaEditorJs::calculateTuneStyles($block['tunes']);
             return view('nova-editor-js::paragraph', $block['data'])->render();
         };
 
         static::$htmlRenderCallbacks['list'] = function($block) {
+            $block['data']['styles'] = NovaEditorJs::calculateTuneStyles($block['tunes']);
             return view('nova-editor-js::list', $block['data'])->render();
         };
 
         static::$htmlRenderCallbacks['image'] = function($block) {
             $block['data']['classes'] = NovaEditorJs::calculateImageClasses($block['data']);
+            $block['data']['styles'] = NovaEditorJs::calculateTuneStyles($block['tunes']);
             return view('nova-editor-js::image', $block['data'])->render();
         };
 
         static::$htmlRenderCallbacks['code'] = function($block) {
+            $block['data']['styles'] = NovaEditorJs::calculateTuneStyles($block['tunes']);
             return view('nova-editor-js::code', $block['data'])->render();
         };
 
         static::$htmlRenderCallbacks['linkTool'] = function($block) {
+            $block['data']['styles'] = NovaEditorJs::calculateTuneStyles($block['tunes']);
             return view('nova-editor-js::link', $block['data'])->render();
         };
 
         static::$htmlRenderCallbacks['checklist'] = function($block) {
+            $block['data']['styles'] = NovaEditorJs::calculateTuneStyles($block['tunes']);
             return view('nova-editor-js::checklist', $block['data'])->render();
         };
 
         static::$htmlRenderCallbacks['delimiter'] = function($block) {
+            $block['data']['styles'] = NovaEditorJs::calculateTuneStyles($block['tunes']);
             return view('nova-editor-js::delimiter', $block['data'])->render();
         };
 
         static::$htmlRenderCallbacks['table'] = function($block) {
+            $block['data']['styles'] = NovaEditorJs::calculateTuneStyles($block['tunes']);
             return view('nova-editor-js::table', $block['data'])->render();
         };
 
         static::$htmlRenderCallbacks['raw'] = function($block) {
+            $block['data']['styles'] = NovaEditorJs::calculateTuneStyles($block['tunes']);
             return view('nova-editor-js::raw', $block['data'])->render();
         };
 
         static::$htmlRenderCallbacks['embed'] = function($block) {
+            $block['data']['styles'] = NovaEditorJs::calculateTuneStyles($block['tunes']);
             return view('nova-editor-js::embed', $block['data'])->render();
         };
 

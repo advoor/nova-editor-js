@@ -1,4 +1,4 @@
-<div class="editor-js-block">
+<div class="editor-js-block" style="{{ $styles }}">
     <table class="editor-js-embed">
         <iframe
                 width="{{ $width }}px"
