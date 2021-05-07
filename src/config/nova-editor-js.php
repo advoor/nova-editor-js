@@ -129,6 +129,10 @@ return [
                 'youtube' => true
             ],
         ],
+        'alignment' => [
+            'activated' => true,
+            'default' => 'center',
+        ],
     ],
 
     /**
