@@ -146,7 +146,7 @@ return [
                 ],
                 'level' => [
                     'type' => 'int',
-                    'canBeOnly' => [1, 2, 3, 4, 5]
+                    'canBeOnly' => [1, 2, 3, 4, 5, 6]
                 ]
             ],
             'paragraph' => [
