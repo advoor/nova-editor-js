@@ -73,7 +73,7 @@ class NovaEditorJs extends Field
      * @return string
      * @throws \Throwable
      */
-    public static function generateHtmlOutput($jsonData, $extraData = null): string
+    public static function generateHtmlOutput($jsonData, $template = 'content', $extraData = null): string
     {
         if (empty($jsonData)) {
             return '';
@@ -107,7 +107,7 @@ class NovaEditorJs extends Field
             }
 
             return html_entity_decode(
-                view('vendor.nova-editor-js.content', ['content' => $htmlOutput, 'extra' => $extraData])->render()
+                view('vendor.nova-editor-js.' . $template, ['content' => $htmlOutput, 'extra' => $extraData])->render()
             );
         } catch (EditorJSException $e) {
             // process exception
