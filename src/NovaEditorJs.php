@@ -73,7 +73,7 @@ class NovaEditorJs extends Field
      * @return string
      * @throws \Throwable
      */
-    public static function generateHtmlOutput($jsonData, $extraData): string
+    public static function generateHtmlOutput($jsonData, $extraData = null): string
     {
         if (empty($jsonData)) {
             return '';
