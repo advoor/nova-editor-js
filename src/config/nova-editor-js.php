@@ -21,6 +21,7 @@ return [
             'activated' => true,
             'placeholder' => 'Heading',
             'shortcut' => 'CMD+SHIFT+H',
+            'inlineToolbar' => true,
             'tunes' => ['alignment'],
         ],
         'list' => [
@@ -143,6 +144,7 @@ return [
             'header' => [
                 'text' => [
                     'type' => 'string',
+                    'allowedTags' => 'i,b,u,a[href],span[class],code[class],mark[class],sup'
                 ],
                 'level' => [
                     'type' => 'int',
@@ -152,7 +154,7 @@ return [
             'paragraph' => [
                 'text' => [
                     'type' => 'string',
-                    'allowedTags' => 'i,b,u,a[href],span[class],code[class],mark[class]'
+                    'allowedTags' => 'i,b,u,a[href],span[class],code[class],mark[class],sup'
                 ]
             ],
             'list' => [

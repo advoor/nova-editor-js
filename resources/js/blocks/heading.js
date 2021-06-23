@@ -6,7 +6,8 @@ NovaEditorJS.booting(function (editorConfig, fieldConfig) {
             config: {
                 placeholder: fieldConfig.toolSettings.header.placeholder
             },
-            shortcut: fieldConfig.toolSettings.header.shortcut
+            shortcut: fieldConfig.toolSettings.header.shortcut,
+            inlineToolbar: fieldConfig.toolSettings.header.inlineToolbar,
         }
     }
 });
