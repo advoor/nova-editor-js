@@ -56,7 +56,7 @@ jobs:
         run: composer require --dev --no-update mheap/phpunit-github-actions-printer
 
       - name: Configure local Laravel Nova dummy package
-        run: composer config repositories.0 path ./test-dependencies/nova
+        run: composer config repositories.0 path ./tests/Fixtures/nova
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v1
