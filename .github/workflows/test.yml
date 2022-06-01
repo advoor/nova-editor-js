@@ -23,6 +23,8 @@ jobs:
           # Manually set testbench version on old php versions
           - php: '7.2'
             testbench: '3.8'
+          - php: '7.3'
+            testbench: '4.18'
 
           # Release flags
           - php: '8.0'
