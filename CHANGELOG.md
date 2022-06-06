@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Nova 4 support
 - `NovaEditorJsConverter` to split HTML conversion from the Nova Field
+- `NovaEditorJsData` model to store JSON data and allow easy HTML conversion
+- `NovaEditorJsCast` to easily convert between raw data and the `NovaEditorJsData` model
 - JS linter, EditorConfig and other tools for better development
 
 ### Changed
@@ -18,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved README and separated extending docs to separate file
 - Updated Laravel Mix to new version
 - Updated Vue to version 3
+- The `NovaEditorJsField::displayUsing` now recieves a `NovaEditorJsData` model
 - More robust conversion between the model data and the Nova editor field
 
 ## Deprecated

@@ -52,8 +52,25 @@ class NovaEditorJsField extends Field
             $this->withMeta(['asHtml' => true]);
             $this->value = NovaEditorJs::generateHtmlOutput($value);
             return;
-        } elseif (is_callable($this->displayCallback) && $value !== $placeholder) {
-            $this->value = call_user_func($this->displayCallback, $value);
         }
+
+        if (! is_callable($this->displayCallback) || $value === $placeholder) {
+            return;
+        }
+
+        // Convert from JSON
+        if (is_string($value)) {
+            try {
+                $value = json_decode($value, true, 512, JSON_THROW_ON_ERROR);
+            } catch (JsonException) {
+                //
+            }
+        }
+
+        if ($value !== null) {
+            $value = new NovaEditorJsData($value);
+        }
+
+        $this->value = call_user_func($this->displayCallback, $value);
     }
 }

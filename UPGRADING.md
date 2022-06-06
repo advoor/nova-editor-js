@@ -15,9 +15,15 @@ The changes are somewhat backwards compatible, but you're advices to quickly fix
 - PHP requirement is now 8.0+
 - Laravel requirement is now 8.0+
 
+### Medium impact changes
+
+- `NovaEditorJsField::displayUsing` now recieves a `NovaEditorJsData` instance, instead of a `string|array`.
+  - `NovaEditorJsData` is a Fluent type, can be treated as an `iterable`.
+
 ### Low impact changes
 
 - The Table component has been updated. While this shouldn't affect the data model, you're best off checking it.
+- Using the `NovaEditorJsCast` on your Eloquent models is now recommended over casting fields to an array.
 
 ## From 1.x to 2.x
 

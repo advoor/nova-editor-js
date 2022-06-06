@@ -38,6 +38,7 @@ See [the upgrade guide](./UPGRADING.md).
 ## Usage
 
 To add EditorJS to your application, you'll need to modify your Nova resource.
+For ease-of-use we also recommend to update your models, but that's optional.
 
 ### Updating your Nova resource
 
@@ -61,8 +62,31 @@ return [
 
 And boom, you've got yourself a fancy editor.
 
-You can configure what tools the Editor should use in the config 
-file along with some other settings so make sure to have a look :)
+### Updating your models (optional)
+
+For ease-of-use, we recommend you add the `NovaEditorJsCast` to the `$casts` on your models.
+This will map the value to a `NovaEditorJsData` model, which can be returned in Blade (rendering HTML), or sent
+via API calls (rendering JSON, unless you call `toHtml` on it or cast it to a string).
+
+```php
+use Advoor\NovaEditorJs\NovaEditorJsCast;
+
+class User extends Model {
+    protected $casts = [
+        'about' => NovaEditorJsCast::class,
+    ];
+}
+```
+
+Since the `NovaEditorJsData` model is an `Htmlable`, Blade will recognize it as
+safe HTML. This means you don't have to use Blade "unescaped statements".
+
+```blade
+<article>
+    <h1>About {{ $user->name }}</h1>
+    {{ $user->about }}
+</article>
+```
 
 ### Rendering HTML without model changes
 
