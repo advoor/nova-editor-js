@@ -18,12 +18,26 @@ Publish the config file
 php artisan vendor:publish --provider="Advoor\NovaEditorJs\FieldServiceProvider"
 ```
 
+## Version Compatibility
+
+Laravel Nova 4.x isn't backwards compatible with 3.x, so we had to make a version split.
+Please use the below table to find which versions are suitable for your installation.
+
+| Package version | Nova Version | Laravel Version | PHP version |
+|-----------------|--------------|-----------------|-------------|
+| `3.x`           | 4.x          | 8.x - 9.x       | 8.1+        |
+| `2.x`           | 2.x - 3.x    | 5.x - 8.x       | 5.6 - 7.4   |
+
+Note that we really pushed the PHP version up. If you're staying on
+new versions of Laravel and Nova, we're expecting your PHP version to match that behaviour.
+
 ## Upgrade
-If upgrading from v0.4.0, re-publish the config file!
+
+See [the upgrade guide](./UPGRADING.md).
 
 ## Usage:
 
-Add this `use` statement to the top of the your nova resource file:
+Add this `use` statement to the top of the your Laravel Nova Resources:
 
 ```php
 use Advoor\NovaEditorJs\NovaEditorJs;
