@@ -25,6 +25,8 @@
         "@editorjs/raw": "^2.3.1",
         "@editorjs/table": "^2.0.2",
         "@vue/compiler-sfc": "^3.2.36",
+        "eslint": "^8.16.0",
+        "eslint-plugin-vue": "^9.1.0",
         "laravel-mix": "^6.0.44",
         "postcss": "^8.4.14",
         "vue-loader": "^16.8.3"

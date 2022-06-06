@@ -1,7 +1,17 @@
 <template>
-    <DefaultField @keydown.stop :field="field" :errors="errors" :full-width-content="true">
+    <DefaultField
+        :field="field"
+        :errors="errors"
+        :show-help-text="showHelpText"
+        :full-width-content="true"
+        @keydown.stop
+    >
         <template #field>
-            <div :id="`editor-js-${field.attribute}`" class="editor-js"></div>
+            <div
+                :id="`editor-js-${field.attribute}`"
+                ref="input"
+                class="editor-js"
+            />
         </template>
     </DefaultField>
 </template>
