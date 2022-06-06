@@ -1,9 +1,9 @@
 <template>
-    <default-field @keydown.native.stop :field="field" :errors="errors" :fullWidthContent="true">
-        <template slot="field">
-            <div :id="'editor-js-' + this.field.attribute" class="editor-js"></div>
+    <DefaultField @keydown.stop :field="field" :errors="errors" :full-width-content="true">
+        <template #field>
+            <div :id="`editor-js-${field.attribute}`" class="editor-js"></div>
         </template>
-    </default-field>
+    </DefaultField>
 </template>
 
 <script>
@@ -29,7 +29,7 @@
                     /**
                      * Wrapper of Editor
                      */
-                    holderId: 'editor-js-' + self.field.attribute,
+                    holderId: `editor-js-${self.field.attribute}`,
 
                     /**
                      * This Tool will be used as default
