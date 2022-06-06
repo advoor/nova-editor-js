@@ -7,7 +7,8 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix build --production"
+        "production": "mix build --production",
+        "nova:install": "npm --prefix='./vendor/laravel/nova' ci"
     },
     "devDependencies": {
         "@editorjs/checklist": "^1.3.0",
