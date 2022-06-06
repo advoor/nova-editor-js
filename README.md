@@ -35,47 +35,73 @@ new versions of Laravel and Nova, we're expecting your PHP version to match that
 
 See [the upgrade guide](./UPGRADING.md).
 
-## Usage:
+## Usage
 
-Add this `use` statement to the top of the your Laravel Nova Resources:
+To add EditorJS to your application, you'll need to modify your Nova resource.
+
+### Updating your Nova resource
+
+This package exposes a `NovaEditorJsField` that takes care of displaying the HTML contents
+and providing the user with the EditorJS field.
+
+To use it, simply import the field,
 
 ```php
-use Advoor\NovaEditorJs\NovaEditorJs;
+use Advoor\NovaEditorJs\NovaEditorJsField;
 ```
 
-Use the field as below:
+use it in your fields array,
 
 ```php
-NovaEditorJs::make('FieldName');
+return [
+    // …
+    NovaEditorJsField::make('about'),
+];
 ```
 
-And boom!
+And boom, you've got yourself a fancy editor.
 
 You can configure what tools the Editor should use in the config 
 file along with some other settings so make sure to have a look :)
 
-You can use the built in function to generate the response for the frontend:
+### Rendering HTML without model changes
+
+You can also use the `NovaEditorJs` facade to render HTML from stored data.
 
 ```php
 NovaEditorJs::generateHtmlOutput($user->about);
 ```
 
-Each 'block' has it's own view which can be overwritten in `resources/views/vendor/nova-editor-js/`
+The return value of `generateHtmlOutput` is an `HtmlString`, which is treated as
+safe by Blade. This means you don't have to use Blade "unescaped statements".
 
-## Tools included
-* https://github.com/editor-js/header
-* https://github.com/editor-js/image
-* https://github.com/editor-js/code
-* https://github.com/editor-js/link
-* https://github.com/editor-js/list
-* https://github.com/editor-js/inline-code
-* https://github.com/editor-js/checklist
-* https://github.com/editor-js/marker
-* https://github.com/editor-js/embed
-* https://github.com/editor-js/delimiter
-* https://github.com/editor-js/table
-* https://github.com/editor-js/raw
+```blade
+<article>
+    <h1>About {{ $user->name }}</h1>
+    {{ NovaEditorJs::generateHtmlOutput($user->about) }}
+</article>
+```
 
-## Extending
+## Customizing
+
+You can configure what tools the Editor should use, by updating the `toolSettings` property in the config file.
+By default, the following components are enabled:
+
+* [Header](https://github.com/editor-js/header)
+* [Image](https://github.com/editor-js/image)
+* [Link](https://github.com/editor-js/link)
+* [List](https://github.com/editor-js/list)
+* [Code block](https://github.com/editor-js/code)
+* [Inline code](https://github.com/editor-js/inline-code)
+* [Checklist](https://github.com/editor-js/checklist)
+* [Marker](https://github.com/editor-js/marker)
+* [Embeds](https://github.com/editor-js/embed)
+* [Delimiter](https://github.com/editor-js/delimiter)
+* [Table](https://github.com/editor-js/table)
+* [Raw](https://github.com/editor-js/raw)
+
+You can customize the views for each component, by changing the view in `resources/views/vendor/nova-editor-js/`.
+
+### Registering custom components
 
 Please refer to the [extending Nova EditorJS](./EXTENDING.md) guide on instructions on how to register custom components.

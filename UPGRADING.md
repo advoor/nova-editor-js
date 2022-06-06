@@ -4,11 +4,20 @@ This guide describes how to upgrade this application.
 
 ## From 2.x to 3.x (Laravel Nova 4.x)
 
-While a lot has changed front-end wise, we've minimised the impact on your
-back-end settings.
+To be more in line with the separation of concerns, a bunch of code has moved.
+The changes are somewhat backwards compatible, but you're advices to quickly fix these deprecations.
 
-The version constraints for PHP and Laravel have updated however, please see
-the README for an up-to-date versioning table.
+### High impact changes
+
+- The HTML rendering has been split from the field, `NovaEditorJs::make` is deprecated.
+  - Update your Nova resources to use the `NovaEditorJsField` in the `fields()`
+  - `NovaEditorJs` is now a facade, containing the `generateHtmlOutput` and `addRender` methods
+- PHP requirement is now 8.0+
+- Laravel requirement is now 8.0+
+
+### Low impact changes
+
+- The Table component has been updated. While this shouldn't affect the data model, you're best off checking it.
 
 ## From 1.x to 2.x
 

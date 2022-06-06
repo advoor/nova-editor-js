@@ -9,9 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Nova 4 support
+- `NovaEditorJsConverter` to split HTML conversion from the Nova Field
+- JS linter, EditorConfig and other tools for better development
 
 ### Changed
 - **PHP version requirements changed**, now requires PHP 8.0 or higher
+- `NovaEditorJs` facade for better separation of concerns
+- Improved README and separated extending docs to separate file
+- Updated Laravel Mix to new version
+- Updated Vue to version 3
+- More robust conversion between the model data and the Nova editor field
+
+## Deprecated
+- `NovaEditorJs::make`, use `NovaEditorJsField::make` instead
 
 ## [2.0.3] - 2020-12-07
 
