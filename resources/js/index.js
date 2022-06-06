@@ -1,5 +1,5 @@
 // Import the Nova Editor class
-import NovaEditorJS from "./nova-editor";
+import NovaEditorJS from './nova-editor';
 
 // Expose it for other plugins
 window.NovaEditorJS = new NovaEditorJS();

@@ -1,4 +1,4 @@
-NovaEditorJS.booting(function (editorConfig, fieldConfig) {
+NovaEditorJS.booting((editorConfig, fieldConfig) => {
     if (fieldConfig.toolSettings.code.activated === true) {
         editorConfig.tools.code = {
             class: require('@editorjs/code'),
@@ -6,6 +6,6 @@ NovaEditorJS.booting(function (editorConfig, fieldConfig) {
             config: {
                 placeholder: fieldConfig.toolSettings.code.placeholder,
             },
-        }
+        };
     }
 });

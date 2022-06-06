@@ -1,4 +1,4 @@
-NovaEditorJS.booting(function (editorConfig, fieldConfig) {
+NovaEditorJS.booting((editorConfig, fieldConfig) => {
     if (fieldConfig.toolSettings.embed.activated === true) {
         editorConfig.tools.embed = {
             class: require('@editorjs/embed'),
@@ -9,8 +9,8 @@ NovaEditorJS.booting(function (editorConfig, fieldConfig) {
                     imgur: fieldConfig.toolSettings.embed.services.imgur,
                     vimeo: fieldConfig.toolSettings.embed.services.vimeo,
                     youtube: fieldConfig.toolSettings.embed.services.youtube,
-                }
-            }
-        }
+                },
+            },
+        };
     }
 });

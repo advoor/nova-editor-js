@@ -17,79 +17,80 @@
 </template>
 
 <script>
-    import {FormField, HandlesValidationErrors} from 'laravel-nova';
+import { FormField, HandlesValidationErrors } from 'laravel-nova';
 
-    export default {
-        mixins: [FormField, HandlesValidationErrors],
+export default {
+    mixins: [FormField, HandlesValidationErrors],
 
-        props: ['resourceName', 'resourceId', 'field'],
+    props: ['resourceName', 'resourceId', 'field'],
 
-        methods: {
-            /*
+    methods: {
+        /*
              * Set the initial, internal value for the field.
              */
-            setInitialValue() {
+        setInitialValue() {
+            this.value = this.field.value;
 
-                this.value = this.field.value;
+            const self = this;
+            const currentContent = self.field.value
+                ? JSON.parse(self.field.value)
+                : self.field.value;
 
-                let self = this;
-                let currentContent = (self.field.value ? JSON.parse(self.field.value) : self.field.value);
-
-                const editor = NovaEditorJS.getInstance({
-                    /**
+            const editor = NovaEditorJS.getInstance({
+                /**
                      * Wrapper of Editor
                      */
-                    holderId: `editor-js-${self.field.attribute}`,
+                holderId: `editor-js-${self.field.attribute}`,
 
-                    /**
+                /**
                      * This Tool will be used as default
                      */
-                    initialBlock: self.field.editorSettings.initialBlock,
+                initialBlock: self.field.editorSettings.initialBlock,
 
-                    /**
+                /**
                      * Default placeholder
                      */
-                    placeholder: self.field.editorSettings.placeholder,
+                placeholder: self.field.editorSettings.placeholder,
 
-                    /**
+                /**
                      * Enable autofocus
                      */
-                    autofocus: self.field.editorSettings.autofocus,
+                autofocus: self.field.editorSettings.autofocus,
 
-                    /**
+                /**
                      * Initial Editor data
                      */
-                    data: currentContent,
+                data: currentContent,
 
-                    /**
+                /**
                      * Min height of editor
                      */
-                    minHeight: 35,
+                minHeight: 35,
 
-                    onReady: function () {
+                onReady() {
 
-                    },
-                    onChange: function () {
-                        editor.save().then((savedData) => {
-                            self.handleChange(savedData)
-                        });
-                    }
-                }, self.field);
-            },
+                },
+                onChange() {
+                    editor.save().then((savedData) => {
+                        self.handleChange(savedData);
+                    });
+                },
+            }, self.field);
+        },
 
-            /**
+        /**
              * Fill the given FormData object with the field's internal value.
              */
-            fill(formData) {
-                formData.append(this.field.attribute, this.value || '')
-            },
+        fill(formData) {
+            formData.append(this.field.attribute, this.value || '');
+        },
 
-            /**
+        /**
              * Update the field's internal value.
              */
-            handleChange(value) {
-                this.value = JSON.stringify(value)
-            },
+        handleChange(value) {
+            this.value = JSON.stringify(value);
         },
-    }
+    },
+};
 </script>
