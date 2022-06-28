@@ -207,6 +207,7 @@ return [
                         ],
                         'image' => [
                             'type' => 'array',
+                            'required' => false,
                             'data' => [
                                 'url' => [
                                     'type' => 'string',
