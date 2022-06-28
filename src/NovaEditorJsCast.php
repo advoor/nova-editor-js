@@ -54,7 +54,7 @@ class NovaEditorJsCast implements CastsAttributes
         }
 
         try {
-            return new NovaEditorJsData(json_decode($value, true, JSON_THROW_ON_ERROR));
+            return new NovaEditorJsData(json_decode($value, true, 512, JSON_THROW_ON_ERROR));
         } catch (JsonException $exception) {
             return self::getErrorObject($exception->getMessage());
         }
