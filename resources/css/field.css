@@ -10,17 +10,28 @@
     -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
 }
-.editor-js {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        font-size: inherit;
-        font-weight: inherit;
-    }
+
+.editor-js h1 {
+    font-size: 26px;
+    margin-bottom: 1.35em;
+    font-weight: 400;
 }
+
+.editor-js h2 {
+    font-size: 21px;
+    font-weight: 400;
+}
+
+.editor-js h3 {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.editor-js h4 {
+    font-size: 19px;
+    font-weight: 400;
+}
+
 .editor-js-content .editor-js-block {
     padding: .7em 0;
 }
