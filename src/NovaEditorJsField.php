@@ -41,7 +41,6 @@ class NovaEditorJsField extends Field
     public function resolveForDisplay($resource, $attribute = null)
     {
         $attribute = $attribute ?? $this->attribute;
-
         if ($attribute === 'ComputedField') {
             return;
         }
@@ -50,7 +49,7 @@ class NovaEditorJsField extends Field
 
         if (!$this->displayCallback) {
             $this->withMeta(['asHtml' => true]);
-            $this->value = NovaEditorJs::generateHtmlOutput($value);
+            $this->value = (string) NovaEditorJs::generateHtmlOutput($value);
             return;
         }
 
