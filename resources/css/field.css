@@ -4,14 +4,23 @@
     background-color: #fff;
     border-width: 1px;
     border-color: #bacad6;
-
     padding-left: .75rem;
     color: #7c858e;
     border-radius: .5rem;
     -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
 }
-
+.editor-js {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-size: inherit;
+        font-weight: inherit;
+    }
+}
 .editor-js-content .editor-js-block {
     padding: .7em 0;
 }
@@ -55,7 +64,6 @@
     border-radius: 6px;
     padding: 25px;
 }
-
 
 .editor-js-content .editor-js-link h4 {
     font-size: 17px;
