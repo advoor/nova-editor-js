@@ -36,10 +36,10 @@ class NovaEditorJsConverter
     /**
      * Renders the given EditorJS data to safe HTML.
      *
-     * @param $data
+     * @param mixed $data
      * @return \Illuminate\Support\HtmlString Safe, directly returnable string.
      */
-    public function generateHtmlOutput($data): HtmlString
+    public function generateHtmlOutput(mixed $data): HtmlString
     {
         if (empty($data)) {
             return new HtmlString('');
