@@ -241,6 +241,10 @@ return [
 
             ],
             'table' => [
+                'withHeadings' => [
+                    'type' => 'boolean',
+                    'required' => false
+                ],
                 'content' => [
                     'type' => 'array',
                     'data' => [
