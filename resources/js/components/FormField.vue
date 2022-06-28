@@ -32,9 +32,10 @@ export default {
             this.value = this.field.value;
 
             const self = this;
-            const currentContent = self.field.value
-                ? JSON.parse(self.field.value)
-                : self.field.value;
+
+            const currentContent = (typeof self.field.value === 'object')
+                ? self.field.value
+                : JSON.parse(self.field.value);
 
             const editor = NovaEditorJS.getInstance({
                 /**
