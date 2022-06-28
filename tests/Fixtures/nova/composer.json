@@ -1,6 +1,6 @@
 {
     "name": "laravel/nova",
-    "version": "3.99.0",
+    "version": "4.99.0",
     "require": {
         "php": ">=7.1.0",
         "illuminate/support": ">=5.7.15"
