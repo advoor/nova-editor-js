@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - JS linter, EditorConfig and other tools for better development
 
 ### Changed
-- **PHP version requirements changed**, now requires PHP 8.0 or higher
+- **PHP version requirements changed**, now requires PHP 8.1 or higher
 - `NovaEditorJs` facade for better separation of concerns
 - Improved README and separated extending docs to separate file
 - Updated Laravel Mix to new version

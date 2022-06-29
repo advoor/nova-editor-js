@@ -12,7 +12,7 @@ The changes are somewhat backwards compatible, but you're advices to quickly fix
 - The HTML rendering has been split from the field, `NovaEditorJs::make` is deprecated.
   - Update your Nova resources to use the `NovaEditorJsField` in the `fields()`
   - `NovaEditorJs` is now a facade, containing the `generateHtmlOutput` and `addRender` methods
-- PHP requirement is now 8.0+
+- PHP requirement is now 8.1+
 - Laravel requirement is now 8.0+
 
 ### Medium impact changes
