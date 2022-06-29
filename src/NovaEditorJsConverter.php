@@ -7,6 +7,7 @@ use EditorJS\EditorJS;
 use EditorJS\EditorJSException;
 use Illuminate\Support\HtmlString;
 use JsonException;
+use stdClass;
 
 class NovaEditorJsConverter
 {
@@ -41,7 +42,7 @@ class NovaEditorJsConverter
      */
     public function generateHtmlOutput(mixed $data): HtmlString
     {
-        if (empty($data)) {
+        if (empty($data) || $data == new stdClass()) {
             return new HtmlString('');
         }
 
