@@ -1,6 +1,6 @@
-NovaEditorJS.booting(function (editorConfig, fieldConfig) {
+NovaEditorJS.booting((editorConfig) => {
     editorConfig.tools.paragraph = {
         class: require('@editorjs/paragraph'),
-        inlineToolbar: true
-    }
+        inlineToolbar: true,
+    };
 });

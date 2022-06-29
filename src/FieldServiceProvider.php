@@ -59,6 +59,8 @@ class FieldServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Register the converter
+        $this->app->singleton(NovaEditorJsConverter::class);
+        $this->app->alias(NovaEditorJsConverter::class, 'nova-editor-js');
     }
 }

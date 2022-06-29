@@ -1,0 +1,29 @@
+{
+    "name": "laravel/nova",
+    "version": "4.99.0",
+    "require": {
+        "php": ">=7.1.0",
+        "illuminate/support": ">=5.7.15"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laravel\\Nova\\": "src/"
+        },
+        "files": [
+            "./src/aliases.php"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Laravel\\Nova\\NovaCoreServiceProvider"
+            ],
+            "aliases": {
+                "Nova": "Laravel\\Nova\\Nova"
+            }
+        }
+    }
+}

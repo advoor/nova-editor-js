@@ -1,0 +1,31 @@
+extends:
+  - airbnb-base
+  - plugin:vue/vue3-recommended
+
+globals:
+  _: readonly
+  Nova: readonly
+  NovaEditorJS: writable
+
+settings:
+  import/resolver:
+    node:
+      extensions: ['.js', '.vue']
+
+rules:
+  global-require: off
+  indent:
+    - error
+    - 4
+  no-param-reassign:
+    - off
+    - props: false
+  vue/require-prop-types: off
+  vue/html-indent:
+    - error
+    - 4
+  import/extensions: off
+  import/no-unresolved:
+    - error
+    - ignore:
+      - laravel-nova

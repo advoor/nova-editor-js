@@ -1,76 +1,14 @@
-# Laravel Nova Editor JS Field
+# Extending Nova EditorJS
 
-[![Latest Version on Github](https://img.shields.io/github/release/advoor/nova-editor-js.svg?style=flat-square)](https://packagist.org/packages/advoor/nova-editor-js)
-[![Total Downloads](https://img.shields.io/packagist/dt/advoor/nova-editor-js.svg?style=flat-square)](https://packagist.org/packages/advoor/nova-editor-js)
+Extending NovaEditorJS is a bit of work, but shouldn't be too hard once you're known with Laravel.
 
-A Laravel Nova implementation of [Editor.js](https://github.com/codex-team/editor.js) by [@advoor](https://github.com/advoor).
-
-## Installation
-
-Install via composer:
-
-```
-composer require advoor/nova-editor-js
-```
-
-Publish the config file
-```
-php artisan vendor:publish --provider="Advoor\NovaEditorJs\FieldServiceProvider"
-```
-
-## Upgrade
-If upgrading from v0.4.0, re-publish the config file!
-
-## Usage:
-
-Add this `use` statement to the top of the your nova resource file:
-
-```php
-use Advoor\NovaEditorJs\NovaEditorJs;
-```
-
-Use the field as below:
-
-```php
-NovaEditorJs::make('FieldName');
-```
-
-And boom!
-
-You can configure what tools the Editor should use in the config 
-file along with some other settings so make sure to have a look :)
-
-You can use the built in function to generate the response for the frontend:
-
-```php
-NovaEditorJs::generateHtmlOutput($user->about);
-```
-
-Each 'block' has it's own view which can be overwritten in `resources/views/vendor/nova-editor-js/`
-
-## Tools included
-* https://github.com/editor-js/header
-* https://github.com/editor-js/image
-* https://github.com/editor-js/code
-* https://github.com/editor-js/link
-* https://github.com/editor-js/list
-* https://github.com/editor-js/inline-code
-* https://github.com/editor-js/checklist
-* https://github.com/editor-js/marker
-* https://github.com/editor-js/embed
-* https://github.com/editor-js/delimiter
-* https://github.com/editor-js/table
-* https://github.com/editor-js/raw
-
-
-## Extending
-
-**For the purpose of this section, we will use `editor-js/warning` as an example of extensibility.**
+In this demonstration we will be incorporating the [warning component](https://github.com/editor-js/warning) in our
+Laravel application.
 
 There are two steps to extending the editor. The first consists of creating a JavaScript file and passing it onto Nova.
 The second step allows you to create a blade view file and pass it to the field to allow your block to render in the Nova `show` page.
- 
-### Creating the Javascript file
+
+## Creating the Javascript file
 
 `resources/js/editor-js-plugins/warning.js`
 
@@ -136,7 +74,7 @@ return [
 ];
 ```
 
-### Creating the blade view file
+## Creating the blade view file
 
 `resources/views/editorjs/warning.blade.php`
 
@@ -164,7 +102,7 @@ public function boot()
     NovaEditorJs::addRender('warning', function($block) {
         return view('editorjs.warning', $block['data'])->render();
     });
-    
+
     // ...
 }
 // ...

@@ -207,6 +207,7 @@ return [
                         ],
                         'image' => [
                             'type' => 'array',
+                            'required' => false,
                             'data' => [
                                 'url' => [
                                     'type' => 'string',
@@ -241,6 +242,10 @@ return [
 
             ],
             'table' => [
+                'withHeadings' => [
+                    'type' => 'boolean',
+                    'required' => false
+                ],
                 'content' => [
                     'type' => 'array',
                     'data' => [

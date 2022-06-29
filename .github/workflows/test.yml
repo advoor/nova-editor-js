@@ -1,14 +1,28 @@
 name: "Run unit tests"
 
-on: [push]
+on:
+  - push
 
 jobs:
   test:
-    name: "Code test"
+    name: Test on PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental == true }}
+
     strategy:
+      fail-fast: false
       matrix:
-        php: ['7.1', '7.2', '7.3', '7.4']
+        php:
+          - '8.1'
+          - 'nightly'
+
+        include:
+          # Release flags
+          - php: '8.1'
+            stable: true
+          - php: 'nightly'
+            experimental: true
+
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -17,32 +31,40 @@ jobs:
         uses: shivammathur/setup-php@master
         with:
           php-version: ${{ matrix.php }}
-          extension-csv: exif,json,mbstring
+          extensions: exif,json,mbstring
+          coverage: pcov
 
-      - name: Get user-level Composer cache
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Setup Composer cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ matrix.php }}-${{ matrix.package-release }}-${{ hashFiles('**/composer.json') }}
-          restore-keys: |
-            composer-${{ matrix.php }}-${{ matrix.package-release }}-${{ env.cache-name }}-
-            composer-${{ matrix.php }}-${{ matrix.package-release }}-
-            composer-${{ matrix.php }}-
-            composer-
-
-      - name: Login for Laravel Nova
-        run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_TOKEN}
-        env:
-          NOVA_USERNAME: ${{ secrets.NovaUsername }}
-          NOVA_TOKEN: ${{ secrets.NovaApiToken }}
-
-      - name: Install composer dependencies
+      - name: Setup problem matchers
         run: |
-          composer install --no-suggest --no-progress --no-interaction
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+
+      - name: Remove platform from Composer file
+        run: composer config --unset platform
+
+      - name: Add GitHub Actions printer for PHPUnit
+        run: composer require --dev --no-update mheap/phpunit-github-actions-printer
+
+      - name: Configure local Laravel Nova dummy package
+        run: composer config repositories.0 path ./tests/Fixtures/nova
+
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v1
+        with:
+          composer-options: "--ignore-platform-req=php"
+          dependency-versions: highest # No lockfile is present, so locked (the default) isn't possible
 
       - name: Run unit tests
-        run: vendor/bin/phpunit
+        run:
+          vendor/bin/phpunit
+            --printer mheap\\GithubActionsReporter\\Printer
+            --coverage-clover=./coverage.xml
+
+      - name: Determine coverage
+        uses: slavcodev/coverage-monitor-action@1.1.0
+        if: github.event_name == 'pull_request' && matrix.stable
+        continue-on-error: true
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          clover_file: ./coverage.xml
+          threshold_alert: 75
+          threshold_warning: 95

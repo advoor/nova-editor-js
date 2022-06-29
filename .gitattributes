@@ -1,0 +1,2 @@
+/dist/js/* -text merge=binary
+/dist/css/* -text merge=binary

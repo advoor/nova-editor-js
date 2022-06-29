@@ -2,37 +2,37 @@
     "private": true,
     "scripts": {
         "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "development": "mix build",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-    },
-    "devDependencies": {
-        "@editorjs/checklist": "^1.1.0",
-        "@editorjs/code": "^2.4.1",
-        "@editorjs/delimiter": "^1.1.0",
-        "@editorjs/editorjs": "^2.15.1",
-        "@editorjs/embed": "^2.2.1",
-        "@editorjs/header": "^2.3.1",
-        "@editorjs/image": "^2.3.3",
-        "@editorjs/inline-code": "^1.3.0",
-        "@editorjs/link": "^2.1.3",
-        "@editorjs/list": "^1.4.0",
-        "@editorjs/marker": "^1.2.1",
-        "@editorjs/paragraph": "^2.6.0",
-        "@editorjs/raw": "^2.1.1",
-        "@editorjs/table": "^1.2.0",
-        "cross-env": "^7.0.2",
-        "laravel-mix": "^5.0.4",
-        "laravel-nova": "^1.0.9",
-        "resolve-url-loader": "^3.1.1",
-        "sass": "^1.26.8",
-        "sass-loader": "^8.0.2",
-        "vue-template-compiler": "^2.6.11"
+        "production": "mix build --production",
+        "nova:install": "npm --prefix='./vendor/laravel/nova' ci"
     },
     "dependencies": {
-        "vue": "^2.6.11"
+        "@editorjs/checklist": "^1.3.0",
+        "@editorjs/code": "^2.7.0",
+        "@editorjs/delimiter": "^1.2.0",
+        "@editorjs/editorjs": "^2.24.3",
+        "@editorjs/embed": "^2.5.1",
+        "@editorjs/header": "^2.6.2",
+        "@editorjs/image": "^2.6.2",
+        "@editorjs/inline-code": "^1.3.1",
+        "@editorjs/link": "^2.4.1",
+        "@editorjs/list": "^1.7.0",
+        "@editorjs/marker": "^1.2.2",
+        "@editorjs/paragraph": "^2.8.0",
+        "@editorjs/raw": "^2.3.1",
+        "@editorjs/table": "^2.0.2"
+    },
+    "devDependencies": {
+        "@vue/compiler-sfc": "^3.2.36",
+        "eslint": "^8.16.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-vue": "^9.1.0",
+        "laravel-mix": "^6.0.44",
+        "postcss": "^8.4.14",
+        "vue-loader": "^16.8.3"
     }
 }
