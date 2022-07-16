@@ -1,32 +1,45 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Advoor\NovaEditorJs\Http\Controllers;
 
+use finfo;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Spatie\Image\Exceptions\InvalidManipulation;
 use Spatie\Image\Image;
 
 class EditorJsImageUploadController extends Controller
 {
+    private const VALID_IMAGE_MIMES = [
+        'image/jpeg',
+        'image/webp',
+        'image/gif',
+        'image/png',
+        'image/svg+xml',
+    ];
+
     /**
-     * Upload file
-     *
-     * @param NovaRequest $request
-     * @return array
+     * Upload file.
      */
-    public function file(NovaRequest $request)
+    public function file(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'image' => 'required|image',
         ]);
 
         if ($validator->fails()) {
-            return [
-                'success' => 0
-            ];
+            return response()->json([
+                'success' => 0,
+            ]);
         }
 
         $path = $request->file('image')->store(
@@ -51,60 +64,59 @@ class EditorJsImageUploadController extends Controller
             $thumbnails = $this->applyThumbnails($path);
         }
 
-        return [
+        return response()->json([
             'success' => 1,
             'file' => [
                 'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($path),
                 'thumbnails' => $thumbnails
             ]
-        ];
+        ]);
     }
 
     /**
-     * @param NovaRequest $request
-     * @return array
+     * "Upload" a URL.
      */
-    public function url(NovaRequest $request)
+    public function url(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'url' => [
-                'required',
-                'active_url',
-                function ($attribute, $value, $fail) {
-                    $imageDetails = getimagesize($value);
-
-                    if (!in_array($imageDetails['mime'] ?? '', [
-                        'image/jpeg',
-                        'image/webp',
-                        'image/gif',
-                        'image/png',
-                        'image/svg+xml',
-                    ])) {
-                        $fail($attribute . ' is invalid.');
-                    }
-                },
-            ],
+            'url' => 'required|url',
         ]);
 
         if ($validator->fails()) {
-            return [
-                'success' => 0
-            ];
+            return response()->json([
+                'success' => 0,
+            ]);
         }
 
         $url = $request->input('url');
-        $imageContents = file_get_contents($url);
-        $name = parse_url(substr($url, strrpos($url, '/') + 1))['path'];
-        $nameWithPath = config('nova-editor-js.toolSettings.image.path') . '/' . uniqid() . $name;
 
-        Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->put($nameWithPath, $imageContents);
+        // Fetch URL
+        try {
+            $response = Http::timeout(5)->get($url)->throw();
+        } catch (ConnectionException | RequestException) {
+            return response()->json([
+                'success' => 0,
+            ]);
+        }
 
-        return [
+        // Validate mime type
+        $mime = (new finfo())->buffer($response->body(), FILEINFO_MIME_TYPE);
+        if (! in_array($mime, self::VALID_IMAGE_MIMES, true)) {
+            return response()->json([
+                'success' => 0,
+            ]);
+        }
+
+        $urlBasename = basename(parse_url(url($url), PHP_URL_PATH));
+        $nameWithPath = config('nova-editor-js.toolSettings.image.path') . '/' . uniqid() . $urlBasename;
+        Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->put($nameWithPath, $response->body());
+
+        return response()->json([
             'success' => 1,
             'file' => [
                 'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($nameWithPath)
             ]
-        ];
+        ]);
     }
 
     /**

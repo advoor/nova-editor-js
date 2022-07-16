@@ -29,7 +29,16 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests"
-        }
+        },
+        "files": [
+            "tests/helpers.php"
+        ]
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "scripts-descriptions": {
+        "test": "Test application using PHPUnit."
     },
     "extra": {
         "laravel": {

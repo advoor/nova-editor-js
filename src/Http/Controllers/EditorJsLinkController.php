@@ -1,35 +1,47 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Advoor\NovaEditorJs\Http\Controllers;
 
+use DOMDocument;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class EditorJsLinkController extends Controller
 {
     /**
-     * Upload file
-     *
-     * @param NovaRequest $request
-     * @return array
+     * Determine microdata for the given file.
      */
-    public function fetch(NovaRequest $request)
+    public function fetch(NovaRequest $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'url' => 'required|active_url',
+            'url' => 'required|url',
         ]);
 
         if ($validator->fails()) {
-            return [
-                'success' => 0
-            ];
+            return response()->json([
+                'success' => 0,
+            ]);
         }
 
-        $contents = file_get_contents($request->input('url'));
+        // Contents
+        try {
+            $url = $request->input('url');
+            $response = Http::timeout(5)->get($url)->throw();
+        } catch (ConnectionException | RequestException) {
+            return response()->json([
+                'success' => 0,
+            ]);
+        }
 
-        $doc = new \DOMDocument();
-        @$doc->loadHTML($contents);
+        $doc = new DOMDocument();
+        @$doc->loadHTML((string) $response->getBody());
         $nodes = $doc->getElementsByTagName('title');
         $title = $nodes->item(0)->nodeValue;
         $description = '';
@@ -48,20 +60,13 @@ class EditorJsLinkController extends Controller
             }
         }
 
-        $results = [
+        return response()->json([
             'success' => 1,
-            'meta' => [
-                'title' => $title,
+            'meta' => array_filter([
+                'title' => $title ?? $url,
                 'description' => $description,
-            ]
-        ];
-
-        if (!empty($imageUrl)){
-            $results['meta']['image'] = [
-                'url' => $imageUrl,
-            ];
-        }
-
-        return $results;
+                'imageUrl' => $imageUrl,
+            ]),
+        ]);
     }
 }
