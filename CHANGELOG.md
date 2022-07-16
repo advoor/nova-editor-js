@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [UNRELEASED]
 
+## [3.0.2]
+
+### Added
+- Support for `spatie/image` version 2.x.
+
+## [3.0.1]
+
+### Fixed
+- `composer.json` didn't require PHP 8.1+, but the codebase did.
+
+## [3.0.0]
+
 ### Added
 - Nova 4 support
 - `NovaEditorJsConverter` to split HTML conversion from the Nova Field
@@ -48,7 +60,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 For older changes before v2.0.0, please see the [releases page](https://github.com/advoor/nova-editor-js/releases).
 
-[unreleased]: https://github.com/advoor/nova-editor-js/compare/v2.0.3..master
+[unreleased]: https://github.com/advoor/nova-editor-js/compare/v3.0.2..master
+[3.0.2]: https://github.com/advoor/nova-editor-js/releases/v3.0.2
+[3.0.1]: https://github.com/advoor/nova-editor-js/releases/v3.0.1
+[3.0.0]: https://github.com/advoor/nova-editor-js/releases/v3.0.0
 [2.0.3]: https://github.com/advoor/nova-editor-js/releases/v2.0.3
 [2.0.2]: https://github.com/advoor/nova-editor-js/releases/v2.0.2
 [2.0.0]: https://github.com/advoor/nova-editor-js/releases/v2.0.0
