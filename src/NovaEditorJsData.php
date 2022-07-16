@@ -33,7 +33,7 @@ class NovaEditorJsData extends Fluent implements Htmlable, Stringable
     }
 
     /**
-     * @return \Advoor\NovaEditorJs\HtmlString
+     * @return \Illuminate\Support\HtmlString
      */
     public function toHtml()
     {

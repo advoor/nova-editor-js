@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Constructor of `NovaEditorJsData` now accepts null values and non-iterables.
+- PHPDoc return type of `NovaEditorJsData::toHtml()`.
 
 ## [3.0.2]
 
