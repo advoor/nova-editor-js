@@ -2,7 +2,7 @@
     {{ ($style == 'unordered') ? '<ul>' : '<ol>' }}
     @foreach ($items as $item)
         <li>
-            {{ $item }}
+            {!! $item !!}
         </li>
     @endforeach
     {{ ($style == 'unordered') ? '</ul>' : '</ol>' }}

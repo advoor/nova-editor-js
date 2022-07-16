@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [UNRELEASED]
 
+### Fixed
+- Templates for `list`', `paragraph` and `table` to use raw-html statements on cleaned fields.
+
 ## [3.0.3]
 
 ### Fixed
