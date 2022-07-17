@@ -8,17 +8,17 @@ use DOMDocument;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class EditorJsLinkController extends Controller
 {
     /**
      * Determine microdata for the given file.
      */
-    public function fetch(NovaRequest $request): JsonResponse
+    public function fetch(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'url' => 'required|url',
