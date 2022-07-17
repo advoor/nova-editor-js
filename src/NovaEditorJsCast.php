@@ -11,7 +11,7 @@ class NovaEditorJsCast implements CastsAttributes
     /**
      * Magic number to describe "this field is broken" in the version
      */
-    private const BROKEN_VERSION = '2.12.9999';
+    public const BROKEN_VERSION = '2.12.9999';
 
     /**
      * Returns an instance of the EditorJsData field warning the user
