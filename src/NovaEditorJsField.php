@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Advoor\NovaEditorJs;
 
 use JsonException;
@@ -34,7 +36,6 @@ class NovaEditorJsField extends Field
     /**
      * Resolve the field's value for display.
      *
-     * @param mixed $resource
      * @param string|null $attribute
      * @throws \Throwable
      */

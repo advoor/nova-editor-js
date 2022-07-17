@@ -33,7 +33,7 @@ class EditorJsImageUploadControllerTest extends TestCase
      * @param string $path Path to the image file
      * @dataProvider provideValidFilesForImageUpload
      */
-    public function test_image_upload(string $path): void
+    public function testImageUpload(string $path): void
     {
         Storage::fake();
         Storage::fake('public');
@@ -67,7 +67,7 @@ class EditorJsImageUploadControllerTest extends TestCase
     /**
      * Test uploading a non-image.
      */
-    public function test_non_image_upload(): void
+    public function testNonImageUpload(): void
     {
         Storage::fake();
         Storage::fake('public');
@@ -85,7 +85,7 @@ class EditorJsImageUploadControllerTest extends TestCase
      * @param string $file path to the file returned by the URL
      * @dataProvider provideValidFiles
      */
-    public function test_valid_image_url_submission(string $file): void
+    public function testValidImageUrlSubmission(string $file): void
     {
         Storage::fake();
         Storage::fake('public');
@@ -113,7 +113,7 @@ class EditorJsImageUploadControllerTest extends TestCase
     /**
      * Test submitting a non-image URL causes the request to fail.
      */
-    public function test_invalid_image_url_submission(): void
+    public function testInvalidImageUrlSubmission(): void
     {
         Http::fake([
             'https://example.com/image.bin' => Http::response('Hello World!'),
@@ -128,7 +128,7 @@ class EditorJsImageUploadControllerTest extends TestCase
      * Test submitting a URL that's not valid, but is a properly formed HTTP
      * URL, still sends out a ping (but fails, eventually).
      */
-    public function test_submitting_a_dead_url(): void
+    public function testSubmittingADeadUrl(): void
     {
         Http::fake([
             'https://example.invalid/image.bin' => Http::response('Hello World!'),
@@ -145,7 +145,7 @@ class EditorJsImageUploadControllerTest extends TestCase
      * Test submitting a URL which the server won't or cannot provide returns an error.
      * Also implicitly handles timeouts, since that's the same block.
      */
-    public function test_submitting_image_url_with_errors(): void
+    public function testSubmittingImageUrlWithErrors(): void
     {
         Http::fake([
             'https://example.com/client/image.bin' => Http::response(test_resource('responses/image.png'), Response::HTTP_BAD_GATEWAY),

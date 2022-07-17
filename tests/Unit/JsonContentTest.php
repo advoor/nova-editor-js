@@ -30,8 +30,6 @@ class JsonContentTest extends TestCase
 
     /**
      * A basic test example.
-     *
-     * @return void
      */
     public function testStringValue(): void
     {
@@ -51,8 +49,6 @@ class JsonContentTest extends TestCase
 
     /**
      * A basic test example.
-     *
-     * @return void
      */
     public function testJsonValue(): void
     {

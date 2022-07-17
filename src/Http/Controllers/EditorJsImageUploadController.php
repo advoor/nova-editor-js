@@ -48,7 +48,6 @@ class EditorJsImageUploadController extends Controller
         );
 
         if (config('nova-editor-js.toolSettings.image.disk') !== 'local') {
-
             $tempPath = $request->file('image')->store(
                 config('nova-editor-js.toolSettings.image.path'),
                 'local'
@@ -134,8 +133,9 @@ class EditorJsImageUploadController extends Controller
                 $imageSettings = $alterations;
             }
 
-            if (empty($imageSettings))
+            if (empty($imageSettings)) {
                 return;
+            }
 
             if (!empty($imageSettings['resize']['width'])) {
                 $image->width($imageSettings['resize']['width']);
@@ -181,7 +181,6 @@ class EditorJsImageUploadController extends Controller
             }
 
             $image->save();
-
         } catch (InvalidManipulation $exception) {
             report($exception);
         }

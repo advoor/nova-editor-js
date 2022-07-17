@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Advoor\NovaEditorJs;
 
 use Illuminate\Support\Str;
@@ -16,7 +18,6 @@ class NovaEditorJsCast implements CastsAttributes
     /**
      * Returns an instance of the EditorJsData field warning the user
      * the data is corrupted.
-     * @return NovaEditorJsData
      */
     private static function getErrorObject(string $exceptionMessage): NovaEditorJsData
     {
@@ -42,10 +43,6 @@ class NovaEditorJsCast implements CastsAttributes
      * Cast the given value.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  array  $attributes
-     * @return NovaEditorJsData|null
      */
     public function get($model, string $key, $value, array $attributes): ?NovaEditorJsData
     {
@@ -66,10 +63,6 @@ class NovaEditorJsCast implements CastsAttributes
      * Prepare the given value for storage.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  array  $attributes
-     * @return array
      */
     public function set($model, string $key, $value, array $attributes): array
     {

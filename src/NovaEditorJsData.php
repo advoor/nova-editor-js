@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Advoor\NovaEditorJs;
 
 use Advoor\NovaEditorJs\NovaEditorJs;

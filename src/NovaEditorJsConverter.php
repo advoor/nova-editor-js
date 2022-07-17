@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Advoor\NovaEditorJs;
 
 use Closure;
@@ -27,7 +29,6 @@ class NovaEditorJsConverter
      *
      * @param string   $block  Name of the block, as defined in the JSON
      * @param callable $callback  Closure that returns a string (or a Stringable)
-     * @return void
      */
     public function addRender(string $block, callable $callback): void
     {
@@ -37,7 +38,6 @@ class NovaEditorJsConverter
     /**
      * Renders the given EditorJS data to safe HTML.
      *
-     * @param mixed $data
      * @return \Illuminate\Support\HtmlString Safe, directly returnable string.
      */
     public function generateHtmlOutput(mixed $data): HtmlString
