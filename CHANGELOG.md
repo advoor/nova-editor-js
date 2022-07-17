@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [UNRELEASED]
 
+### Fixed
+- NovaEditorJsCast now properly handles JSON, not double-encoding stuff and decoding double-encoded properties.
+
 ## [3.0.3]
 
 ### Fixed
