@@ -47,14 +47,16 @@ class NovaEditorJsCast implements CastsAttributes
      * @param  array  $attributes
      * @return NovaEditorJsData|null
      */
-    public function get($model, string $key, $value, array $attributes)
+    public function get($model, string $key, $value, array $attributes): ?NovaEditorJsData
     {
-        if ($value === null) {
-            return null;
-        }
-
         try {
-            return new NovaEditorJsData(json_decode($value, true, 512, JSON_THROW_ON_ERROR));
+            // Recursively decode JSON, to solve a bug where the JSON is double-encoded.
+            while (is_string($value) && ! empty($value)) {
+                $value = json_decode($value, true, 512, JSON_THROW_ON_ERROR);
+            }
+
+            // Return null if the new value is null
+            return $value === null ? null : new NovaEditorJsData($value);
         } catch (JsonException $exception) {
             return self::getErrorObject($exception->getMessage());
         }
@@ -67,9 +69,9 @@ class NovaEditorJsCast implements CastsAttributes
      * @param  string  $key
      * @param  mixed  $value
      * @param  array  $attributes
-     * @return mixed
+     * @return array
      */
-    public function set($model, string $key, $value, array $attributes)
+    public function set($model, string $key, $value, array $attributes): array
     {
         if ($value === null) {
             return [
@@ -83,7 +85,7 @@ class NovaEditorJsCast implements CastsAttributes
         }
 
         return [
-            $key => json_encode($value),
+            $key => is_string($value) ? $value : json_encode($value),
         ];
     }
 }
