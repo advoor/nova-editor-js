@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Advoor\NovaEditorJs\FieldServiceProvider;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Tests\Fixtures\TestServiceProvider;
 
 /**
  * Defines basic system to test with
  */
 class TestCase extends OrchestraTestCase
 {
+    use DatabaseMigrations;
+
     /**
      * Path to config file from here
      */
@@ -23,7 +29,10 @@ class TestCase extends OrchestraTestCase
      */
     protected function getPackageProviders($app)
     {
-        return [FieldServiceProvider::class];
+        return [
+            FieldServiceProvider::class,
+            TestServiceProvider::class,
+        ];
     }
 
     /**
@@ -35,5 +44,6 @@ class TestCase extends OrchestraTestCase
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('nova-editor-js', require self::CONFIG_PATH);
+        $app['config']->set('database.default', 'testing');
     }
 }
