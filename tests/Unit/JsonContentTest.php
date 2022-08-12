@@ -6,15 +6,14 @@ namespace Tests\Unit;
 
 use Advoor\NovaEditorJs\NovaEditorJs;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class JsonContentTest extends TestCase
 {
     /**
      * Path to JSON file with valid contents
      */
-    private const TEST_FILE_JSON = __DIR__ . '/../resources/json/editorjs.json';
-    private const TEST_FILE_HTML = __DIR__ . '/../resources/html/editorjs.html';
+    private const TEST_FILE_JSON = __DIR__ . '/../Fixtures/resources/json/editorjs.json';
+    private const TEST_FILE_HTML = __DIR__ . '/../Fixtures/resources/html/editorjs.html';
 
     /**
      * Returns JSON contents from the file
