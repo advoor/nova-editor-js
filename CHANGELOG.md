@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved image upload handling, using Laravel-native libraries
 - Improved link metadata retrieval, using Laravel-native libraries
 
+## [3.0.5]
+
+### Fixed
+- When no changes are made to the editor, the value is left as-is, instead of double-encoding it (thanks @waelelsawy)
+- Templates for `list`', `paragraph` and `table` to use raw-html statements on cleaned fields.
+
 ## [3.0.4]
 
 ### Fixed
@@ -78,9 +84,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 For older changes before v2.0.0, please see the [releases page](https://github.com/advoor/nova-editor-js/releases).
 
-[unreleased]: https://github.com/advoor/nova-editor-js/compare/v3.0.4..master
-[3.0.4]: https://github.com/advoor/nova-editor-js/releases/v3.0.2
-[3.0.3]: https://github.com/advoor/nova-editor-js/releases/v3.0.2
+[unreleased]: https://github.com/advoor/nova-editor-js/compare/v3.0.5..master
+[3.0.5]: https://github.com/advoor/nova-editor-js/releases/v3.0.5
+[3.0.4]: https://github.com/advoor/nova-editor-js/releases/v3.0.4
+[3.0.3]: https://github.com/advoor/nova-editor-js/releases/v3.0.3
 [3.0.2]: https://github.com/advoor/nova-editor-js/releases/v3.0.2
 [3.0.1]: https://github.com/advoor/nova-editor-js/releases/v3.0.1
 [3.0.0]: https://github.com/advoor/nova-editor-js/releases/v3.0.0
