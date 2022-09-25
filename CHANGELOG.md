@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved image upload handling, using Laravel-native libraries
 - Improved link metadata retrieval, using Laravel-native libraries
 
+### Fixed
+
+- Fixed HTML escaping on list and raw HTML fields. (#80 by @Harrk)
+
 ## [3.0.5]
 
 ### Fixed
