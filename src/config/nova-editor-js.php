@@ -8,7 +8,7 @@ return [
      */
     'editorSettings' => [
         'placeholder' => '',
-        'initialBlock' => 'paragraph',
+        'defaultBlock' => 'paragraph',
         'autofocus' => false,
         'rtl' => false,
     ],

@@ -20,10 +20,13 @@ class NovaEditorJsField extends Field
     {
         parent::__construct($name, $attribute, $resolveCallback);
 
+        // DEPRECATED: Simplify to `nova-editor-js.editorSettings.defaultBlock` in v4.0.0
+        $defaultBlock = config('nova-editor-js.editorSettings.initialBlock', config('nova-editor-js.editorSettings.defaultBlock', 'paragraph'));
+
         $this->withMeta([
             'editorSettings' => [
                 'placeholder' => config('nova-editor-js.editorSettings.placeholder', ''),
-                'initialBlock' => config('nova-editor-js.editorSettings.initialBlock', 'paragraph'),
+                'defaultBlock' => $defaultBlock,
                 'autofocus' => config('nova-editor-js.editorSettings.autofocus', false),
                 'rtl' => config('nova-editor-js.editorSettings.rtl', false),
             ],

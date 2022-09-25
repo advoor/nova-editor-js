@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Advoor\NovaEditorJs;
 
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
+/**
+ * @property-read \Illuminate\Foundation\Application $app
+ */
 class FieldServiceProvider extends ServiceProvider
 {
     /**
@@ -36,6 +40,10 @@ class FieldServiceProvider extends ServiceProvider
             Nova::script('nova-editor-js', __DIR__ . '/../dist/js/field.js');
             Nova::style('nova-editor-js', __DIR__ . '/../dist/css/field.css');
         });
+
+        if (!$this->app->configurationIsCached() && !$this->app->isProduction()) {
+            $this->checkForConfigDeprecations();
+        }
     }
 
     /**
@@ -64,5 +72,18 @@ class FieldServiceProvider extends ServiceProvider
         // Register the converter
         $this->app->singleton(NovaEditorJsConverter::class);
         $this->app->alias(NovaEditorJsConverter::class, 'nova-editor-js');
+    }
+
+    /**
+     * Check for deprecated config keys.
+     *
+     */
+    protected function checkForConfigDeprecations(): void
+    {
+        /** @var ConfigRepository $config */
+        $config = $this->app->get('config');
+        if ($config->has('nova-editor-js.editorSettings.initialBlock')) {
+            trigger_deprecation('advoor/nova-editor-js', '3.1.0', 'The config key "editorSettings.initialBlock" is deprecated. Use "editorSettings.defaultBlock" instead.');
+        }
     }
 }
