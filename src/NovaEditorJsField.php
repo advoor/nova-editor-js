@@ -25,6 +25,7 @@ class NovaEditorJsField extends Field
                 'placeholder' => config('nova-editor-js.editorSettings.placeholder', ''),
                 'initialBlock' => config('nova-editor-js.editorSettings.initialBlock', 'paragraph'),
                 'autofocus' => config('nova-editor-js.editorSettings.autofocus', false),
+                'rtl' => config('nova-editor-js.editorSettings.rtl', false),
             ],
             'toolSettings' => config('nova-editor-js.toolSettings'),
             'uploadImageByFileEndpoint' => route('editor-js-upload-image-by-file'),

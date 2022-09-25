@@ -10,6 +10,7 @@ return [
         'placeholder' => '',
         'initialBlock' => 'paragraph',
         'autofocus' => false,
+        'rtl' => false,
     ],
 
     /**

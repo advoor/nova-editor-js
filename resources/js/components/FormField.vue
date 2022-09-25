@@ -59,6 +59,16 @@ export default {
                 autofocus: self.field.editorSettings.autofocus,
 
                 /**
+                 * Internalization config
+                 */
+                i18n: {
+                    /**
+                     * Text direction. If not set, uses ltr
+                     */
+                    direction: (self.field.editorSettings.rtl ?? false) ? 'rtl' : 'ltr',
+                },
+
+                /**
                      * Initial Editor data
                      */
                 data: currentContent,

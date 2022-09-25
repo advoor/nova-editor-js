@@ -108,8 +108,28 @@ safe by Blade. This means you don't have to use Blade "unescaped statements".
 
 ## Customizing
 
-You can configure what tools the Editor should use, by updating the `toolSettings` property in the config file.
-By default, the following components are enabled:
+You can configure the editor settings and what tools the Editor should use, by
+updating the `editorSettings` and `toolSettings` property in the config file
+respectively.
+
+From the config, you can define the following editor settings:
+
+- `placeholder` ([docs][placeholder-docs]) - The placeholder to show in an
+  empty editor
+- `initialBlock` ([docs][initialblock-docs]) - The block that's used by default
+  when
+- `autofocus` ([docs][autofocus-docs]) - If the editor should auto-focus, only
+  use if you never have multiple editors on a page and after considering the
+[accessibility implications][autofocus-accessibility]
+- `rtl` ([docs][rtl-docs]) -
+
+[placeholder-docs]: https://editorjs.io/configuration#placeholder
+[initialblock-docs]: https://editorjs.io/configuration#change-the-default-block
+[autofocus-docs]: https://editorjs.io/configuration#autofocus
+[autofocus-accessibility]: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autofocus#accessibility_considerations
+[rtl-docs]: https://editorjs.io/i18n#rtl-support
+
+Furthermore, you can customize the tools the editor should use. The following tools are enabled by default:
 
 * [Header](https://github.com/editor-js/header)
 * [Image](https://github.com/editor-js/image)

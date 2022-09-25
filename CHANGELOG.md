@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Guzzle is now a dependency of this project.
 - Added `php-cs-fixer` for code standards.
 - Added `php-parallel-lint` to ensure all files are actually valid PHP code.
+- Added RTL support (`editorSettings.rtl`)
 
 ### Changed
 - Improved image upload handling, using Laravel-native libraries
