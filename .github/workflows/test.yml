@@ -53,6 +53,9 @@ jobs:
           composer-options: "--ignore-platform-req=php"
           dependency-versions: highest # No lockfile is present, so locked (the default) isn't possible
 
+      - name: Lint code
+        run: composer run lint
+
       - name: Run unit tests
         run:
           vendor/bin/phpunit

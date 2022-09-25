@@ -24,7 +24,8 @@ class EditorJsLinkControllerTest extends TestCase
     /**
      * Checks simple URL fetch.
      */
-    public function testFetchValidUrl(): void {
+    public function testFetchValidUrl(): void
+    {
         Http::fake([
             'https://example.com' => Http::response(file_get_contents(test_resource('responses/simple.html'))),
         ])->preventStrayRequests();
@@ -43,7 +44,8 @@ class EditorJsLinkControllerTest extends TestCase
     /**
      * Checks simple URL fetch.
      */
-    public function testImageDetermination(): void {
+    public function testImageDetermination(): void
+    {
         Http::fake([
             'https://example.com' => Http::response(file_get_contents(test_resource('responses/with-image.html'))),
         ])->preventStrayRequests();

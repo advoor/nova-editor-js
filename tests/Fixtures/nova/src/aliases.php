@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laravel\Nova;
 
 class_alias(StaticallyUselessClass::class, Nova::class);
@@ -21,4 +23,3 @@ class_alias(StaticallyUselessClass::class, Panel::class);
 class_alias(StaticallyUselessClass::class, Resource::class);
 
 class_alias(StaticallyUselessClass::class, Fields\Field::class);
-
