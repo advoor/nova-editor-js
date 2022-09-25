@@ -119,12 +119,15 @@ By default, the following components are enabled:
 * [Inline code](https://github.com/editor-js/inline-code)
 * [Checklist](https://github.com/editor-js/checklist)
 * [Marker](https://github.com/editor-js/marker)
-* [Embeds](https://github.com/editor-js/embed)
+* [Embeds](https://github.com/editor-js/embed)<sup>†</sup>
 * [Delimiter](https://github.com/editor-js/delimiter)
 * [Table](https://github.com/editor-js/table)
 * [Raw](https://github.com/editor-js/raw)
 
 You can customize the views for each component, by changing the view in `resources/views/vendor/nova-editor-js/`.
+
+<sup>†</sup> The *Embeds* tool is triggered by pasting URLs to embeddable
+content. It does not have an entry in the "Add" menu.
 
 ### Registering custom components
 
