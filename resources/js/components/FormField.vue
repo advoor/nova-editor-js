@@ -39,33 +39,43 @@ export default {
 
             const editor = NovaEditorJS.getInstance({
                 /**
-                     * Wrapper of Editor
-                     */
-                holderId: `editor-js-${self.field.attribute}`,
+                 * Wrapper of Editor
+                 */
+                holder: `editor-js-${self.field.attribute}`,
 
                 /**
-                     * This Tool will be used as default
-                     */
-                initialBlock: self.field.editorSettings.initialBlock,
+                 * This Tool will be used as default
+                 */
+                defaultBlock: self.field.editorSettings.initialBlock,
 
                 /**
-                     * Default placeholder
-                     */
+                 * Default placeholder
+                 */
                 placeholder: self.field.editorSettings.placeholder,
 
                 /**
-                     * Enable autofocus
-                     */
+                 * Enable autofocus
+                 */
                 autofocus: self.field.editorSettings.autofocus,
 
                 /**
-                     * Initial Editor data
+                 * Internalization config
+                 */
+                i18n: {
+                    /**
+                     * Text direction. If not set, uses ltr
                      */
+                    direction: (self.field.editorSettings.rtl ?? false) ? 'rtl' : 'ltr',
+                },
+
+                /**
+                 * Initial Editor data
+                 */
                 data: currentContent,
 
                 /**
-                     * Min height of editor
-                     */
+                 * Min height of editor
+                 */
                 minHeight: 35,
 
                 onReady() {
@@ -80,16 +90,16 @@ export default {
         },
 
         /**
-             * Fill the given FormData object with the field's internal value.
-             */
+         * Fill the given FormData object with the field's internal value.
+         */
         fill(formData) {
             const value = typeof this.value === 'string' ? this.value : JSON.stringify(this.value);
             formData.append(this.field.attribute, value || '');
         },
 
         /**
-             * Update the field's internal value.
-             */
+         * Update the field's internal value.
+         */
         handleChange(value) {
             this.value = JSON.stringify(value);
         },

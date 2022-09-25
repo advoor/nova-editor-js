@@ -1,6 +1,16 @@
 const mix = require('laravel-mix')
 const webpack = require('webpack')
 const path = require('path')
+const fs = require('fs')
+
+const novaLocation = [
+    path.join(__dirname, '../../vendor/laravel/nova/resources/js/mixins/packages.js'),
+    path.join(__dirname, 'vendor/laravel/nova/resources/js/mixins/packages.js'),
+].filter(fs.existsSync)[0] ?? '';
+
+if (!novaLocation) {
+    throw new Error('Unable to locate Nova resources. Mount the extension in a Laravel installation, or run `composer install` in the extension directory.')
+}
 
 class NovaExtension {
   name() {
@@ -25,10 +35,7 @@ class NovaExtension {
 
     webpackConfig.resolve.alias = {
       ...(webpackConfig.resolve.alias || {}),
-      'laravel-nova': path.join(
-        __dirname,
-        '../../vendor/laravel/nova/resources/js/mixins/packages.js'
-      ),
+      'laravel-nova': novaLocation,
     }
 
     webpackConfig.output = {

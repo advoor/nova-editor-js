@@ -21,6 +21,12 @@ jobs:
           extensions: exif,json,mbstring
           coverage: none
 
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: 'npm'
+
       - name: Configure local Laravel Nova dummy package
         run: composer config repositories.0 path ./tests/Fixtures/nova
 
@@ -30,8 +36,13 @@ jobs:
           composer-options: "--ignore-platform-req=php"
           dependency-versions: highest # No lockfile is present, so locked (the default) isn't possible
 
+      - name: Install NodeJS dependencies
+        run: npm install
+
       - name: Lint code
-        run: composer run format
+        run: |
+          composer run format
+          npm run format
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4

@@ -38,12 +38,7 @@
         ]
     },
     "scripts": {
-        "test": "phpunit"
-    },
-    "scripts-descriptions": {
-        "test": "Test application using PHPUnit."
-    },
-    "scripts": {
+        "test": "phpunit",
         "lint": [
             "parallel-lint --exclude .git --exclude vendor ."
         ],
@@ -52,6 +47,7 @@
         ]
     },
     "scripts-descriptions": {
+        "test": "Test application using PHPUnit.",
         "lint": "Lint all php files",
         "format": "Run php-cs-fixer formatter"
     },

@@ -1,7 +1,10 @@
 name: "Run unit tests"
 
 on:
-  - push
+  push:
+    branches:
+      - master
+  pull_request:
 
 jobs:
   test:
@@ -17,9 +20,6 @@ jobs:
           - 'nightly'
 
         include:
-          # Release flags
-          - php: '8.1'
-            stable: true
           - php: 'nightly'
             experimental: true
 
@@ -64,10 +64,10 @@ jobs:
 
       - name: Determine coverage
         uses: slavcodev/coverage-monitor-action@1.1.0
-        if: github.event_name == 'pull_request' && matrix.stable
+        if: github.event_name == 'pull_request' && matrix.experimental != true
         continue-on-error: true
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           clover_file: ./coverage.xml
-          threshold_alert: 75
-          threshold_warning: 95
+          threshold_alert: 60
+          threshold_warning: 85
