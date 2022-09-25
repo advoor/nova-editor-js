@@ -14,6 +14,7 @@ composer require advoor/nova-editor-js
 ```
 
 Publish the config file
+
 ```
 php artisan vendor:publish --provider="Advoor\NovaEditorJs\FieldServiceProvider"
 ```
@@ -24,7 +25,7 @@ Laravel Nova 4.x isn't backwards compatible with 3.x, so we had to make a versio
 Please use the below table to find which versions are suitable for your installation.
 
 | Package version | Nova Version | Laravel Version | PHP version |
-|-----------------|--------------|-----------------|-------------|
+| --------------- | ------------ | --------------- | ----------- |
 | `3.x`           | 4.x          | 8.x - 9.x       | 8.1+        |
 | `2.x`           | 2.x - 3.x    | 5.x - 8.x       | 5.6 - 7.4   |
 
@@ -117,7 +118,7 @@ From the config, you can define the following editor settings:
 - `placeholder` ([docs][placeholder-docs]) - The placeholder to show in an empty editor
 - `defaultBlock` ([docs][defaultblock-docs]) - The block that's used by default
 - `autofocus` ([docs][autofocus-docs]) - If the editor should auto-focus, only use if you never have multiple editors on a page and after considering the
-[accessibility implications][autofocus-accessibility]
+  [accessibility implications][autofocus-accessibility]
 - `rtl` ([docs][rtl-docs]) - Set to true to enable right-to-left mode, for languages like Arabic and Hebrew
 
 [placeholder-docs]: https://editorjs.io/configuration#placeholder
@@ -128,22 +129,22 @@ From the config, you can define the following editor settings:
 
 Furthermore, you can customize the tools the editor should use. The following tools are enabled by default:
 
-* [Header](https://github.com/editor-js/header)
-* [Image](https://github.com/editor-js/image)
-* [Link](https://github.com/editor-js/link)
-* [List](https://github.com/editor-js/list)
-* [Code block](https://github.com/editor-js/code)
-* [Inline code](https://github.com/editor-js/inline-code)
-* [Checklist](https://github.com/editor-js/checklist)
-* [Marker](https://github.com/editor-js/marker)
-* [Embeds](https://github.com/editor-js/embed)<sup>†</sup>
-* [Delimiter](https://github.com/editor-js/delimiter)
-* [Table](https://github.com/editor-js/table)
-* [Raw](https://github.com/editor-js/raw)
+- [Header](https://github.com/editor-js/header)
+- [Image](https://github.com/editor-js/image)
+- [Link](https://github.com/editor-js/link)
+- [List](https://github.com/editor-js/list)
+- [Code block](https://github.com/editor-js/code)
+- [Inline code](https://github.com/editor-js/inline-code)
+- [Checklist](https://github.com/editor-js/checklist)
+- [Marker](https://github.com/editor-js/marker)
+- [Embeds](https://github.com/editor-js/embed)<sup>†</sup>
+- [Delimiter](https://github.com/editor-js/delimiter)
+- [Table](https://github.com/editor-js/table)
+- [Raw](https://github.com/editor-js/raw)
 
 You can customize the views for each component, by changing the view in `resources/views/vendor/nova-editor-js/`.
 
-<sup>†</sup> The *Embeds* tool is triggered by pasting URLs to embeddable
+<sup>†</sup> The _Embeds_ tool is triggered by pasting URLs to embeddable
 content. It does not have an entry in the "Add" menu.
 
 ### Registering custom components

@@ -34,7 +34,7 @@ The changes are somewhat backwards compatible, but you're advices to quickly fix
 
 ## From 1.x to 2.x
 
-*No significant changes written down.*
+_No significant changes written down._
 
 ## From 0.4 to 1.x
 

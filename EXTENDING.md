@@ -21,25 +21,28 @@ The second step allows you to create a blade view file and pass it to the field 
  * fetch any value that is contained in your laravel config file from there.
  */
 NovaEditorJS.booting(function (editorConfig, fieldConfig) {
-    if (fieldConfig.toolSettings.warning.activated === true) {
-        editorConfig.tools.warning = {
-            class: require('@editorjs/warning'),
-            shortcut: fieldConfig.toolSettings.warning.shortcut,
-            config: {
-                titlePlaceholder: fieldConfig.toolSettings.warning.titlePlaceholder,
-                messagePlaceholder: fieldConfig.toolSettings.warning.messagePlaceholder,
-            },
-        }
-    }
+  if (fieldConfig.toolSettings.warning.activated === true) {
+    editorConfig.tools.warning = {
+      class: require("@editorjs/warning"),
+      shortcut: fieldConfig.toolSettings.warning.shortcut,
+      config: {
+        titlePlaceholder: fieldConfig.toolSettings.warning.titlePlaceholder,
+        messagePlaceholder: fieldConfig.toolSettings.warning.messagePlaceholder,
+      },
+    };
+  }
 });
 ```
 
 `webpack.mix.js`
 
 ```js
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 
-mix.js('resources/js/editor-js-plugins/warning.js', 'public/js/editor-js-plugins/warning.js');
+mix.js(
+  "resources/js/editor-js-plugins/warning.js",
+  "public/js/editor-js-plugins/warning.js"
+);
 ```
 
 `app/Providers/NovaServiceProvider.php`
@@ -78,14 +81,14 @@ return [
 
 `resources/views/editorjs/warning.blade.php`
 
-*CSS classes taken from [here](https://github.com/editor-js/warning/blob/master/src/index.css).*
+_CSS classes taken from [here](https://github.com/editor-js/warning/blob/master/src/index.css)._
 
 ```html
 <div class="editor-js-block">
-    <div class="cdx-warning">
-        <h3 class="cdx-warning__title">{{ $title }}</h3>
-        <p class="cdx-warning__message">{{ $message }}</p>
-    </div>
+  <div class="cdx-warning">
+    <h3 class="cdx-warning__title">{{ $title }}</h3>
+    <p class="cdx-warning__message">{{ $message }}</p>
+  </div>
 </div>
 ```
 
@@ -109,4 +112,3 @@ public function boot()
 ```
 
 That's it for extending the Nova EditorJS package!
-

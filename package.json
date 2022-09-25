@@ -8,7 +8,7 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix build --production",
-        "format": "eslint --fix resources/js/**/*.{js,vue} *.js",
+        "format": "eslint --fix resources/js/**/*.{js,vue} *.js && prettier --write *.md",
         "nova:install": "npm --prefix='./vendor/laravel/nova' ci"
     },
     "dependencies": {
@@ -34,6 +34,7 @@
         "eslint-plugin-vue": "^9.1.0",
         "laravel-mix": "^6.0.44",
         "postcss": "^8.4.14",
+        "prettier": "^2.7.1",
         "vue-loader": "^16.8.3"
     }
 }
