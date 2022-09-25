@@ -39,23 +39,23 @@ export default {
 
             const editor = NovaEditorJS.getInstance({
                 /**
-                     * Wrapper of Editor
-                     */
+                 * Wrapper of Editor
+                 */
                 holder: `editor-js-${self.field.attribute}`,
 
                 /**
-                     * This Tool will be used as default
-                     */
+                 * This Tool will be used as default
+                 */
                 defaultBlock: self.field.editorSettings.initialBlock,
 
                 /**
-                     * Default placeholder
-                     */
+                 * Default placeholder
+                 */
                 placeholder: self.field.editorSettings.placeholder,
 
                 /**
-                     * Enable autofocus
-                     */
+                 * Enable autofocus
+                 */
                 autofocus: self.field.editorSettings.autofocus,
 
                 /**
@@ -69,13 +69,13 @@ export default {
                 },
 
                 /**
-                     * Initial Editor data
-                     */
+                 * Initial Editor data
+                 */
                 data: currentContent,
 
                 /**
-                     * Min height of editor
-                     */
+                 * Min height of editor
+                 */
                 minHeight: 35,
 
                 onReady() {
@@ -90,16 +90,16 @@ export default {
         },
 
         /**
-             * Fill the given FormData object with the field's internal value.
-             */
+         * Fill the given FormData object with the field's internal value.
+         */
         fill(formData) {
             const value = typeof this.value === 'string' ? this.value : JSON.stringify(this.value);
             formData.append(this.field.attribute, value || '');
         },
 
         /**
-             * Update the field's internal value.
-             */
+         * Update the field's internal value.
+         */
         handleChange(value) {
             this.value = JSON.stringify(value);
         },

@@ -114,11 +114,10 @@ respectively.
 
 From the config, you can define the following editor settings:
 
-- `placeholder` ([docs][placeholder-docs]) - The placeholder to show in an
-  empty editor
+- `placeholder` ([docs][placeholder-docs]) - The placeholder to show in an empty editor
 - `defaultBlock` ([docs][defaultblock-docs]) - The block that's used by default
-- `autofocus` ([docs][autofocus-docs]) - If the editor should auto-focus, only
-  use if you never have multiple editors on a page and after considering the
+- `autofocus` ([docs][autofocus-docs]) - If the editor should auto-focus, only use if
+  you never have multiple editors on a page and after considering the
 [accessibility implications][autofocus-accessibility]
 - `rtl` ([docs][rtl-docs]) -
 
