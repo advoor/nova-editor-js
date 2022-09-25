@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [UNRELEASED]
 
+### Added
+- Guzzle is now a dependency of this project.
+
+### Changed
+- Improved image upload handling, using Laravel-native libraries
+- Improved link metadata retrieval, using Laravel-native libraries
+
 ## [3.0.5]
 
 ### Fixed
