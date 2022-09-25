@@ -1,6 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 const mix = require('laravel-mix');
 
-require('./nova.mix')
+require('./nova.mix');
 
 mix.setPublicPath('dist')
     .js('resources/js/index.js', 'js/field.js')
