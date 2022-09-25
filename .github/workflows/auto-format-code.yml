@@ -1,0 +1,40 @@
+name: Auto-format code
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    name: Auto-format code using php-cs-fixer
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: '8.1'
+          extensions: exif,json,mbstring
+          coverage: none
+
+      - name: Configure local Laravel Nova dummy package
+        run: composer config repositories.0 path ./tests/Fixtures/nova
+
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v1
+        with:
+          composer-options: "--ignore-platform-req=php"
+          dependency-versions: highest # No lockfile is present, so locked (the default) isn't possible
+
+      - name: Lint code
+        run: composer run format
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Fixed code style using PHP-CS-Fixer
+
