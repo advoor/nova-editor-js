@@ -41,12 +41,12 @@ export default {
                 /**
                      * Wrapper of Editor
                      */
-                holderId: `editor-js-${self.field.attribute}`,
+                holder: `editor-js-${self.field.attribute}`,
 
                 /**
                      * This Tool will be used as default
                      */
-                initialBlock: self.field.editorSettings.initialBlock,
+                defaultBlock: self.field.editorSettings.initialBlock,
 
                 /**
                      * Default placeholder
