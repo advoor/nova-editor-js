@@ -116,10 +116,9 @@ From the config, you can define the following editor settings:
 
 - `placeholder` ([docs][placeholder-docs]) - The placeholder to show in an empty editor
 - `defaultBlock` ([docs][defaultblock-docs]) - The block that's used by default
-- `autofocus` ([docs][autofocus-docs]) - If the editor should auto-focus, only use if
-  you never have multiple editors on a page and after considering the
+- `autofocus` ([docs][autofocus-docs]) - If the editor should auto-focus, only use if you never have multiple editors on a page and after considering the
 [accessibility implications][autofocus-accessibility]
-- `rtl` ([docs][rtl-docs]) -
+- `rtl` ([docs][rtl-docs]) - Set to true to enable right-to-left mode, for languages like Arabic and Hebrew
 
 [placeholder-docs]: https://editorjs.io/configuration#placeholder
 [defaultblock-docs]: https://editorjs.io/configuration#change-the-default-block
