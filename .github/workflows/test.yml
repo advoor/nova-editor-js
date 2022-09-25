@@ -69,5 +69,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           clover_file: ./coverage.xml
-          threshold_alert: 75
-          threshold_warning: 95
+          threshold_alert: 60
+          threshold_warning: 85
