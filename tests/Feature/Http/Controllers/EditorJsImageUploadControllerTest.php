@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Http\Controllers;
+namespace Tests\Feature\Http\Controllers;
 
 use Advoor\NovaEditorJs\Http\Controllers\EditorJsImageUploadController;
 use finfo;
