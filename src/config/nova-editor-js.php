@@ -4,6 +4,16 @@ declare(strict_types=1);
 
 return [
     /**
+     * This plugin uses services to allow you to override certain behaviour.
+     */
+    'services' => [
+        /**
+         * The service used for storing images and thumbnails, and returning URLs.
+         */
+        'image_upload' => \Advoor\NovaEditorJs\Services\DefaultImageUploadHandler::class,
+    ],
+
+    /**
      * Editor settings
      */
     'editorSettings' => [

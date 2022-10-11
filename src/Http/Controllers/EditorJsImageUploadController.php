@@ -4,18 +4,25 @@ declare(strict_types=1);
 
 namespace Advoor\NovaEditorJs\Http\Controllers;
 
+use Advoor\NovaEditorJs\Contracts\ImageUploadHandler;
 use finfo;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\File;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
+use RuntimeException;
 use Spatie\Image\Exceptions\InvalidManipulation;
 use Spatie\Image\Image;
+use Symfony\Component\Filesystem\Filesystem;
 
 class EditorJsImageUploadController extends Controller
 {
@@ -26,6 +33,18 @@ class EditorJsImageUploadController extends Controller
         'image/png',
         'image/svg+xml',
     ];
+
+    private const TEMP_LOCATION = 'temp/editorjs';
+
+    protected ImageUploadHandler $uploadHandler;
+
+    /**
+     * Auto-provision the upload handler.
+     */
+    public function __construct(ImageUploadHandler $uploadHandler)
+    {
+        $this->uploadHandler = $uploadHandler;
+    }
 
     /**
      * Upload file.
@@ -42,34 +61,21 @@ class EditorJsImageUploadController extends Controller
             ]);
         }
 
-        $path = $request->file('image')->store(
-            config('nova-editor-js.toolSettings.image.path'),
-            config('nova-editor-js.toolSettings.image.disk')
-        );
+        // Get handle to uploaded file
+        $uploadedFile = $request->file('image');
 
-        if (config('nova-editor-js.toolSettings.image.disk') !== 'local') {
-            $tempPath = $request->file('image')->store(
-                config('nova-editor-js.toolSettings.image.path'),
-                'local'
-            );
-
-            $this->applyAlterations(Storage::disk('local')->path($tempPath));
-            $thumbnails = $this->applyThumbnails($tempPath);
-
-            $this->deleteThumbnails(Storage::disk('local')->path($tempPath));
-            Storage::disk('local')->delete($tempPath);
-        } else {
-            $this->applyAlterations(Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->path($path));
-            $thumbnails = $this->applyThumbnails($path);
+        try {
+            // Send to image handler, return outcome
+            return response()->json([
+                'success' => 1,
+                'file' => $this->storeImage($uploadedFile),
+            ]);
+        } catch (RuntimeException $e) {
+            // Return failure
+            return response()->json([
+                'success' => 0,
+            ]);
         }
-
-        return response()->json([
-            'success' => 1,
-            'file' => [
-                'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($path),
-                'thumbnails' => $thumbnails
-            ]
-        ]);
     }
 
     /**
@@ -106,36 +112,143 @@ class EditorJsImageUploadController extends Controller
             ]);
         }
 
-        $urlBasename = basename(parse_url(url($url), PHP_URL_PATH));
-        $nameWithPath = config('nova-editor-js.toolSettings.image.path') . '/' . uniqid() . $urlBasename;
-        Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->put($nameWithPath, $response->body());
+        // Write temp file
+        $tempFile = tempnam(sys_get_temp_dir(), 'editorjs');
+        file_put_contents($tempFile, $response->body());
 
-        return response()->json([
-            'success' => 1,
-            'file' => [
-                'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($nameWithPath)
-            ]
-        ]);
+        // Convert to uploadedfile
+        $urlBasename = basename(parse_url(url($url), PHP_URL_PATH));
+        $downloadedFile = new UploadedFile($tempFile, $urlBasename, $mime);
+
+        try {
+            // Send to image handler, return outcome
+            return response()->json([
+                'success' => 1,
+                'file' => $this->storeImage($downloadedFile),
+            ]);
+        } catch (RuntimeException $e) {
+            // Return failure
+            return response()->json([
+                'success' => 0,
+            ]);
+        } finally {
+            // Try to delete the temp file
+            @unlink($tempFile);
+        }
     }
 
     /**
-     * @param $path
-     * @param array $alterations
+     * Saves the given file, creating thumbnails if specified
+     * and using the upload handler to save the file.
+     *
+     * @return array Array of file and thumbnail URLs
      */
-    private function applyAlterations($path, $alterations = [])
+    protected function storeImage(UploadedFile $file): array
     {
+        // Cleanup values
+        $fileExtension = $file->guessExtension();
+        $filename = (string) Str::of($file->getClientOriginalName())
+            ->beforeLast($file->getClientOriginalExtension())
+            ->ascii()
+            ->finish(".{$fileExtension}")
+            ->lower();
+
+        // Determine temp folder
+        $tempLocation = self::TEMP_LOCATION . '/' . Str::random(16);
+        $tempThumbsLocation = "{$tempLocation}/thumbs";
+
+        // Store the (uploaded) file in a temp location, using the clean name
+        $sourcePath = Storage::disk('local')->putFileAs($tempLocation, $file, $filename);
+        if (! $sourcePath) {
+            throw new RuntimeException('Failed to copy initial file.');
+        }
+
+        // Convert to File instance
+        $sourceFile = new File(Storage::disk('local')->path($sourcePath));
+
+        // Prep variables
+        $createdFiles = [$sourcePath];
+        $fileUrl = null;
+        $thumbnailUrls = [];
+
         try {
-            $image = Image::load($path);
+            // Apply initial alterations
+            $this->applyAlterations($sourceFile, null);
 
-            $imageSettings = config('nova-editor-js.toolSettings.image.alterations');
+            // Ask the image handler to save the image
+            $fileUrl = $this->uploadHandler->saveImage($sourceFile);
 
-            if (!empty($alterations)) {
-                $imageSettings = $alterations;
+            // Fetch thumbnail settings
+            $thumbnailSettings = config('nova-editor-js.toolSettings.image.thumbnails') ?? [];
+
+            // Output if the image is a vector
+            if ($fileExtension === 'svg') {
+                return [
+                    'url' => $fileUrl,
+                    'thumbnails' => array_map(fn () => $fileUrl, $thumbnailSettings),
+                ];
             }
 
-            if (empty($imageSettings)) {
-                return;
+
+            // Create thumbnails
+            foreach ($thumbnailSettings as $thumbnailName => $setting) {
+                // Make a copy of the original file
+                $thumbnailPath = "{$tempThumbsLocation}/{$thumbnailName}.{$fileExtension}";
+
+                // Check if copy worked, abort loop if it failed.
+                if (! Storage::disk('local')->copy($sourcePath, $thumbnailPath)) {
+                    throw new RuntimeException(
+                        "Failed to copy {$sourcePath} to create thumbnail {$thumbnailName}"
+                    );
+                }
+
+                $createdFiles[] = $thumbnailPath;
+
+                // Convert to File instance
+                $thumbnailFile = new File(Storage::disk('local')->path($thumbnailPath));
+
+                // Apply the changes
+                $this->applyAlterations($thumbnailFile, $setting);
+
+                // Ask the image handler to save the thumbnail
+                $thumbnailUrls[$thumbnailName] = $this->uploadHandler->saveThumbnail($sourceFile, $thumbnailFile);
             }
+        } catch (RuntimeException $exception) {
+            report($exception);
+        } finally {
+            // Delete the temp files
+            try {
+                Storage::disk('local')->delete($createdFiles);
+            } catch (FileNotFoundException $exception) {
+                report(new RuntimeException("Failed to delete created temp files after handling upload", 0, $exception));
+            }
+        }
+
+        return [
+            'url' => $fileUrl,
+            'thumbnails' => $thumbnailUrls,
+        ];
+    }
+
+    /**
+     * Applies the alterations in $alterations or in the config to the given image file.
+     * Input file is modified
+     */
+    private function applyAlterations(File $file, ?array $alterations): void
+    {
+        // Set settings from alterations or default settings
+        $imageSettings = $alterations ?? config('nova-editor-js.toolSettings.image.alterations');
+
+        if (empty($imageSettings)) {
+            return;
+        }
+
+        if ($image = $file->guessExtension() === 'svg') {
+            return;
+        }
+
+        try {
+            $image = Image::load($file->getPathname());
 
             if (!empty($imageSettings['resize']['width'])) {
                 $image->width($imageSettings['resize']['width']);
@@ -183,63 +296,6 @@ class EditorJsImageUploadController extends Controller
             $image->save();
         } catch (InvalidManipulation $exception) {
             report($exception);
-        }
-    }
-
-    /**
-     * @param $path
-     * @return array
-     */
-    private function applyThumbnails($path)
-    {
-        $thumbnailSettings = config('nova-editor-js.toolSettings.image.thumbnails');
-
-        $generatedThumbnails = [];
-
-        if (!empty($thumbnailSettings)) {
-            foreach ($thumbnailSettings as $thumbnailName => $setting) {
-                $filename = pathinfo($path, PATHINFO_FILENAME);
-                $extension = pathinfo($path, PATHINFO_EXTENSION);
-
-                $newThumbnailName = $filename . $thumbnailName . '.' . $extension;
-                $newThumbnailPath = config('nova-editor-js.toolSettings.image.path') . '/' . $newThumbnailName;
-
-                Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->copy($path, $newThumbnailPath);
-
-                if (config('nova-editor-js.toolSettings.image.disk') !== 'local') {
-                    Storage::disk('local')->copy($path, $newThumbnailPath);
-                    $newPath = Storage::disk('local')->path($newThumbnailPath);
-                } else {
-                    $newPath = Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->path($newThumbnailPath);
-                }
-
-                $this->applyAlterations($newPath, $setting);
-
-                $generatedThumbnails[] = Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($newThumbnailPath);
-            }
-        }
-
-        return $generatedThumbnails;
-    }
-
-
-    /**
-     * @param $path
-     */
-    private function deleteThumbnails($path)
-    {
-        $thumbnailSettings = config('nova-editor-js.toolSettings.image.thumbnails');
-
-        if (!empty($thumbnailSettings)) {
-            foreach ($thumbnailSettings as $thumbnailName => $setting) {
-                $filename = pathinfo($path, PATHINFO_FILENAME);
-                $extension = pathinfo($path, PATHINFO_EXTENSION);
-
-                $newThumbnailName = $filename . $thumbnailName . '.' . $extension;
-                $newThumbnailPath = config('nova-editor-js.toolSettings.image.path') . '/' . $newThumbnailName;
-
-                Storage::disk('local')->delete($path, $newThumbnailPath);
-            }
         }
     }
 }

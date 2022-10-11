@@ -9,6 +9,7 @@ use finfo;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -35,7 +36,7 @@ class EditorJsImageUploadControllerTest extends TestCase
      */
     public function testImageUpload(string $path): void
     {
-        Storage::fake();
+        Storage::fake('local');
         Storage::fake('public');
 
         $uploadedFile = UploadedFile::fake()->create('file', 1024, (new finfo())->file($path, FILEINFO_MIME_TYPE));
@@ -49,6 +50,7 @@ class EditorJsImageUploadControllerTest extends TestCase
 
         $responseUrl = $response->json('file.url');
         $this->assertNotEmpty($responseUrl, 'Response file URL is empty');
+        $this->assertCount(1, $response->json('file.thumbnails'), 'Response must contain one thumbnail');
 
         $storageBaseUrl = Storage::disk('public')->url('');
         $this->assertStringStartsWith($storageBaseUrl, $responseUrl, 'Response URL seems to not be in a public folder');
@@ -85,7 +87,7 @@ class EditorJsImageUploadControllerTest extends TestCase
      * @param string $file path to the file returned by the URL
      * @dataProvider provideValidFiles
      */
-    public function testValidImageUrlSubmission(string $file): void
+    public function testValidImageUrlSubmission(string $file, bool $isBitmap): void
     {
         Storage::fake();
         Storage::fake('public');
@@ -100,12 +102,13 @@ class EditorJsImageUploadControllerTest extends TestCase
 
         $responseUrl = $response->json('file.url');
         $this->assertNotEmpty($responseUrl, 'Response file URL is empty');
+        $this->assertCount(1, $response->json('file.thumbnails'), 'Response must contain one thumbnail');
 
         $storageBaseUrl = Storage::disk('public')->url('');
         $this->assertStringStartsWith($storageBaseUrl, $responseUrl, 'Response URL seems to not be in a public folder');
 
         $createdFiles = Storage::disk()->allFiles();
-        $this->assertCount(1, $createdFiles, 'Storage seems to not contain exactly one file');
+        $this->assertCount($isBitmap ? 2 : 1, $createdFiles, 'Storage seems to not contain exactly one file');
 
         $this->assertEquals(basename($createdFiles[0]), basename($responseUrl), 'Response URL filename doesn\'t match created file basename');
     }
@@ -170,11 +173,10 @@ class EditorJsImageUploadControllerTest extends TestCase
     public function provideValidFiles(): array
     {
         return [
-            'gif' => [test_resource('responses/image.gif')],
-            'jpg' => [test_resource('responses/image.jpg')],
-            'png' => [test_resource('responses/image.png')],
-            'svg' => [test_resource('responses/image.svg')],
-            'svg' => [test_resource('responses/image.svg')],
+            'gif' => [test_resource('responses/image.gif'), true],
+            'jpg' => [test_resource('responses/image.jpg'), true],
+            'png' => [test_resource('responses/image.png'), true],
+            'svg' => [test_resource('responses/image.svg'), false],
         ];
     }
 

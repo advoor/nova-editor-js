@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Advoor\NovaEditorJs;
 
+use Advoor\NovaEditorJs\Contracts\ImageUploadHandler;
+use Advoor\NovaEditorJs\Services\DefaultImageUploadHandler;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
@@ -72,6 +74,12 @@ class FieldServiceProvider extends ServiceProvider
         // Register the converter
         $this->app->singleton(NovaEditorJsConverter::class);
         $this->app->alias(NovaEditorJsConverter::class, 'nova-editor-js');
+
+        // Register the image handler service
+        $this->app->bind(
+            ImageUploadHandler::class,
+            config('nova-editor-js.services.image_upload', DefaultImageUploadHandler::class)
+        );
     }
 
     /**
