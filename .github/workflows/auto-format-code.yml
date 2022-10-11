@@ -2,8 +2,6 @@ name: Auto-format code
 
 on:
   push:
-    branches:
-      - master
 
 jobs:
   test:
