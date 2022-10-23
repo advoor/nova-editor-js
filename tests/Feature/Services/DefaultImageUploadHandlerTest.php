@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Advoor\NovaEditorJs\Tests\Feature\Services;
+namespace Tests\Feature\Services;
 
 use Advoor\NovaEditorJs\Contracts\ImageUploadHandler;
 use Advoor\NovaEditorJs\Services\DefaultImageUploadHandler;
