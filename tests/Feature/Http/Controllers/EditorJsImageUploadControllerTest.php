@@ -50,7 +50,13 @@ class EditorJsImageUploadControllerTest extends TestCase
 
         $responseUrl = $response->json('file.url');
         $this->assertNotEmpty($responseUrl, 'Response file URL is empty');
-        $this->assertCount(1, $response->json('file.thumbnails'), 'Response must contain one thumbnail');
+
+        if (pathinfo($path, PATHINFO_EXTENSION) === 'svg') {
+            $this->assertNull($response->json('file.thumbnails'), 'Response thumbnails must not be set for vector');
+        } else {
+            $this->assertCount(1, $response->json('file.thumbnails'), 'Response must contain one thumbnail');
+            $this->assertTrue(array_is_list($response->json('file.thumbnails')), 'Response thumbnails must be a list');
+        }
 
         $storageBaseUrl = Storage::disk('public')->url('');
         $this->assertStringStartsWith($storageBaseUrl, $responseUrl, 'Response URL seems to not be in a public folder');
@@ -102,7 +108,13 @@ class EditorJsImageUploadControllerTest extends TestCase
 
         $responseUrl = $response->json('file.url');
         $this->assertNotEmpty($responseUrl, 'Response file URL is empty');
-        $this->assertCount(1, $response->json('file.thumbnails'), 'Response must contain one thumbnail');
+
+        if (pathinfo($file, PATHINFO_EXTENSION) === 'svg') {
+            $this->assertNull($response->json('file.thumbnails'), 'Response thumbnails must not be set for vector');
+        } else {
+            $this->assertCount(1, $response->json('file.thumbnails'), 'Response must contain one thumbnail');
+            $this->assertTrue(array_is_list($response->json('file.thumbnails')), 'Response thumbnails must be a list');
+        }
 
         $storageBaseUrl = Storage::disk('public')->url('');
         $this->assertStringStartsWith($storageBaseUrl, $responseUrl, 'Response URL seems to not be in a public folder');

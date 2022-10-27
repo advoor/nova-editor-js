@@ -185,7 +185,6 @@ class EditorJsImageUploadController extends Controller
             if ($fileExtension === 'svg') {
                 return [
                     'url' => $fileUrl,
-                    'thumbnails' => array_map(fn () => $fileUrl, $thumbnailSettings),
                 ];
             }
 
@@ -211,7 +210,7 @@ class EditorJsImageUploadController extends Controller
                 $this->applyAlterations($thumbnailFile, $setting);
 
                 // Ask the image handler to save the thumbnail
-                $thumbnailUrls[$thumbnailName] = $this->uploadHandler->saveThumbnail($sourceFile, $thumbnailFile);
+                $thumbnailUrls[] = $this->uploadHandler->saveThumbnail($sourceFile, $thumbnailFile);
             }
         } catch (RuntimeException $exception) {
             report($exception);
