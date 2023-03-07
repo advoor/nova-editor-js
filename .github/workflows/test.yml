@@ -71,8 +71,8 @@ jobs:
         run: |
           echo "phpunit_version=$( vendor/bin/phpunit --version | cut -d ' ' -f 2 )" >> $GITHUB_OUTPUT
           vendor/bin/phpunit \
-            --log-junit=./report-junit.xml \
-            --coverage-clover=./coverage-clover.xml
+            --log-junit ./report-junit.xml \
+            --coverage-clover ./coverage-clover.xml
 
       - name: Report test results
         if: ${{ success() || failure() }}
