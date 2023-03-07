@@ -184,7 +184,7 @@ class EditorJsImageUploadControllerTest extends TestCase
      */
     public static function provideValidFilesForImageUpload(): array
     {
-        return Arr::except($this->provideValidFiles(), [
+        return Arr::except(self::provideValidFiles(), [
             'svg',
         ]);
     }
