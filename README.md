@@ -26,7 +26,7 @@ Please use the below table to find which versions are suitable for your installa
 
 | Package version | Nova Version | Laravel Version | PHP version |
 | --------------- | ------------ | --------------- | ----------- |
-| `3.x`           | 4.x          | 8.x - 9.x       | 8.1+        |
+| `3.x`           | 4.x          | 8.x - 10.x      | 8.1+        |
 | `2.x`           | 2.x - 3.x    | 5.x - 8.x       | 5.6 - 7.4   |
 
 Note that we really pushed the PHP version up. If you're staying on
