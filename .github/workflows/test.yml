@@ -87,6 +87,6 @@ jobs:
         continue-on-error: true
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          coverage_path: ./coverage.xml
+          coverage_path: ./coverage-clover.xml
           threshold_alert: 60
           threshold_warning: 85
