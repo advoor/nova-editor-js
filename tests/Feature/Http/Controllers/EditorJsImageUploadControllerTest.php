@@ -167,7 +167,7 @@ class EditorJsImageUploadControllerTest extends TestCase
      * Provides a list of valid image files to test.
      * @return string[][]
      */
-    public function provideValidFiles(): array
+    public static function provideValidFiles(): array
     {
         return [
             'gif' => [test_resource('responses/image.gif')],
@@ -182,7 +182,7 @@ class EditorJsImageUploadControllerTest extends TestCase
      * Provides a subset of the available image formats, since svg isn't supported by the GD library.
      * @return string[][]
      */
-    public function provideValidFilesForImageUpload(): array
+    public static function provideValidFilesForImageUpload(): array
     {
         return Arr::except($this->provideValidFiles(), [
             'svg',
