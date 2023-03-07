@@ -119,7 +119,6 @@ class EditorJsImageUploadController extends Controller
     }
 
     /**
-     * @param $path
      * @param array $alterations
      */
     private function applyAlterations($path, $alterations = [])
@@ -187,7 +186,6 @@ class EditorJsImageUploadController extends Controller
     }
 
     /**
-     * @param $path
      * @return array
      */
     private function applyThumbnails($path)
@@ -224,7 +222,6 @@ class EditorJsImageUploadController extends Controller
 
 
     /**
-     * @param $path
      */
     private function deleteThumbnails($path)
     {
