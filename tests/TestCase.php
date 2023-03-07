@@ -20,8 +20,9 @@ class TestCase extends OrchestraTestCase
      * Ensure the HTTP Client requests have a method to prevent stray requests (without logic)
      * @before
      */
-    protected function repairLaravel8Compatibiliy() {
-        if (! \Composer\InstalledVersions::satisfies(new \Composer\Semver\VersionParser, 'illuminate/support', '^8.0')) {
+    protected function repairLaravel8Compatibiliy()
+    {
+        if (! \Composer\InstalledVersions::satisfies(new \Composer\Semver\VersionParser(), 'illuminate/support', '^8.0')) {
             return;
         }
 
