@@ -147,7 +147,6 @@ class NovaEditorJsConverter
     }
 
     /**
-     * @param $blockData
      * @return string
      */
     protected function calculateImageClasses($blockData)
