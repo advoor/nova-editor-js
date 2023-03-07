@@ -69,7 +69,7 @@ jobs:
       - name: Run unit tests with coverage and printer
         id: phpunit
         run: |
-          echo "phpunit_version=$( vendor/bin/phpunit --version | cut -w -f 2 )" >> $GITHUB_OUTPUT
+          echo "phpunit_version=$( vendor/bin/phpunit --version | cut -d ' ' -f 2 )" >> $GITHUB_OUTPUT
           vendor/bin/phpunit \
             --log-junit=./report-junit.xml \
             --coverage-clover=./coverage-clover.xml
