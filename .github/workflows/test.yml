@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    name: Test on PHP ${{ matrix.php }}
+    name: Test Laravel ${{ matrix.laravel }} on PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental == true }}
 
@@ -17,54 +17,72 @@ jobs:
       matrix:
         php:
           - '8.1'
+          - '8.2'
           - 'nightly'
 
+        laravel:
+          - '8.0'
+          - '9.0'
+          - '10.0'
+
         include:
+          - php: '8.2'
+            laravel: '9.0'
+            stable: true
           - php: 'nightly'
             experimental: true
+          - laravel: '8.0'
+            testbench: '6.0'
+          - laravel: '9.0'
+            testbench: '7.0'
+          - laravel: '10.0'
+            testbench: '8.0'
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@master
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           extensions: exif,json,mbstring
           coverage: pcov
 
-      - name: Setup problem matchers
-        run: |
-          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
-
       - name: Remove platform from Composer file
         run: composer config --unset platform
 
-      - name: Add GitHub Actions printer for PHPUnit
-        run: composer require --dev --no-update mheap/phpunit-github-actions-printer
+      - name: Configure to use Laravel ${{ matrix.laravel }} with Testbench ${{ matrix.testbench }}
+        run: |
+          composer require --no-update laravel/laravel:^${{ matrix.laravel }}
+          composer require --no-update --dev orchestra/testbench:^${{ matrix.testbench }}
 
       - name: Configure local Laravel Nova dummy package
         run: composer config repositories.0 path ./tests/Fixtures/nova
 
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v1
+        uses: ramsey/composer-install@v2
         with:
           composer-options: "--ignore-platform-req=php"
-          dependency-versions: highest # No lockfile is present, so locked (the default) isn't possible
+          dependency-versions: highest # We're installing additional packages, and cannot use the lockfile
 
-      - name: Lint code
-        run: composer run lint
+      - name: Run unit tests with coverage and printer
+        id: phpunit
+        run: |
+          echo "phpunit_version=$( vendor/bin/phpunit --version | cut -w -f 2 )" >> $GITHUB_OUTPUT
+          vendor/bin/phpunit \
+            --log-junit=./report-junit.xml \
+            --coverage-clover=./coverage-clover.xml
 
-      - name: Run unit tests
-        run:
-          vendor/bin/phpunit
-            --printer mheap\\GithubActionsReporter\\Printer
-            --coverage-clover=./coverage.xml
+      - name: Report test results
+        if: ${{ success() || failure() }}
+        uses: mikepenz/action-junit-report@v3
+        with:
+          report_paths: ./report-junit.xml
 
       - name: Determine coverage
-        uses: slavcodev/coverage-monitor-action@1.1.0
-        if: github.event_name == 'pull_request' && matrix.experimental != true
+        uses: slavcodev/coverage-monitor-action@1.8.0
+        if: ${{ github.event_name == 'pull_request' && matrix.stable == true }}
         continue-on-error: true
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

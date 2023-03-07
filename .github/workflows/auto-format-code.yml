@@ -1,9 +1,18 @@
-name: Auto-format code
+name: Verify code formatting
 
 on:
+  pull_request:
+    branches:
+      - develop
+      - master
   push:
     branches:
-      - master
+      - develop
+
+permissions:
+  # Give the default GITHUB_TOKEN write permission to commit and push the
+  # added or changed files to the repository.
+  contents: write
 
 jobs:
   test:
@@ -12,14 +21,9 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@master
+        uses: actions/checkout@v3
         with:
-          php-version: '8.1'
-          extensions: exif,json,mbstring
-          coverage: none
+          fetch-depth: 0
 
       - name: Setup NodeJS
         uses: actions/setup-node@v3
@@ -27,25 +31,49 @@ jobs:
           node-version: lts/*
           cache: 'npm'
 
+      - name: Install NodeJS dependencies
+        run: npm install --verbose --foreground-scripts
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: exif,json,mbstring
+          coverage: none
+
       - name: Configure local Laravel Nova dummy package
-        run: composer config repositories.0 path ./tests/Fixtures/nova
+        run: |
+          composer config repositories.0 path ./tests/Fixtures/nova
+          git update-index --assume-unchanged composer.json composer.lock
 
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v1
+        uses: ramsey/composer-install@v2
         with:
           composer-options: "--ignore-platform-req=php"
           dependency-versions: highest # No lockfile is present, so locked (the default) isn't possible
-
-      - name: Install NodeJS dependencies
-        run: npm install
 
       - name: Lint code
         run: |
           composer run format
           npm run format
 
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Report changes
+        id: report-changes
+        run: |
+          git diff --color=always
+          echo "    > git diff --shortstat" >> $GITHUB_STEP_SUMMARY
+          echo "    $( git diff --shortstat )" >> $GITHUB_STEP_SUMMARY
+          echo "HAS_CHANGES=$( git diff --quiet && echo 'no' || echo 'yes' )" >> $GITHUB_OUTPUT
+
+      - name: Fail on changes (pull request only)
+        if: ${{ github.event_name == 'pull_request' && steps.report-changes.outputs.HAS_CHANGES == 'yes' }}
+        run: |
+          echo '::error title=Linting caused changes::Some files were modified by the linter, please run `composer format` to fix these'
+          exit 1
+
+      - name: Commit changes (push only)
+        if: ${{ github.event_name == 'push' }}
+        uses: stefanzweifel/git-auto-commit-action@v4.16.0
         with:
           commit_message: Fixed code style using PHP-CS-Fixer
 
