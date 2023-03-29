@@ -113,7 +113,7 @@ class EditorJsImageUploadController extends Controller
         return response()->json([
             'success' => 1,
             'file' => [
-                'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($nameWithPath)
+                'url' => $this->getFileUrl($nameWithPath)
             ]
         ]);
     }
@@ -213,7 +213,7 @@ class EditorJsImageUploadController extends Controller
 
                 $this->applyAlterations($newPath, $setting);
 
-                $generatedThumbnails[] = Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($newThumbnailPath);
+                $generatedThumbnails[] = $this->getFileUrl($newThumbnailPath);
             }
         }
 
