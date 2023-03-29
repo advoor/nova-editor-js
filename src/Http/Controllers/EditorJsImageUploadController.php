@@ -66,7 +66,7 @@ class EditorJsImageUploadController extends Controller
         return response()->json([
             'success' => 1,
             'file' => [
-                'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($path),
+                'url' => $this->getFileUrl($path),
                 'thumbnails' => $thumbnails
             ]
         ]);
@@ -113,7 +113,7 @@ class EditorJsImageUploadController extends Controller
         return response()->json([
             'success' => 1,
             'file' => [
-                'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($nameWithPath)
+                'url' => $this->getFileUrl($nameWithPath)
             ]
         ]);
     }
@@ -213,7 +213,7 @@ class EditorJsImageUploadController extends Controller
 
                 $this->applyAlterations($newPath, $setting);
 
-                $generatedThumbnails[] = Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($newThumbnailPath);
+                $generatedThumbnails[] = $this->getFileUrl($newThumbnailPath);
             }
         }
 
@@ -238,5 +238,21 @@ class EditorJsImageUploadController extends Controller
                 Storage::disk('local')->delete($path, $newThumbnailPath);
             }
         }
+    }
+
+    /**
+     * This function returns a file URL based on the selected disk.
+     * If the selected disk is S3 and temporaryUrl is activated,
+     * it will return a temporary URL.
+     */
+    private function getFileUrl(string $path): string
+    {
+        if (config('nova-editor-js.toolSettings.image.disk') !== 's3' || !config('nova-editor-js.toolSettings.image.temporaryUrl.activated')) {
+            return Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($path);
+        }
+
+        $expiration = now()->addMinutes(config('nova-editor-js.toolSettings.image.temporaryUrl.expiration'));
+
+        return Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->temporaryUrl($path, $expiration);
     }
 }
