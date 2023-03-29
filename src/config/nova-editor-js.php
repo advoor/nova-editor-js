@@ -41,6 +41,10 @@ return [
             'shortcut' => 'CMD+SHIFT+I',
             'path' => 'public/images',
             'disk' => 'local',
+            'temporaryUrl' => [
+                'activated' => false,
+                'expiration' => 5, // in minutes
+            ],
             'alterations' => [
                 'resize' => [
                     'width' => false, // integer
