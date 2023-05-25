@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Advoor\NovaEditorJs\Http\Controllers;
 
+use Advoor\NovaEditorJs\Events\EditorJsImageUploaded;
+use Advoor\NovaEditorJs\Events\EditorJsThumbnailCreated;
 use finfo;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException;
@@ -63,6 +65,8 @@ class EditorJsImageUploadController extends Controller
             $thumbnails = $this->applyThumbnails($path);
         }
 
+        event(new EditorJsImageUploaded(config('nova-editor-js.toolSettings.image.disk'), $path));
+
         return response()->json([
             'success' => 1,
             'file' => [
@@ -109,6 +113,7 @@ class EditorJsImageUploadController extends Controller
         $urlBasename = basename(parse_url(url($url), PHP_URL_PATH));
         $nameWithPath = config('nova-editor-js.toolSettings.image.path') . '/' . uniqid() . $urlBasename;
         Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->put($nameWithPath, $response->body());
+        event(new EditorJsImageUploaded(config('nova-editor-js.toolSettings.image.disk'), $nameWithPath));
 
         return response()->json([
             'success' => 1,
@@ -212,6 +217,8 @@ class EditorJsImageUploadController extends Controller
                 }
 
                 $this->applyAlterations($newPath, $setting);
+
+                event(new EditorJsThumbnailCreated(config('nova-editor-js.toolSettings.image.disk'), $newThumbnailPath));
 
                 $generatedThumbnails[] = Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($newThumbnailPath);
             }

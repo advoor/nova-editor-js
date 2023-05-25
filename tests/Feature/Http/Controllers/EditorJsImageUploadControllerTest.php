@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Controllers;
 
+use Advoor\NovaEditorJs\Events\EditorJsImageUploaded;
+use Advoor\NovaEditorJs\Events\EditorJsThumbnailCreated;
 use Advoor\NovaEditorJs\Http\Controllers\EditorJsImageUploadController;
 use finfo;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -37,6 +41,8 @@ class EditorJsImageUploadControllerTest extends TestCase
     {
         Storage::fake();
         Storage::fake('public');
+        $fake = Event::fake();
+        DB::setEventDispatcher($fake);
 
         $uploadedFile = UploadedFile::fake()->create('file', 1024, (new finfo())->file($path, FILEINFO_MIME_TYPE));
         if ($fp = $uploadedFile->openFile('w')) {
@@ -61,6 +67,8 @@ class EditorJsImageUploadControllerTest extends TestCase
             fn ($file) => Str::endsWith($file, basename($responseUrl)),
         );
 
+        Event::assertDispatched(EditorJsImageUploaded::class);
+        Event::assertDispatched(EditorJsThumbnailCreated::class);
         $this->assertCount(1, $filesThatLookLikeTheUpload, 'Storage doesn\'t seem to contain a file with the same name as the returned URL');
     }
 
@@ -89,6 +97,8 @@ class EditorJsImageUploadControllerTest extends TestCase
     {
         Storage::fake();
         Storage::fake('public');
+        $fake = Event::fake();
+        DB::setEventDispatcher($fake);
 
         Http::fake([
             'https://example.com/image.bin' => Http::response(file_get_contents($file)),
@@ -107,6 +117,7 @@ class EditorJsImageUploadControllerTest extends TestCase
         $createdFiles = Storage::disk()->allFiles();
         $this->assertCount(1, $createdFiles, 'Storage seems to not contain exactly one file');
 
+        Event::assertDispatched(EditorJsImageUploaded::class);
         $this->assertEquals(basename($createdFiles[0]), basename($responseUrl), 'Response URL filename doesn\'t match created file basename');
     }
 
