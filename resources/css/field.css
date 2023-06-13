@@ -9,12 +9,14 @@
     border-radius: .5rem;
     -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05);
+    padding-top: 20px;
 }
 
 .editor-js h1,
 .editor-js h2,
 .editor-js h3,
-.editor-js h4 {
+.editor-js h4,
+.editor-js h5 {
     color: #374151;
 }
 
@@ -206,4 +208,59 @@
         max-width: 768px;
         width: calc(100% - 100px) !important;
     }
+}
+
+/* Dark Mode */
+.dark .editor-js {
+    color: rgba(var(--colors-gray-400));
+    background-color: rgba(var(--colors-gray-900));
+    border-color: rgba(var(--colors-gray-700)) !important;
+}
+
+.dark .editor-js .ce-block__content *::selection,
+.dark .editor-js .ce-block--selected .cdx-block,
+.dark .editor-js .ce-block--selected .ce-header {
+    background-color: rgba(var(--colors-gray-300)) !important;
+    color: rgba(var(--colors-gray-900)) !important;
+}
+
+.dark .editor-js h1,
+.dark .editor-js h2,
+.dark .editor-js h3,
+.dark .editor-js h4,
+.dark .editor-js h5 {
+    color: rgba(var(--colors-gray-300));
+}
+
+.dark .editor-js .ce-toolbar__plus,
+.dark .editor-js .ce-toolbar__settings-btn {
+    color: rgba(var(--colors-gray-400));
+}
+
+.dark .editor-js .inline-code {
+    color: rgba(var(--colors-red-300));
+    background-color: rgba(var(--colors-gray-800));
+}
+
+.dark .editor-js .cdx-marker {
+    color: rgba(var(--colors-gray-200));
+    background-color: rgba(var(--colors-yellow-600), 0.4);
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.dark .editor-js .ce-code textarea,
+.dark .editor-js .ce-rawtool textarea {
+    border: none;
+    border-radius: 5px;
+    color: rgba(var(--colors-gray-200));
+    background-color: rgba(var(--colors-gray-800));
+}
+
+.dark .editor-js .tc-table,
+.dark .editor-js .tc-table .tc-row,
+.dark .editor-js .tc-table .tc-row::after,
+.dark .editor-js .tc-table .tc-row .tc-cell,
+.dark .editor-js .tc-add-column {
+    border-color: rgba(var(--colors-gray-600));
 }
