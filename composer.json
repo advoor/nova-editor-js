@@ -16,7 +16,7 @@
         "codex-team/editor.js": "*",
         "guzzlehttp/guzzle": "^6.0|^7.0",
         "illuminate/support": "^8.0 || ^9.0 || ^10.0",
-        "laravel/framework": "^8.0 || ^9.0 || ^10.0",
+        "illuminate/events": "^8.0 || ^9.0 || ^10.0",
         "laravel/nova": "^4.0",
         "spatie/image": "^1.7 || ^2.0"
     },
