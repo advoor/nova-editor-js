@@ -54,7 +54,6 @@ jobs:
 
       - name: Configure to use Laravel ${{ matrix.laravel }} with Testbench ${{ matrix.testbench }}
         run: |
-          composer require --no-update laravel/framework:^${{ matrix.laravel }}
           composer require --no-update laravel/laravel:^${{ matrix.laravel }}
           composer require --no-update --dev orchestra/testbench:^${{ matrix.testbench }}
 
