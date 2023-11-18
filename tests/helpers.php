@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Support\Str;
 
-if (! function_exists('test_path')) {
+if (!function_exists('test_path')) {
     /**
      * Returns the absolute path to the given test file.
      */
@@ -14,7 +14,7 @@ if (! function_exists('test_path')) {
     }
 }
 
-if (! function_exists('test_resource')) {
+if (!function_exists('test_resource')) {
     /**
      * Returns the absolute path to the given test resource.
      */

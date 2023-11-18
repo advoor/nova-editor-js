@@ -48,7 +48,7 @@ class NovaEditorJsCast implements CastsAttributes
     {
         try {
             // Recursively decode JSON, to solve a bug where the JSON is double-encoded.
-            while (is_string($value) && ! empty($value)) {
+            while (is_string($value) && !empty($value)) {
                 $value = json_decode($value, true, 512, JSON_THROW_ON_ERROR);
             }
 

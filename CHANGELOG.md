@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [UNRELEASED]
 
+### Fixed
+
+- Fixed invalid image reference image.url in views/link.blade.php
+
+### Deprecated
+
+- Deprecated support for Laravel 8.x. It might still work, but we're not testing it anymore.
+
 ## [3.1.0]
 
 ### Added

@@ -22,7 +22,7 @@ class TestCase extends OrchestraTestCase
      */
     protected function repairLaravel8Compatibiliy()
     {
-        if (! \Composer\InstalledVersions::satisfies(new \Composer\Semver\VersionParser(), 'illuminate/support', '^8.0')) {
+        if (!\Composer\InstalledVersions::satisfies(new \Composer\Semver\VersionParser(), 'illuminate/support', '^8.0')) {
             return;
         }
 

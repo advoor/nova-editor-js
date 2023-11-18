@@ -100,7 +100,7 @@ class EditorJsImageUploadController extends Controller
 
         // Validate mime type
         $mime = (new finfo())->buffer($response->body(), FILEINFO_MIME_TYPE);
-        if (! in_array($mime, self::VALID_IMAGE_MIMES, true)) {
+        if (!in_array($mime, self::VALID_IMAGE_MIMES, true)) {
             return response()->json([
                 'success' => 0,
             ]);
