@@ -25,7 +25,7 @@ class NovaEditorJsData extends Fluent implements Htmlable, Stringable
             $attributes = json_decode($attributes);
         }
 
-        if (! is_iterable($attributes)) {
+        if (!is_iterable($attributes)) {
             $attributes = Arr::wrap($attributes);
         }
 
