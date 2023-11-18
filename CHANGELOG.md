@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [UNRELEASED]
 
+### Fixed
+
+- Fixed invalid image reference image.url in views/link.blade.php
+
 ## [3.1.0]
 
 ### Added
