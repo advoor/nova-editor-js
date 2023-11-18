@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  test-laravel:
     name: Test Laravel ${{ matrix.laravel }} on PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental == true }}
