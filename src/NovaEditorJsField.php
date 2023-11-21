@@ -62,7 +62,7 @@ class NovaEditorJsField extends Field
             return;
         }
 
-        if (! is_callable($this->displayCallback) || $value === $placeholder) {
+        if (!is_callable($this->displayCallback) || $value === $placeholder) {
             return;
         }
 

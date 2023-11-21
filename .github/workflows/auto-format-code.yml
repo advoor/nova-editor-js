@@ -15,7 +15,7 @@ permissions:
   contents: write
 
 jobs:
-  test:
+  test-formatting:
     name: Auto-format code using php-cs-fixer
     runs-on: ubuntu-latest
 

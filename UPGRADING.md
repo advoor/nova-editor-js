@@ -8,6 +8,7 @@ The following deprecations from 3.x have been removed in 4.x:
 
 - `Advoor\NovaEditorJs\NovaEditorJs::make`, use `Advoor\NovaEditorJs\NovaEditorJsField::make` instead
 - Config setting `editorSettings.initialBlock`, use `editorSettings.defaultBlock` instead
+- Support for Laravel 8.x has been dropped.
 
 ## From 2.x to 3.x (Laravel Nova 4.x)
 

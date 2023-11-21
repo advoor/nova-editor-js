@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  test-laravel:
     name: Test Laravel ${{ matrix.laravel }} on PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental == true }}
@@ -21,18 +21,16 @@ jobs:
           - 'nightly'
 
         laravel:
-          - '8.0'
           - '9.0'
           - '10.0'
 
         include:
           - php: '8.2'
-            laravel: '9.0'
+            laravel: '10.0'
             stable: true
           - php: 'nightly'
             experimental: true
-          - laravel: '8.0'
-            testbench: '6.0'
+
           - laravel: '9.0'
             testbench: '7.0'
           - laravel: '10.0'
@@ -76,10 +74,15 @@ jobs:
 
       - name: Report test results
         if: ${{ success() || failure() }}
-        uses: mikepenz/action-junit-report@v3
+        uses: mikepenz/action-junit-report@v4
         with:
           report_paths: ./report-junit.xml
-          check_name: Test Results Laravel ${{ matrix.laravel }} on PHP ${{ matrix.php }} with PHPUnit ${{ steps.phpunit.outputs.phpunit_version }}
+          check_name: Laravel ${{ matrix.laravel }}, PHP ${{ matrix.php }} (PHPUnit ${{ steps.phpunit.outputs.phpunit_version }})
+          summary: |
+            PHP version: `${{ matrix.php }}`
+            Laravel version: `${{ matrix.laravel }}`
+            Testbench version: `${{ matrix.testbench }}`
+            PHPUnit version: `${{ steps.phpunit.outputs.phpunit_version }}`
 
       - name: Determine coverage
         uses: slavcodev/coverage-monitor-action@1.8.0
