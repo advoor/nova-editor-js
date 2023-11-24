@@ -10,7 +10,6 @@ use Illuminate\Foundation\Events\Dispatchable;
 class EditorJsImageUploaded
 {
     use Dispatchable;
-    use InteractsWithSockets;
 
     public function __construct(public string $disk, public string $path)
     {
