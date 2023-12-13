@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [UNRELEASED]
 
+- Added `EditorJsImageUploaded` event that triggers when an image is uploaded. Via #98 by @woeler.
+- Added `EditorJsThumbnailCreated` event that triggers when a thumbnail is generated. Via #98 by @woeler.
+
 ## [3.3.0]
 
 - Fixed invalid image reference `image.url` in `views/link.blade.php`, via #101 by @roelofr.
