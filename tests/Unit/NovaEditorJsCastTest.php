@@ -6,14 +6,14 @@ namespace Tests\Unit;
 
 use Advoor\NovaEditorJs\NovaEditorJsCast;
 use Advoor\NovaEditorJs\NovaEditorJsData;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Tests\Fixtures\Models\Dummy;
 
 class NovaEditorJsCastTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     private const VALID_BLOCK = [
         'time' => 1658064476,
