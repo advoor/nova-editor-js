@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added `EditorJsImageUploaded` event that triggers when an image is uploaded. Via #98 by @woeler.
 - Added `EditorJsThumbnailCreated` event that triggers when a thumbnail is generated. Via #98 by @woeler.
+- Added Laravel 11 support. Via #104 by @woeler.
+- Dropped Laravel 9 support. Via #104 by @woeler.
 
 ## [3.3.0]
 
