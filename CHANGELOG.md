@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `EditorJsThumbnailCreated` event that triggers when a thumbnail is generated. Via #98 by @woeler.
 - Added Laravel 11 support. Via #104 by @woeler.
 - Dropped Laravel 9 support. Via #104 by @woeler.
+- Updated GitHub Actions to Node v20, via #106 by @roelofr.
+- Updated auto-formatter to use PHP 8.3, via #106 by @roelofr.
 
 ## [3.3.0]
 
