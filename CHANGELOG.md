@@ -11,18 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added Laravel 11 support. Via #104 by @woeler.
-- Added `EditorJsImageUploaded` event that triggers when an image is uploaded. Via #98 by @woeler.
-- Added `EditorJsThumbnailCreated` event that triggers when a thumbnail is generated. Via #98 by @woeler.
+- Added Laravel 11 support, via #104 by @woeler.
+- Added `EditorJsImageUploaded` event that triggers when an image is uploaded, via #98 by @woeler.
+- Added `EditorJsThumbnailCreated` event that triggers when a thumbnail is generated, via #98 by @woeler.
 
 ### Changed
--
+
 - Changed GitHub Actions to Node v20, via #106 by @roelofr.
 - Changed auto-formatter to use PHP 8.3, via #106 by @roelofr.
 
 ### Removed
 
-- Removed Laravel 9 support. Via #104 by @woeler.
+- Removed Laravel 9 support, via #104 by @woeler.
 
 ## [3.3.0]
 
