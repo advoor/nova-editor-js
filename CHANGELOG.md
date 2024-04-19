@@ -7,12 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [UNRELEASED]
 
+## [4.0.0]
+
+### Added
+
+- Added Laravel 11 support. Via #104 by @woeler.
 - Added `EditorJsImageUploaded` event that triggers when an image is uploaded. Via #98 by @woeler.
 - Added `EditorJsThumbnailCreated` event that triggers when a thumbnail is generated. Via #98 by @woeler.
-- Added Laravel 11 support. Via #104 by @woeler.
-- Dropped Laravel 9 support. Via #104 by @woeler.
-- Updated GitHub Actions to Node v20, via #106 by @roelofr.
-- Updated auto-formatter to use PHP 8.3, via #106 by @roelofr.
+
+### Changed
+-
+- Changed GitHub Actions to Node v20, via #106 by @roelofr.
+- Changed auto-formatter to use PHP 8.3, via #106 by @roelofr.
+
+### Removed
+
+- Removed Laravel 9 support. Via #104 by @woeler.
 
 ## [3.3.0]
 
@@ -144,6 +154,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 For older changes before v2.0.0, please see the [releases page](https://github.com/advoor/nova-editor-js/releases).
 
 [unreleased]: https://github.com/advoor/nova-editor-js/compare/v3.3.0..master
+[4.0.0]: https://github.com/advoor/nova-editor-js/releases/v4.0.0
 [3.3.0]: https://github.com/advoor/nova-editor-js/releases/v3.3.0
 [3.2.1]: https://github.com/advoor/nova-editor-js/releases/v3.2.1
 [3.2.0]: https://github.com/advoor/nova-editor-js/releases/v3.2.0

@@ -2,13 +2,13 @@
 
 This guide describes how to upgrade this application.
 
-## 3.x to 4.x (next release)
+## 3.x to 4.x
 
 The following deprecations from 3.x have been removed in 4.x:
 
 - `Advoor\NovaEditorJs\NovaEditorJs::make`, use `Advoor\NovaEditorJs\NovaEditorJsField::make` instead
 - Config setting `editorSettings.initialBlock`, use `editorSettings.defaultBlock` instead
-- Support for Laravel 8.x has been dropped.
+- Support for Laravel 8.x and Laravel 9.x has been dropped.
 
 ## From 2.x to 3.x (Laravel Nova 4.x)
 
