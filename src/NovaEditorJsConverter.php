@@ -15,6 +15,7 @@ class NovaEditorJsConverter
 {
     /**
      * List of callbacks that can render blocks
+     *
      * @var array<Closure>
      */
     protected array $renderCallbacks = [];
@@ -27,8 +28,8 @@ class NovaEditorJsConverter
     /**
      * Add a custom render callback for the given block.
      *
-     * @param string   $block  Name of the block, as defined in the JSON
-     * @param callable $callback  Closure that returns a string (or a Stringable)
+     * @param  string  $block  Name of the block, as defined in the JSON
+     * @param  callable  $callback  Closure that returns a string (or a Stringable)
      */
     public function addRender(string $block, callable $callback): void
     {
@@ -47,7 +48,7 @@ class NovaEditorJsConverter
         }
 
         // Clean non-string data
-        if (!is_string($data)) {
+        if (! is_string($data)) {
             try {
                 $data = json_encode($data, JSON_THROW_ON_ERROR);
             } catch (JsonException $exception) {
@@ -106,7 +107,7 @@ class NovaEditorJsConverter
         $this->addRender(
             'image',
             fn ($block) => view('nova-editor-js::image', array_merge($block['data'], [
-                'classes' => $this->calculateImageClasses($block['data'])
+                'classes' => $this->calculateImageClasses($block['data']),
             ]))->render()
         );
 

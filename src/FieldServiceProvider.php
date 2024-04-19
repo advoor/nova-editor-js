@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Advoor\NovaEditorJs;
 
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Laravel\Nova\Nova;
-use Laravel\Nova\Events\ServingNova;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
+use Laravel\Nova\Events\ServingNova;
+use Laravel\Nova\Nova;
 
 /**
  * @property-read \Illuminate\Foundation\Application $app
@@ -27,21 +27,21 @@ class FieldServiceProvider extends ServiceProvider
         });
 
         $this->publishes([
-            __DIR__ . '/config/nova-editor-js.php' => base_path('config/nova-editor-js.php'),
+            __DIR__.'/config/nova-editor-js.php' => base_path('config/nova-editor-js.php'),
         ], 'editorjs-config');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/nova-editor-js'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/nova-editor-js'),
         ], 'views');
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'nova-editor-js');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'nova-editor-js');
 
         Nova::serving(function (ServingNova $event) {
-            Nova::script('nova-editor-js', __DIR__ . '/../dist/js/field.js');
-            Nova::style('nova-editor-js', __DIR__ . '/../dist/css/field.css');
+            Nova::script('nova-editor-js', __DIR__.'/../dist/js/field.js');
+            Nova::style('nova-editor-js', __DIR__.'/../dist/css/field.css');
         });
 
-        if (!$this->app->configurationIsCached() && !$this->app->isProduction()) {
+        if (! $this->app->configurationIsCached() && ! $this->app->isProduction()) {
             $this->checkForConfigDeprecations();
         }
     }
@@ -59,7 +59,7 @@ class FieldServiceProvider extends ServiceProvider
 
         Route::middleware(['nova'])
             ->prefix('nova-vendor/editor-js-field')
-            ->group(__DIR__ . '/../routes/api.php');
+            ->group(__DIR__.'/../routes/api.php');
     }
 
     /**
@@ -76,7 +76,6 @@ class FieldServiceProvider extends ServiceProvider
 
     /**
      * Check for deprecated config keys.
-     *
      */
     protected function checkForConfigDeprecations(): void
     {

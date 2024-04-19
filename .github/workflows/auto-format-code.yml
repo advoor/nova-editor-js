@@ -21,12 +21,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup NodeJS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: lts/*
           cache: 'npm'
@@ -37,20 +37,17 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.3'
           extensions: exif,json,mbstring
           coverage: none
 
       - name: Configure local Laravel Nova dummy package
         run: |
           composer config repositories.0 path ./tests/Fixtures/nova
-          git update-index --assume-unchanged composer.json composer.lock
+          git update-index --assume-unchanged composer.json
 
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v2
-        with:
-          composer-options: "--ignore-platform-req=php"
-          dependency-versions: highest # No lockfile is present, so locked (the default) isn't possible
+        uses: ramsey/composer-install@v3
 
       - name: Lint code
         run: |
@@ -72,8 +69,8 @@ jobs:
           exit 1
 
       - name: Commit changes (push only)
-        if: ${{ github.event_name == 'push' }}
-        uses: stefanzweifel/git-auto-commit-action@v4.16.0
+        if: github.event_name == 'push'
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: Fixed code style using PHP-CS-Fixer
+          commit_message:' chore: fixed code formatting issues'
 

@@ -10,9 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property NovaEditorJsData $data
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Dummy newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Dummy newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Dummy query()
+ *
  * @mixin \Eloquent
  */
 class Dummy extends Model

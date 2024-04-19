@@ -5,3 +5,4 @@
 .DS_Store
 Thumbs.db
 .php-cs-fixer.cache
+/composer.lock

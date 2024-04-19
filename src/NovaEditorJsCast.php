@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Advoor\NovaEditorJs;
 
-use Illuminate\Support\Str;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Support\Str;
 use JsonException;
 
 class NovaEditorJsCast implements CastsAttributes
@@ -26,11 +26,11 @@ class NovaEditorJsCast implements CastsAttributes
             'version' => self::BROKEN_VERSION,
             'blocks' => [
                 [
-                    "id" => Str::random(10),
+                    'id' => Str::random(10),
                     'type' => 'paragraph',
                     'data' => [
                         'text' => sprintf(
-                            "<b>Oh no!</b><br>It looks like this component failed to load.<br>Please contact your system administrator.<br>Error code: %s",
+                            '<b>Oh no!</b><br>It looks like this component failed to load.<br>Please contact your system administrator.<br>Error code: %s',
                             e($exceptionMessage)
                         ),
                     ],
@@ -48,7 +48,7 @@ class NovaEditorJsCast implements CastsAttributes
     {
         try {
             // Recursively decode JSON, to solve a bug where the JSON is double-encoded.
-            while (is_string($value) && !empty($value)) {
+            while (is_string($value) && ! empty($value)) {
                 $value = json_decode($value, true, 512, JSON_THROW_ON_ERROR);
             }
 

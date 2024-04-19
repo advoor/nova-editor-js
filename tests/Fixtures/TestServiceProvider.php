@@ -15,6 +15,6 @@ class TestServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->useDatabasePath(__DIR__ . '/database/');
+        $this->app->useDatabasePath(__DIR__.'/database/');
     }
 }

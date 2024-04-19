@@ -22,8 +22,8 @@ class LinkViewTest extends TestCase
                 'description' => 'This is a description',
             ],
         ])->assertSeeText('Example Domain')
-        ->assertSeeText('This is a description')
-        ->assertDontSee('<img');
+            ->assertSeeText('This is a description')
+            ->assertDontSee('<img');
     }
 
     /**
@@ -39,8 +39,8 @@ class LinkViewTest extends TestCase
                 'imageUrl' => 'https://example.com/image.jpg',
             ],
         ])->assertSeeText('Example Domain')
-        ->assertSeeText('This is a description')
-        ->assertSee('url(\'https://example.com/image.jpg\')', false);
+            ->assertSeeText('This is a description')
+            ->assertSee('url(\'https://example.com/image.jpg\')', false);
     }
 
     /**
@@ -59,8 +59,8 @@ class LinkViewTest extends TestCase
                 ],
             ],
         ])->assertSeeText('Example Domain')
-        ->assertSeeText('This is a description')
-        ->assertSee('url(\'https://example.com/image.jpg\')', false)
-        ->assertDontSee('This is a caption');
+            ->assertSeeText('This is a description')
+            ->assertSee('url(\'https://example.com/image.jpg\')', false)
+            ->assertDontSee('This is a caption');
     }
 }

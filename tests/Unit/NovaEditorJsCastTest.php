@@ -7,9 +7,9 @@ namespace Tests\Unit;
 use Advoor\NovaEditorJs\NovaEditorJsCast;
 use Advoor\NovaEditorJs\NovaEditorJsData;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
 use Tests\Fixtures\Models\Dummy;
+use Tests\TestCase;
 
 class NovaEditorJsCastTest extends TestCase
 {
@@ -21,9 +21,9 @@ class NovaEditorJsCastTest extends TestCase
             [
                 'type' => 'paragraph',
                 'data' => [
-                    'text' => 'Paragraph'
-                ]
-            ]
+                    'text' => 'Paragraph',
+                ],
+            ],
         ],
         'version' => '2.3.0',
     ];

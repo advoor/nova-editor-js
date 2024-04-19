@@ -71,8 +71,8 @@ class EditorJsImageUploadController extends Controller
             'success' => 1,
             'file' => [
                 'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($path),
-                'thumbnails' => $thumbnails
-            ]
+                'thumbnails' => $thumbnails,
+            ],
         ]);
     }
 
@@ -96,7 +96,7 @@ class EditorJsImageUploadController extends Controller
         // Fetch URL
         try {
             $response = Http::timeout(5)->get($url)->throw();
-        } catch (ConnectionException | RequestException) {
+        } catch (ConnectionException|RequestException) {
             return response()->json([
                 'success' => 0,
             ]);
@@ -104,27 +104,27 @@ class EditorJsImageUploadController extends Controller
 
         // Validate mime type
         $mime = (new finfo())->buffer($response->body(), FILEINFO_MIME_TYPE);
-        if (!in_array($mime, self::VALID_IMAGE_MIMES, true)) {
+        if (! in_array($mime, self::VALID_IMAGE_MIMES, true)) {
             return response()->json([
                 'success' => 0,
             ]);
         }
 
         $urlBasename = basename(parse_url(url($url), PHP_URL_PATH));
-        $nameWithPath = config('nova-editor-js.toolSettings.image.path') . '/' . uniqid() . $urlBasename;
+        $nameWithPath = config('nova-editor-js.toolSettings.image.path').'/'.uniqid().$urlBasename;
         Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->put($nameWithPath, $response->body());
         event(new EditorJsImageUploaded(config('nova-editor-js.toolSettings.image.disk'), $nameWithPath));
 
         return response()->json([
             'success' => 1,
             'file' => [
-                'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($nameWithPath)
-            ]
+                'url' => Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->url($nameWithPath),
+            ],
         ]);
     }
 
     /**
-     * @param array $alterations
+     * @param  array  $alterations
      */
     private function applyAlterations($path, $alterations = [])
     {
@@ -133,7 +133,7 @@ class EditorJsImageUploadController extends Controller
 
             $imageSettings = config('nova-editor-js.toolSettings.image.alterations');
 
-            if (!empty($alterations)) {
+            if (! empty($alterations)) {
                 $imageSettings = $alterations;
             }
 
@@ -141,46 +141,46 @@ class EditorJsImageUploadController extends Controller
                 return;
             }
 
-            if (!empty($imageSettings['resize']['width'])) {
+            if (! empty($imageSettings['resize']['width'])) {
                 $image->width($imageSettings['resize']['width']);
             }
 
-            if (!empty($imageSettings['resize']['height'])) {
+            if (! empty($imageSettings['resize']['height'])) {
                 $image->height($imageSettings['resize']['height']);
             }
 
-            if (!empty($imageSettings['optimize'])) {
+            if (! empty($imageSettings['optimize'])) {
                 $image->optimize();
             }
 
-            if (!empty($imageSettings['adjustments']['brightness'])) {
+            if (! empty($imageSettings['adjustments']['brightness'])) {
                 $image->brightness($imageSettings['adjustments']['brightness']);
             }
 
-            if (!empty($imageSettings['adjustments']['contrast'])) {
+            if (! empty($imageSettings['adjustments']['contrast'])) {
                 $image->contrast($imageSettings['adjustments']['contrast']);
             }
 
-            if (!empty($imageSettings['adjustments']['gamma'])) {
+            if (! empty($imageSettings['adjustments']['gamma'])) {
                 $image->gamma($imageSettings['adjustments']['gamma']);
             }
 
-            if (!empty($imageSettings['effects']['blur'])) {
+            if (! empty($imageSettings['effects']['blur'])) {
                 $image->blur($imageSettings['effects']['blur']);
             }
 
-            if (!empty($imageSettings['effects']['pixelate'])) {
+            if (! empty($imageSettings['effects']['pixelate'])) {
                 $image->pixelate($imageSettings['effects']['pixelate']);
             }
 
-            if (!empty($imageSettings['effects']['greyscale'])) {
+            if (! empty($imageSettings['effects']['greyscale'])) {
                 $image->greyscale();
             }
-            if (!empty($imageSettings['effects']['sepia'])) {
+            if (! empty($imageSettings['effects']['sepia'])) {
                 $image->sepia();
             }
 
-            if (!empty($imageSettings['effects']['sharpen'])) {
+            if (! empty($imageSettings['effects']['sharpen'])) {
                 $image->sharpen($imageSettings['effects']['sharpen']);
             }
 
@@ -199,13 +199,13 @@ class EditorJsImageUploadController extends Controller
 
         $generatedThumbnails = [];
 
-        if (!empty($thumbnailSettings)) {
+        if (! empty($thumbnailSettings)) {
             foreach ($thumbnailSettings as $thumbnailName => $setting) {
                 $filename = pathinfo($path, PATHINFO_FILENAME);
                 $extension = pathinfo($path, PATHINFO_EXTENSION);
 
-                $newThumbnailName = $filename . $thumbnailName . '.' . $extension;
-                $newThumbnailPath = config('nova-editor-js.toolSettings.image.path') . '/' . $newThumbnailName;
+                $newThumbnailName = $filename.$thumbnailName.'.'.$extension;
+                $newThumbnailPath = config('nova-editor-js.toolSettings.image.path').'/'.$newThumbnailName;
 
                 Storage::disk(config('nova-editor-js.toolSettings.image.disk'))->copy($path, $newThumbnailPath);
 
@@ -227,20 +227,17 @@ class EditorJsImageUploadController extends Controller
         return $generatedThumbnails;
     }
 
-
-    /**
-     */
     private function deleteThumbnails($path)
     {
         $thumbnailSettings = config('nova-editor-js.toolSettings.image.thumbnails');
 
-        if (!empty($thumbnailSettings)) {
+        if (! empty($thumbnailSettings)) {
             foreach ($thumbnailSettings as $thumbnailName => $setting) {
                 $filename = pathinfo($path, PATHINFO_FILENAME);
                 $extension = pathinfo($path, PATHINFO_EXTENSION);
 
-                $newThumbnailName = $filename . $thumbnailName . '.' . $extension;
-                $newThumbnailPath = config('nova-editor-js.toolSettings.image.path') . '/' . $newThumbnailName;
+                $newThumbnailName = $filename.$thumbnailName.'.'.$extension;
+                $newThumbnailPath = config('nova-editor-js.toolSettings.image.path').'/'.$newThumbnailName;
 
                 Storage::disk('local')->delete($path, $newThumbnailPath);
             }

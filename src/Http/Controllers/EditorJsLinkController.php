@@ -34,7 +34,7 @@ class EditorJsLinkController extends Controller
         try {
             $url = $request->input('url');
             $response = Http::timeout(5)->get($url)->throw();
-        } catch (ConnectionException | RequestException) {
+        } catch (ConnectionException|RequestException) {
             return response()->json([
                 'success' => 0,
             ]);
