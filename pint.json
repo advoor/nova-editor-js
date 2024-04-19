@@ -1,0 +1,14 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "php_unit_method_casing": {
+            "case": "camel_case"
+        },
+        "php_unit_test_annotation": {
+            "style": "prefix"
+        },
+        "no_superfluous_phpdoc_tags": true,
+        "declare_strict_types": true,
+        "strict_param": true
+    }
+}

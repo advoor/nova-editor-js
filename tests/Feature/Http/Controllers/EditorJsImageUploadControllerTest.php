@@ -34,7 +34,9 @@ class EditorJsImageUploadControllerTest extends TestCase
 
     /**
      * Test an image upload.
-     * @param string $path Path to the image file
+     *
+     * @param  string  $path  Path to the image file
+     *
      * @dataProvider provideValidFilesForImageUpload
      */
     public function testImageUpload(string $path): void
@@ -90,7 +92,8 @@ class EditorJsImageUploadControllerTest extends TestCase
     /**
      * Test submitting an image URL causes the file to be stored to disk and returned.
      *
-     * @param string $file path to the file returned by the URL
+     * @param  string  $file  path to the file returned by the URL
+     *
      * @dataProvider provideValidFiles
      */
     public function testValidImageUrlSubmission(string $file): void
@@ -176,6 +179,7 @@ class EditorJsImageUploadControllerTest extends TestCase
 
     /**
      * Provides a list of valid image files to test.
+     *
      * @return string[][]
      */
     public static function provideValidFiles(): array
@@ -191,6 +195,7 @@ class EditorJsImageUploadControllerTest extends TestCase
 
     /**
      * Provides a subset of the available image formats, since svg isn't supported by the GD library.
+     *
      * @return string[][]
      */
     public static function provideValidFilesForImageUpload(): array

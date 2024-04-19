@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Advoor\NovaEditorJs;
 
-use Advoor\NovaEditorJs\NovaEditorJs;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Fluent;
@@ -13,10 +12,9 @@ use Stringable;
 class NovaEditorJsData extends Fluent implements Htmlable, Stringable
 {
     /**
-     *
      * Create a new fluent instance.
      *
-     * @param iterable<TKey, TValue> $attributes
+     * @param  iterable<TKey, TValue>  $attributes
      * @return void
      */
     public function __construct($attributes = [])
@@ -25,7 +23,7 @@ class NovaEditorJsData extends Fluent implements Htmlable, Stringable
             $attributes = json_decode($attributes);
         }
 
-        if (!is_iterable($attributes)) {
+        if (! is_iterable($attributes)) {
             $attributes = Arr::wrap($attributes);
         }
 
@@ -47,6 +45,6 @@ class NovaEditorJsData extends Fluent implements Htmlable, Stringable
      */
     public function __toString()
     {
-        return (string)$this->toHtml();
+        return (string) $this->toHtml();
     }
 }

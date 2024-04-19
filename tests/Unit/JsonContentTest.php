@@ -12,8 +12,9 @@ class JsonContentTest extends TestCase
     /**
      * Path to JSON file with valid contents
      */
-    private const TEST_FILE_JSON = __DIR__ . '/../Fixtures/resources/json/editorjs.json';
-    private const TEST_FILE_HTML = __DIR__ . '/../Fixtures/resources/html/editorjs.html';
+    private const TEST_FILE_JSON = __DIR__.'/../Fixtures/resources/json/editorjs.json';
+
+    private const TEST_FILE_HTML = __DIR__.'/../Fixtures/resources/html/editorjs.html';
 
     /**
      * Returns JSON contents from the file
@@ -24,7 +25,7 @@ class JsonContentTest extends TestCase
     {
         return [
             'json' => file_get_contents(self::TEST_FILE_JSON),
-            'html' => file_get_contents(self::TEST_FILE_HTML)
+            'html' => file_get_contents(self::TEST_FILE_HTML),
         ];
     }
 

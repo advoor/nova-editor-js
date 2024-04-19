@@ -18,11 +18,12 @@ class TestCase extends OrchestraTestCase
 
     /**
      * Ensure the HTTP Client requests have a method to prevent stray requests (without logic)
+     *
      * @before
      */
     protected function repairLaravel8Compatibiliy()
     {
-        if (!\Composer\InstalledVersions::satisfies(new \Composer\Semver\VersionParser(), 'illuminate/support', '^8.0')) {
+        if (! \Composer\InstalledVersions::satisfies(new \Composer\Semver\VersionParser(), 'illuminate/support', '^8.0')) {
             return;
         }
 
@@ -36,12 +37,12 @@ class TestCase extends OrchestraTestCase
     /**
      * Path to config file from here
      */
-    private const CONFIG_PATH = __DIR__ . '/../src/config/nova-editor-js.php';
+    private const CONFIG_PATH = __DIR__.'/../src/config/nova-editor-js.php';
 
     /**
      * Get package providers.
      *
-     * @param \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      * @return array
      */
     protected function getPackageProviders($app)

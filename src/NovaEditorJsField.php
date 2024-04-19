@@ -16,7 +16,7 @@ class NovaEditorJsField extends Field
      */
     public $component = 'nova-editor-js';
 
-    public function __construct($name, $attribute = null, callable $resolveCallback = null)
+    public function __construct($name, $attribute = null, ?callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
 
@@ -40,7 +40,8 @@ class NovaEditorJsField extends Field
     /**
      * Resolve the field's value for display.
      *
-     * @param string|null $attribute
+     * @param  string|null  $attribute
+     *
      * @throws \Throwable
      */
     public function resolveForDisplay($resource, $attribute = null)
@@ -56,13 +57,14 @@ class NovaEditorJsField extends Field
             $value = call_user_func($this->resolveCallback, $value, $resource, $attribute);
         }
 
-        if (!$this->displayCallback) {
+        if (! $this->displayCallback) {
             $this->withMeta(['asHtml' => true]);
             $this->value = (string) NovaEditorJs::generateHtmlOutput($value);
+
             return;
         }
 
-        if (!is_callable($this->displayCallback) || $value === $placeholder) {
+        if (! is_callable($this->displayCallback) || $value === $placeholder) {
             return;
         }
 
