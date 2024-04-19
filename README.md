@@ -3,7 +3,8 @@
 [![Latest Version on Github](https://img.shields.io/github/release/advoor/nova-editor-js.svg?style=flat-square)](https://packagist.org/packages/advoor/nova-editor-js)
 [![Total Downloads](https://img.shields.io/packagist/dt/advoor/nova-editor-js.svg?style=flat-square)](https://packagist.org/packages/advoor/nova-editor-js)
 
-A Laravel Nova implementation of [Editor.js](https://github.com/codex-team/editor.js) by [@advoor](https://github.com/advoor).
+A Laravel Nova implementation of [Editor.js](https://github.com/codex-team/editor.js)
+by [@advoor](https://github.com/advoor).
 
 ## Installation
 
@@ -26,6 +27,7 @@ Please use the below table to find which versions are suitable for your installa
 
 | Package version | Nova Version | Laravel Version | PHP version |
 | --------------- | ------------ | --------------- | ----------- |
+| `4.x`           | 4.x          | 10.x - 11.x     | 8.2+        |
 | `3.x`           | 4.x          | 8.x - 10.x      | 8.1+        |
 | `2.x`           | 2.x - 3.x    | 5.x - 8.x       | 5.6 - 7.4   |
 
@@ -117,7 +119,8 @@ From the config, you can define the following editor settings:
 
 - `placeholder` ([docs][placeholder-docs]) - The placeholder to show in an empty editor
 - `defaultBlock` ([docs][defaultblock-docs]) - The block that's used by default
-- `autofocus` ([docs][autofocus-docs]) - If the editor should auto-focus, only use if you never have multiple editors on a page and after considering the
+- `autofocus` ([docs][autofocus-docs]) - If the editor should auto-focus, only use if you never have multiple editors on
+  a page and after considering the
   [accessibility implications][autofocus-accessibility]
 - `rtl` ([docs][rtl-docs]) - Set to true to enable right-to-left mode, for languages like Arabic and Hebrew
 
@@ -149,4 +152,5 @@ content. It does not have an entry in the "Add" menu.
 
 ### Registering custom components
 
-Please refer to the [extending Nova EditorJS](./EXTENDING.md) guide on instructions on how to register custom components.
+Please refer to the [extending Nova EditorJS](./EXTENDING.md) guide on instructions on how to register custom
+components.
