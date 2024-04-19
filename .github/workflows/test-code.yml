@@ -29,6 +29,9 @@ jobs:
             testbench: '8.0'
           - laravel: '11.0'
             testbench: '9.0'
+          - php: 8.3
+            laravel: '11.0'
+            stable: true
           - php: nightly
             experimental: true
 
@@ -54,7 +57,7 @@ jobs:
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v3
         with:
-          dependency-versions: highest # We're installing additional packages, and cannot use the lockfile
+          composer-options: "--ignore-platform-req=php"
 
       - name: Run unit tests with coverage and printer
         id: phpunit
@@ -65,7 +68,7 @@ jobs:
             --coverage-clover ./coverage-clover.xml
 
       - name: Report test results
-        if: ${{ success() || failure() }}
+        if: success() || failure()
         uses: mikepenz/action-junit-report@v4
         with:
           report_paths: ./report-junit.xml
@@ -78,7 +81,7 @@ jobs:
 
       - name: Determine coverage
         uses: slavcodev/coverage-monitor-action@1.9.0
-        if: ${{ github.event_name == 'pull_request' && matrix.stable == true }}
+        if: github.event_name == 'pull_request' && matrix.stable == true
         continue-on-error: true
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

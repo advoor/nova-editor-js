@@ -44,12 +44,10 @@ jobs:
       - name: Configure local Laravel Nova dummy package
         run: |
           composer config repositories.0 path ./tests/Fixtures/nova
-          git update-index --assume-unchanged composer.json composer.lock
+          git update-index --assume-unchanged composer.json
 
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v3
-        with:
-          dependency-versions: highest # No lockfile is present, so locked (the default) isn't possible
 
       - name: Lint code
         run: |
@@ -71,8 +69,8 @@ jobs:
           exit 1
 
       - name: Commit changes (push only)
-        if: ${{ github.event_name == 'push' }}
+        if: github.event_name == 'push'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: Fixed code style using PHP-CS-Fixer
+          commit_message:' chore: fixed code formatting issues'
 
