@@ -72,5 +72,5 @@ jobs:
         if: github.event_name == 'push'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message:' chore: fixed code formatting issues'
+          commit_message: 'chore: fixed code formatting issues'
 
