@@ -26,6 +26,7 @@ return [
             'activated' => true,
             'inlineToolbar' => true,
             'shortcut' => 'CMD+SHIFT+L',
+            'defaultStyle' => 'unordered',
         ],
         'code' => [
             'activated' => true,

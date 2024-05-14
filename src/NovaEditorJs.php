@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Advoor\NovaEditorJs;
 
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Facade;
 
 /**
