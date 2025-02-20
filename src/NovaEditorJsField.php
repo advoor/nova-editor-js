@@ -44,7 +44,7 @@ class NovaEditorJsField extends Field
      *
      * @throws \Throwable
      */
-    public function resolveForDisplay($resource, $attribute = null)
+    public function resolveForDisplay($resource, $attribute = null): void
     {
         $attribute = $attribute ?? $this->attribute;
         if ($attribute === 'ComputedField') {
