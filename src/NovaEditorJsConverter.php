@@ -43,7 +43,7 @@ class NovaEditorJsConverter
      */
     public function generateHtmlOutput(mixed $data): HtmlString
     {
-        if (empty($data) || $data == new stdClass()) {
+        if (empty($data) || $data == new stdClass) {
             return new HtmlString('');
         }
 

@@ -10,7 +10,5 @@ class EditorJsThumbnailCreated
 {
     use Dispatchable;
 
-    public function __construct(public string $disk, public string $path)
-    {
-    }
+    public function __construct(public string $disk, public string $path) {}
 }

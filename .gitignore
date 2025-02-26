@@ -6,3 +6,6 @@
 Thumbs.db
 .php-cs-fixer.cache
 /composer.lock
+/auth.json
+/report-junit.xml
+/.env

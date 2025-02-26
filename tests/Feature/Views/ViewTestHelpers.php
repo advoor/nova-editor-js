@@ -9,7 +9,7 @@ use Illuminate\Testing\TestView;
 
 trait ViewTestHelpers
 {
-    protected function view(string $view, array $args = []): TestView
+    protected function view(string $view, $args = []): TestView
     {
         return new TestView(View::make($view, $args));
     }

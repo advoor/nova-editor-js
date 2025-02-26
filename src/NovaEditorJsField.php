@@ -51,7 +51,7 @@ class NovaEditorJsField extends Field
             return;
         }
 
-        $value = data_get($resource, str_replace('->', '.', $attribute), $placeholder = new \stdClass());
+        $value = data_get($resource, str_replace('->', '.', $attribute), $placeholder = new \stdClass);
 
         if (is_callable($this->resolveCallback)) {
             $value = call_user_func($this->resolveCallback, $value, $resource, $attribute);
