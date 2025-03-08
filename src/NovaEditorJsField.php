@@ -40,18 +40,17 @@ class NovaEditorJsField extends Field
     /**
      * Resolve the field's value for display.
      *
-     * @param  string|null  $attribute
      *
      * @throws \Throwable
      */
-    public function resolveForDisplay($resource, $attribute = null)
+    public function resolveForDisplay($resource, ?string $attribute = null): void
     {
         $attribute = $attribute ?? $this->attribute;
         if ($attribute === 'ComputedField') {
             return;
         }
 
-        $value = data_get($resource, str_replace('->', '.', $attribute), $placeholder = new \stdClass());
+        $value = data_get($resource, str_replace('->', '.', $attribute), $placeholder = new \stdClass);
 
         if (is_callable($this->resolveCallback)) {
             $value = call_user_func($this->resolveCallback, $value, $resource, $attribute);

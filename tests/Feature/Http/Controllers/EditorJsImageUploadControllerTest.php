@@ -46,7 +46,7 @@ class EditorJsImageUploadControllerTest extends TestCase
         $fake = Event::fake();
         DB::setEventDispatcher($fake);
 
-        $uploadedFile = UploadedFile::fake()->create('file', 1024, (new finfo())->file($path, FILEINFO_MIME_TYPE));
+        $uploadedFile = UploadedFile::fake()->create('file', 1024, (new finfo)->file($path, FILEINFO_MIME_TYPE));
         if ($fp = $uploadedFile->openFile('w')) {
             $fp->fwrite(file_get_contents($path));
         }

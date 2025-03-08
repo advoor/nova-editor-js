@@ -40,7 +40,7 @@ class EditorJsLinkController extends Controller
             ]);
         }
 
-        $doc = new DOMDocument();
+        $doc = new DOMDocument;
         @$doc->loadHTML((string) $response->getBody());
         $nodes = $doc->getElementsByTagName('title');
         $title = $nodes->item(0)->nodeValue;
