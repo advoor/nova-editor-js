@@ -1,10 +1,50 @@
 /*!
- * vuex v4.0.2
- * (c) 2021 Evan You
+       * Codex JavaScript Notification module
+       * https://github.com/codex-team/js-notifier
+       */
+
+/*!
+ * CodeX.Tooltips
+ * 
+ * @version 1.0.5
+ * 
+ * @licence MIT
+ * @author CodeX <https://codex.so>
+ * 
+ * 
+ */
+
+/*!
+ * Library for handling keyboard shortcuts
+ * @copyright CodeX (https://codex.so)
+ * @license MIT
+ * @author CodeX (https://codex.so)
+ * @version 1.2.0
+ */
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
+ */
+
+/*!
+ * vuex v4.1.0
+ * (c) 2022 Evan You
  * @license MIT
  */
 
-/*! For license information please see editor.js.LICENSE.txt */
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+/**
+       * Base Paragraph Block for the Editor.js.
+       * Represents a regular text block
+       *
+       * @author CodeX (team@codex.so)
+       * @copyright CodeX 2018
+       * @license The MIT License (MIT)
+       */
 
 /**
  * @license
@@ -40,6 +80,14 @@
  * @copyright CodeX 2018
  * @license The MIT License (MIT)
  * @version 2.0.0
+ */
+
+/**
+ * Editor.js
+ *
+ * @license Apache-2.0
+ * @see Editor.js <https://editorjs.io>
+ * @author CodeX Team <https://codex.so>
  */
 
 /**

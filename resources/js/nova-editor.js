@@ -1,4 +1,4 @@
-const EditorJS = require('@editorjs/editorjs');
+import EditorJS from '@editorjs/editorjs';
 
 export default class NovaEditorJS {
     constructor() {
