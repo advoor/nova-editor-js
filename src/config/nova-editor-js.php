@@ -41,6 +41,7 @@ return [
             'shortcut' => 'CMD+SHIFT+I',
             'path' => 'public/images',
             'disk' => 'local',
+            'imagedriver' => Spatie\Image\Enums\ImageDriver::Imagick,
             'alterations' => [
                 'resize' => [
                     'width' => false, // integer

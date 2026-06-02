@@ -129,7 +129,12 @@ class EditorJsImageUploadController extends Controller
     private function applyAlterations($path, $alterations = [])
     {
         try {
-            $image = Image::load($path);
+            if (! empty(config('nova-editor-js.toolSettings.image.imagedriver'))) {
+                $image = Image::useImageDriver(config('nova-editor-js.toolSettings.image.imagedriver'));
+                $image->loadFile($path);
+            } else {
+                $image = Image::load($path);
+            }
 
             $imageSettings = config('nova-editor-js.toolSettings.image.alterations');
 

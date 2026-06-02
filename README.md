@@ -150,6 +150,25 @@ You can customize the views for each component, by changing the view in `resourc
 <sup>†</sup> The _Embeds_ tool is triggered by pasting URLs to embeddable
 content. It does not have an entry in the "Add" menu.
 
+### Changing the image driver
+
+You may change the image driver (default Imagick) via the configuration like so:
+
+```php
+return [
+  'toolSettings' => [
+    'image' => [
+      'imagedriver' => Spatie\Image\Enums\ImageDriver::Gd,
+      // ...
+    ],
+    // ...
+  ],
+  // ...
+];
+```
+
+Any option set here must be of type `Spatie\Image\Enums\ImageDriver`.
+
 ### Registering custom components
 
 Please refer to the [extending Nova EditorJS](./EXTENDING.md) guide on instructions on how to register custom
