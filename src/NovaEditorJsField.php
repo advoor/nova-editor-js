@@ -82,4 +82,15 @@ class NovaEditorJsField extends Field
 
         $this->value = call_user_func($this->displayCallback, $value);
     }
+    
+    /**
+    *
+    * @param array $tools
+    *
+    */
+    
+    public function tools(array $tools)
+    {
+        return $this->withMeta(["toolSettings" => $tools]);
+    }
 }
